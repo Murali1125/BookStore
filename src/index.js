@@ -2,10 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Register} from './pages/Register/Register'
 
 ReactDOM.render(
   <React.StrictMode>
-    <div>Bookstore</div>
+    <Router>
+      <Route path="/register" component={Register} />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
