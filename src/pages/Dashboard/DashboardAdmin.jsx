@@ -22,7 +22,7 @@ class AdminDashboard extends Component {
                 <div>
                     <div className="headderAdmin"> Headder</div>
                 </div>
-                <div>
+                <div ClassName="BooksDisplayContainerAdmin">
                     <BookDetailsAdmin/>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 $headderColour : #2CAAE1;
-
+$borderColourLight : #FBFBFB;
 @mixin felxCenter($direction){
     display: flex;
     flex-direction: $direction;
@@ -11,4 +11,33 @@ $headderColour : #2CAAE1;
     height: 60px;
     background-color: $headderColour;
     @include felxCenter(row);
+}
+
+.BooksContainerAdmin{
+    @include felxCenter(column);
+    justify-self: center;
+}
+.BookDetails{
+    width : 60%;
+    min-height: 200px;
+    @include felxCenter(row);
+    justify-content: space-evenly;
+    margin-bottom: 3px;
+    padding: 5px;
+    background-color: #fcfcff !important;
+}
+.ButtonsAdmin{
+    text-transform: none !important;
+}
+.BookContainerFields{
+    display: flex;
+    align-items: center;
+}
+.lablesAdmin{
+    font-weight: 700;
+}
+.imageAndTitleAdmin{
+    border-style: groove;
+    border-width: 1px;
+    border-color: $borderColourLight ;
 }
