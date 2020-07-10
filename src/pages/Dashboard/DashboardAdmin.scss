@@ -1,0 +1,14 @@
+$headderColour : #2CAAE1;
+
+@mixin felxCenter($direction){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items: center;
+}
+.headderAdmin{
+    width: 100%;
+    height: 60px;
+    background-color: $headderColour;
+    @include felxCenter(row);
+}
