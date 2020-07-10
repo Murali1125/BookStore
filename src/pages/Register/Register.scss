@@ -1,0 +1,57 @@
+.register{
+    margin-top:130px;
+    display:flex;
+    justify-content: center;
+}
+.registerLogo{
+    background-color:#a03037;
+    padding:10px 0px;
+}
+.logo{
+    margin-top:20px;
+}
+.bookstore{
+    margin-top:20px;
+    font-weight:bold;
+    padding-left:20px;
+}
+.registerCard{
+    width:30%;
+    align-items: center;
+    padding-bottom:20px;
+}
+.createAccount{
+    padding-left:55px;
+    font-weight:500;
+    font-size:28px;
+}
+.registerform{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.name{
+    width: 80%;
+}
+.inputfont{
+    font-size:20px;
+}
+.submitbutton{
+    width: 80%; 
+    padding: 7px 0px; 
+    font-Size: 12px; 
+}
+.textline{
+    word-wrap: break-word;
+    padding-right:130px;
+}
+.accountExsists{
+    display:flex;
+    flex-direction:row;
+}
+.signInstead{
+    width: 150px;
+    padding: 7px 0px;
+    color: #0423ce;
+    font-Size: 13px
+}
