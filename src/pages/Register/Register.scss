@@ -1,5 +1,5 @@
 .register{
-    margin-top:130px;
+    margin-top:100px;
     display:flex;
     justify-content: center;
 }
@@ -7,23 +7,18 @@
     background-color:#a03037;
     padding:10px 0px;
 }
-.logo{
-    margin-top:20px;
-}
-.bookstore{
-    margin-top:20px;
-    font-weight:bold;
-    padding-left:20px;
-}
 .registerCard{
     width:30%;
     align-items: center;
-    padding-bottom:20px;
+    padding-top:20px;
+    padding-bottom:50px;
 }
 .createAccount{
-    padding-left:55px;
+    display:flex;
+    justify-content: center;
     font-weight:500;
     font-size:28px;
+    color:#a03037;
 }
 .registerform{
     display:flex;
@@ -48,6 +43,9 @@
 .accountExsists{
     display:flex;
     flex-direction:row;
+}
+.text{
+    padding-top:5px;
 }
 .signInstead{
     width: 150px;
