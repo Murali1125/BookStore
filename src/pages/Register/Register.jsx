@@ -17,6 +17,58 @@ export class Register extends React.Component {
     };
   }
   
+  Register = () => {
+    if (this.state.firstName === "") {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg: "First Name is required",
+      });
+    } else if (!/^[A-Z][a-zA-Z]{2,15}$/.test(this.state.firstName)) {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg: "First Name is not in correct format",
+      });
+    } else if (this.state.lastName === "") {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg: "Last Name is required",
+      });
+    } else if (!/^[A-Z][a-zA-Z]{2,15}$/.test(this.state.lastName)) {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg: "Last Name is not in correct format",
+      });
+    } else if (this.state.email === "") {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg: "Email is required",
+      });
+    } else if (
+      !/^[a-zA-Z0-9]{1,}([.]?[-]?[+]?[a-zA-Z0-9]{1,})?[@]{1}[a-zA-Z0-9]{1,}[.]{1}[a-z]{2,3}([.]?[a-z]{2})?$/.test(
+        this.state.email
+      )
+    ) {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg: "Invalid Email address",
+      });
+    } else if (this.state.password === "") {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg: "Password is required",
+      });
+    } else if (
+      !/^[a-zA-Z0-9]*[@#$&*_+-]{1}[a-zA-Z0-9]*$/.test(this.state.password)
+    ) {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMsg:
+          "Password should be minimum 8 digit and have to use atleast one characters and number",
+      });
+    }
+  };
+
+
   render() {
     return (
    <div>
@@ -92,25 +144,19 @@ export class Register extends React.Component {
                 className="submitbutton"
                 variant="contained"
                 color="primary"
-                onClick={this.submitUserSignInForm}
+                onClick={this.Register}
               >
                 Submit
               </Button>
               <br/>
               <div className="accountExsists">
-                <span >
+                <span className="text" >
               Already have an account? 
             </span>
             <Button
                 className="signInstead"
                 color="primary"
-                style={{
-                  width: "150px",
-                  padding: "7px 0px",
-                  color: "#0423ce",
-                  fontSize: "13px",
-                }}
-                onClick={() => this.props.history.push("/")}
+                onClick={() => this.props.history.push("/login")}
               >
                 Sign in instead
               </Button>
