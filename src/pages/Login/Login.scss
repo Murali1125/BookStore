@@ -1,0 +1,67 @@
+.Login{
+    margin-top:130px;
+    display:flex;
+    justify-content: center;
+}
+.LoginLogo{
+    background-color:#a03037;
+    padding:10px 0px;
+}
+.logo{
+    margin-top:20px;
+}
+.loginImage{
+    display:flex;
+    justify-content: center;
+    padding-top:30px;
+}
+.Bookstore{
+    margin-top:20px;
+    font-weight:bold;
+    padding-left:0% !important;
+    display:flex;
+    justify-content: center;
+}
+.LoginCard{
+    width:30%;
+    align-items: center;
+    padding-top:20px;
+    padding-bottom:50px;
+}
+.Bookstore{
+    padding-left:55px;
+    font-weight:500;
+    font-size:28px;
+    color:#a03037;
+}
+.Loginform{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.name{
+    width: 80%;
+}
+.inputfont{
+    font-size:20px;
+}
+.submitbutton{
+    width: 80%; 
+    padding: 7px 0px; 
+    font-Size: 12px; 
+}
+.textline{
+    word-wrap: break-word;
+    width:80%;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.buttonLogin{
+    width:80%;
+    display: flex;
+    flex-direction:row;
+    justify-content:space-between; 
+}
+.signup{
+    color: #0423ce;
+}
