@@ -1,6 +1,7 @@
 import React from "react";
 import "./Register.scss";
-import { TextField, Button} from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
+import { TextField,Snackbar, Button} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import Logo from "./../../component/logo/Logo";
 import Container from '@material-ui/core/Container';
@@ -14,8 +15,24 @@ export class Register extends React.Component {
     super(props);
     this.state = {
        showPassword: false,
+       snackbarOpen: false,
+      snackbarMsg: "",
+       email: "",
+       password: "",
+       firstName: "",
+       lastName: "",
+       errors: {},
     };
   }
+
+  handleChangeText = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+  snackbarClose = () => {
+    this.setState({ snackbarOpen: false });
+  };
   
   Register = () => {
     if (this.state.firstName === "") {
@@ -26,7 +43,7 @@ export class Register extends React.Component {
     } else if (!/^[A-Z][a-zA-Z]{2,15}$/.test(this.state.firstName)) {
       this.setState({
         snackbarOpen: true,
-        snackbarMsg: "First Name is not in correct format",
+        snackbarMsg: "First Name first Letter should be capital",
       });
     } else if (this.state.lastName === "") {
       this.setState({
@@ -36,7 +53,7 @@ export class Register extends React.Component {
     } else if (!/^[A-Z][a-zA-Z]{2,15}$/.test(this.state.lastName)) {
       this.setState({
         snackbarOpen: true,
-        snackbarMsg: "Last Name is not in correct format",
+        snackbarMsg: "Last Name last Letter should be capital",
       });
     } else if (this.state.email === "") {
       this.setState({
@@ -78,6 +95,15 @@ export class Register extends React.Component {
      </Container>
     </div>
     <div className="register">
+    <Snackbar
+                open={this.state.snackbarOpen}
+                autoHideDuration={3000}
+                onClose={this.snackbarClose}
+              >
+                <Alert onClose={this.snackbarClose} severity="error">
+                 {<span className="Snackbar"> {this.state.snackbarMsg}</span>}
+                </Alert>
+              </Snackbar>
       <Card className="registerCard" variant="outlined">
         <br/>
         <span className="createAccount">Create account</span>
@@ -89,7 +115,9 @@ export class Register extends React.Component {
                 variant="outlined"
                 name="firstName"
                 id="firstName"
-                label={<div class="inputfont">First Name</div>}
+                label={<div className="inputfont">First Name</div>}
+                defaultValue={this.state.firstName}
+                onChange={this.handleChangeText}
               />
               <br/>
               <TextField
@@ -97,7 +125,9 @@ export class Register extends React.Component {
                 variant="outlined"
                 name="lastName"
                 id="lastName"
-                label={<div class="inputfont">Last Name</div>}
+                label={<div className="inputfont">Last Name</div>}
+                defaultValue={this.state.lastName}
+                onChange={this.handleChangeText}
               />
               <br/>
               <TextField
@@ -105,7 +135,9 @@ export class Register extends React.Component {
               name="email"
               variant="outlined"
               id="outlined-required"
-              label={<div class="inputfont">Email</div>}
+              label={<div className="inputfont">Email</div>}
+              defaultValue={this.state.email}
+              onChange={this.handleChangeText}
             />
             <br/>
             <TextField
@@ -114,7 +146,9 @@ export class Register extends React.Component {
                 id="outlined-adornment-password"
                 type={this.state.showPassword ? "text" : "password"}
                 variant="outlined"
-                label={<div class="inputfont">Password</div>}
+                label={<div className="inputfont">Password</div>}
+                defaultValue={this.state.password}
+                onChange={this.handleChangeText}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end" sytle={{ width: "1px" }}>
@@ -139,6 +173,7 @@ export class Register extends React.Component {
               
                 Passwords must be at least 8 characters.
             </span>
+            <br/>
             <br/>
             <Button
                 className="submitbutton"
