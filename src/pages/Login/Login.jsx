@@ -3,7 +3,8 @@ import Card from "@material-ui/core/Card";
 import "./Login.scss";
 import Loginimage from "./../../assets/Loginimage.jpg";
 import Logo from "./../../component/logo/Logo";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Snackbar, Button } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -15,10 +16,21 @@ export class Login extends React.Component {
     super(props);
     this.state = {
       showPassword: false,
+      snackbarOpen: false,
+      snackbarMsg: "",
       email: "",
       password: "",
     };
   }
+
+  handleChangeText = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+  snackbarClose = () => {
+    this.setState({ snackbarOpen: false });
+  };
 
   signIn = () => {
     if (this.state.email === "") {
@@ -59,6 +71,15 @@ export class Login extends React.Component {
           </Container>
         </div>
         <div className="Login">
+        <Snackbar
+            open={this.state.snackbarOpen}
+            autoHideDuration={3000}
+            onClose={this.snackbarClose}
+          >
+            <Alert onClose={this.snackbarClose} severity="error">
+              {<span className="Snackbar"> {this.state.snackbarMsg}</span>}
+            </Alert>
+          </Snackbar>
           <Card className="LoginCard" variant="outlined">
             <div className="loginImage">
               <img
@@ -77,6 +98,8 @@ export class Login extends React.Component {
                 variant="outlined"
                 id="outlined-required"
                 label={<div className="inputfont">Email</div>}
+                defaultValue={this.state.email}
+                onChange={this.handleChangeText}
               />
               <br />
               <TextField
@@ -86,6 +109,8 @@ export class Login extends React.Component {
                 type={this.state.showPassword ? "text" : "password"}
                 variant="outlined"
                 label={<div className="inputfont">Password</div>}
+                defaultValue={this.state.password}
+                onChange={this.handleChangeText}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end" sytle={{ width: "1px" }}>
@@ -106,16 +131,12 @@ export class Login extends React.Component {
                   ),
                 }}
               />
-              <span className="textline">
-                Passwords must be at least 8 characters.
-              </span>
               <br />
               <br />
               <div className="buttonLogin">
                 <div>
                   <Button
                     className="signup"
-                    color="#0423ce"
                     onClick={() => this.props.history.push("/register")}
                   >
                     Create account
@@ -131,7 +152,7 @@ export class Login extends React.Component {
                       padding: "7px 0px",
                       fontSize: "12px",
                     }}
-                    onClick={this.submitUserSignInForm}
+                    onClick={this.signIn}
                   >
                     Login
                   </Button>
