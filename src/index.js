@@ -1,16 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Register} from './pages/Register/Register'
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Register} from './pages/Register/Register'
+import { Router } from "react-router-dom";
+import Routes from "./service/routes";
+import history from "./service/history";
+import { CssBaseline } from "@material-ui/core";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Route path="/register" component={Register} />
+    <CssBaseline />
+    <Router history={history}>
+      <Routes />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
