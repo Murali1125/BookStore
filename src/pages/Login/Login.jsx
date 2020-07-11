@@ -71,7 +71,7 @@ export class Login extends React.Component {
           </Container>
         </div>
         <div className="Login">
-        <Snackbar
+          <Snackbar
             open={this.state.snackbarOpen}
             autoHideDuration={3000}
             onClose={this.snackbarClose}
