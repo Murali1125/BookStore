@@ -1,4 +1,6 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Register} from './pages/Register/Register'
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
