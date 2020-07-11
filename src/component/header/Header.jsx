@@ -7,8 +7,7 @@ import {
   InputBase,
   Typography,
 } from "@material-ui/core";
-import Logo from "../logo/Logo";
-import { fade, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
@@ -96,12 +95,14 @@ class Header extends Component {
       mobileMoreAnchorEl: null,
     };
   }
-  search=(event)=>{
-    this.setState({
-      search: event.target.value,
-    },()=>console.log(this.state.search));
-    
-  }
+  search = (event) => {
+    this.setState(
+      {
+        search: event.target.value,
+      },
+      () => console.log(this.state.search)
+    );
+  };
   handleProfileMenuOpen = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -119,7 +120,7 @@ class Header extends Component {
             <Container maxWidth="lg">
               <Toolbar>
                 <IconButton className="bookstoreLogo">
-                  <img src={bookstoreLogo} className="bookstoreLogo-icon" />
+                  <img src={bookstoreLogo} className="bookstoreLogo-icon" alt="bookstoreLogo"/>
                 </IconButton>
                 <Typography className={classes.title} variant="h6" noWrap>
                   Bookstore
@@ -135,7 +136,7 @@ class Header extends Component {
                       input: classes.inputInput,
                     }}
                     inputProps={{ "aria-label": "search" }}
-                    onChange={event=>this.search(event)}
+                    onChange={(event) => this.search(event)}
                   />
                 </div>
                 <div className={classes.grow} />

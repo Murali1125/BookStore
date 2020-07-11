@@ -1,6 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Register} from './pages/Register/Register'
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
@@ -11,9 +9,9 @@ import { CssBaseline } from "@material-ui/core";
 
 ReactDOM.render(
   <React.StrictMode>
-  <CssBaseline/>
+    <CssBaseline />
     <Router history={history}>
-      <Routes/>
+      <Routes />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
