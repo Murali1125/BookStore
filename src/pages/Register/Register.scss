@@ -1,5 +1,5 @@
 .register{
-    margin-top:100px;
+    margin-top:90px;
     display:flex;
     justify-content: center;
 }
@@ -8,7 +8,8 @@
     padding:10px 0px;
 }
 .registerCard{
-    width:30%;
+    max-width:550px;
+    width:100%;
     align-items: center;
     padding-top:20px;
     padding-bottom:50px;
@@ -38,7 +39,9 @@
 }
 .textline{
     word-wrap: break-word;
-    padding-right:130px;
+    width:80%;
+    display:flex;
+    justify-content:space-between;
 }
 .accountExsists{
     display:flex;
@@ -52,4 +55,37 @@
     padding: 7px 0px;
     color: #0423ce;
     font-Size: 13px
+}
+
+@media only screen and (max-width: 1024px) {
+    .register{
+       margin-top:320px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .register{
+       margin-top:150px;
+    }
+}
+@media only screen and (max-width: 414px) {
+    .register{
+       margin-top:20px;
+    }
+    .registerCard{
+        border:none !important;
+    }
+    .accountExsists{
+        display:flex;
+        flex-direction:column;
+    }
+}
+@media only screen and (max-width: 411px) {
+    .register{
+       margin-top:10px;
+    }
+}
+@media only screen and (max-width: 360px) {
+    .register{
+       margin-top:0px;
+    }
 }
