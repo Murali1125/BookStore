@@ -14,11 +14,8 @@ function Routes() {
       <Route path="/login" component={Login} />
       <Route path="/header" component={Header}/>
       <Route path="/dashboard" component={Dashboard}/>
-<<<<<<< HEAD
       <Route path="/checkout" component={Checkout}/>
-=======
       <Route path="/footer" component={Footer}/>
->>>>>>> 4efe70bcef6095162c46273c18303eb99bfad562
     </Switch>
   );
 }
