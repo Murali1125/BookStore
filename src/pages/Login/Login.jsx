@@ -77,7 +77,7 @@ export class Login extends React.Component {
             onClose={this.snackbarClose}
           >
             <Alert onClose={this.snackbarClose} severity="error">
-              {<span className="Snackbar"> {this.state.snackbarMsg}</span>}
+              {<span> {this.state.snackbarMsg}</span>}
             </Alert>
           </Snackbar>
           <Card className="LoginCard" variant="outlined">
@@ -137,6 +137,7 @@ export class Login extends React.Component {
                 <div>
                   <Button
                     className="signup"
+                    color="primary"
                     onClick={() => this.props.history.push("/register")}
                   >
                     Create account
@@ -147,11 +148,6 @@ export class Login extends React.Component {
                     className="button-Login"
                     variant="contained"
                     color="primary"
-                    style={{
-                      width: "90px",
-                      padding: "7px 0px",
-                      fontSize: "12px",
-                    }}
                     onClick={this.signIn}
                   >
                     Login
