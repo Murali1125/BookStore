@@ -64,7 +64,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="checkoutPage">
         <div className="LoginLogo">
           <Container maxWidth="xl">
             <Logo />
