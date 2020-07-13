@@ -4,13 +4,13 @@ import { Register} from './pages/Register/Register'
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Register} from './pages/Register/Register'
+import AdminDashboard from './../src/pages/Dashboard/DashboardAdmin'
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Route path="/register" component={Register} />
+      <Route path="/dashboard" component={AdminDashboard}/>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
