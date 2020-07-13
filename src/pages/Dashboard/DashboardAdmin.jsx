@@ -9,11 +9,6 @@ class AdminDashboard extends Component {
         super(props);
         this.state={
             booksData:'',
-
-
-
-            // dummy variables
-            dummyBooksData:[],
         }
     }
     
