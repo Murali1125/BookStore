@@ -167,9 +167,40 @@ export class Register extends React.Component {
                   ),
                 }}
               />
+              <br/>
               <span className="textline">
                 Passwords must be at least 8 characters.
               </span>
+              <br />
+              <TextField
+                className="name"
+                name="city"
+                variant="outlined"
+                id="outlined-required"
+                label={<div className="inputfont">City</div>}
+                defaultValue={this.state.city}
+                onChange={this.handleChangeText}
+              />
+              <br />
+              <TextField
+                className="name"
+                name="address"
+                variant="outlined"
+                id="outlined-required"
+                label={<div className="inputfont">Address</div>}
+                defaultValue={this.state.address}
+                onChange={this.handleChangeText}
+              />
+              <br />
+              <TextField
+                className="name"
+                name="phoneNumber"
+                variant="outlined"
+                id="outlined-required"
+                label={<div className="inputfont">Phone Number</div>}
+                defaultValue={this.state.phoneNumber}
+                onChange={this.handleChangeText}
+              />
               <br />
               <br />
               <Button
