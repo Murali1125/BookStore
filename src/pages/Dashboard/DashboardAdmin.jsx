@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import BookDetailsAdmin from './BookDetailsAdmin'
 import {Container,Button} from '@material-ui/core'
 import Logo from './../../component/logo/Logo'
+import BookDetailsTable from './BookDetailsTable'
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -22,7 +23,8 @@ class AdminDashboard extends Component {
                     </div>
                 </div>
                 <Container className="BooksDisplayContainerAdmin">
-                    <BookDetailsAdmin/>
+                    {/* <BookDetailsAdmin/> */}
+                    <BookDetailsTable/>
                 </Container>
             </div>
         );

@@ -12,8 +12,8 @@ ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <Router history={history}>
-      <Route path="/dashboard" component={AdminDashboard} />
-      <Routes />
+      {/* <Route path="/dashboard" component={AdminDashboard} /> */}
+    <Routes />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
