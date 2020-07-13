@@ -1,5 +1,6 @@
 .register{
     margin-top:90px;
+    margin-bottom:90px;
     display:flex;
     justify-content: center;
 }
@@ -40,6 +41,7 @@
 .textline{
     word-wrap: break-word;
     width:80%;
+    padding-left:10px;
     display:flex;
     justify-content:space-between;
 }
@@ -59,20 +61,22 @@
 
 @media only screen and (max-width: 1024px) {
     .register{
-       margin-top:320px;
+       margin-top:180px;
     }
 }
 @media only screen and (max-width: 768px) {
     .register{
-       margin-top:150px;
+       margin-top:50px;
     }
 }
 @media only screen and (max-width: 414px) {
     .register{
-       margin-top:20px;
+       margin-top:0px;
     }
     .registerCard{
         border:none !important;
+        padding-top:20px;
+        padding-bottom:90px;
     }
     .accountExsists{
         display:flex;
@@ -80,12 +84,14 @@
     }
 }
 @media only screen and (max-width: 411px) {
-    .register{
-       margin-top:10px;
+    .registerCard{
+        padding-top:60px;
+        padding-bottom:140px;
     }
 }
 @media only screen and (max-width: 360px) {
-    .register{
-       margin-top:0px;
+    .registerCard{
+        padding-top:0px;
+        padding-bottom:20px;
     }
 }
