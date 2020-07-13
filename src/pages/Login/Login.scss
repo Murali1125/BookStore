@@ -1,0 +1,121 @@
+.Login {
+	margin-top: 140px;
+	display: flex;
+	justify-content: center;
+}
+
+.LoginLogo {
+	background-color: #a03037;
+	padding: 10px 0px;
+}
+
+.logo {
+	margin-top: 20px;
+}
+
+.loginImage {
+	display: flex;
+	justify-content: center;
+	padding-top: 30px;
+}
+
+.Bookstore {
+	margin-top: 20px;
+	font-weight: bold;
+	padding-left: 0% !important;
+	display: flex;
+	justify-content: center;
+}
+
+.LoginCard {
+	max-width: 550px;
+	width: 100%;
+	align-items: center;
+	padding-top: 20px;
+	padding-bottom: 70px;
+}
+
+.Bookstore {
+	padding-left: 55px;
+	font-weight: 500;
+	font-size: 28px;
+	color: #a03037;
+}
+
+.Loginform {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.name {
+	width: 80%;
+}
+
+.inputfont {
+	font-size: 20px;
+}
+
+.submitbutton {
+	width: 80%;
+	padding: 7px 0px;
+	font-Size: 12px;
+}
+
+.buttonLogin {
+	width: 80%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.signup {
+	color: #0423ce;
+}
+
+@media only screen and (max-width: 1024px) {
+	.Login {
+		margin-top: 350px;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.Login {
+		margin-top: 200px;
+	}
+}
+
+@media only screen and (max-width: 414px) {
+	.body {
+		background-color: #FFFFFF !important;
+	}
+	.Login {
+		margin-top: 30px;
+	}
+	.LoginCard {
+		border: none !important;
+	}
+	.buttonLogin {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+@media only screen and (max-width: 411px) {
+	.Login {
+		margin-top: 100px;
+	}
+}
+
+@media only screen and (max-width: 375px) {
+	.Login {
+		margin-top: 60px;
+	}
+}
+
+@media only screen and (max-width: 360px) {
+	.Login {
+		margin-top: 0px;
+	}
+}
