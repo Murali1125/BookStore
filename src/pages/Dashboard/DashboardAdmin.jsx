@@ -6,6 +6,8 @@ import Logo from './../../component/logo/Logo'
 import BookDetailsTable from './BookDetailsTable'
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
+import BookDecription from './BookDecription'
+
 class AdminDashboard extends Component {
     constructor(props){
         super(props);
@@ -25,7 +27,8 @@ class AdminDashboard extends Component {
                 </div>
                 <Container className="BooksDisplayContainerAdmin">
                     {/* <BookDetailsAdmin/> */}
-                    <BookDetailsTable/>
+                    {/* <BookDetailsTable/> */}
+                    <BookDecription/>
                 </Container>
             </div>
         );
