@@ -5,6 +5,7 @@ import  Login from "./../pages/Login/Login";
 import  Dashboard from "./../pages/Dashboard/DashboardAdmin";
 import Header from "../component/header/Header";
 import Footer from "../component/Footer/Footer";
+import Book from "../component/Book/Book";
 
 function Routes() {
   return (
@@ -14,6 +15,7 @@ function Routes() {
       <Route path="/header" component={Header}/>
       <Route path="/dashboard" component={Dashboard}/>
       <Route path="/footer" component={Footer}/>
+      <Route path="/book" component={Book}/>
     </Switch>
   );
 }
