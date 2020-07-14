@@ -10,5 +10,11 @@ class Service {
     console.log("get axios services",data);
     return axiosService.Post(`${apiUrl}User/Registration`, data,false);
   }
+
+  Login(data) {
+    console.log("get axios services",data);
+    return axiosService.Post(`${apiUrl}User/Login`, data,false);
+  }
+
 }
 export default Service;
