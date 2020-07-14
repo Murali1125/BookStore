@@ -13,6 +13,7 @@ export default class Book extends Component {
     };
   }
 
+  // Click handler for add to bag button
   AddToBagHandler = () => {
     if (this.state.addToBagClicked === false) {
       this.setState({
@@ -25,6 +26,7 @@ export default class Book extends Component {
     }
   };
 
+  // click handler for add to woshlist button
   AddtoWishlist = () => {
     if (this.state.wishlistClicked === false) {
       this.setState({
