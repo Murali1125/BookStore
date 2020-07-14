@@ -4,6 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 import { TextField, Snackbar, Button } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import Logo from "./../../component/logo/Logo";
+import Footer from "./../../component/Footer/Footer";
 import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -167,9 +168,40 @@ export class Register extends React.Component {
                   ),
                 }}
               />
+              <br/>
               <span className="textline">
                 Passwords must be at least 8 characters.
               </span>
+              <br />
+              <TextField
+                className="name"
+                name="city"
+                variant="outlined"
+                id="outlined-required"
+                label={<div className="inputfont">City</div>}
+                defaultValue={this.state.city}
+                onChange={this.handleChangeText}
+              />
+              <br />
+              <TextField
+                className="name"
+                name="address"
+                variant="outlined"
+                id="outlined-required"
+                label={<div className="inputfont">Address</div>}
+                defaultValue={this.state.address}
+                onChange={this.handleChangeText}
+              />
+              <br />
+              <TextField
+                className="name"
+                name="phoneNumber"
+                variant="outlined"
+                id="outlined-required"
+                label={<div className="inputfont">Phone Number</div>}
+                defaultValue={this.state.phoneNumber}
+                onChange={this.handleChangeText}
+              />
               <br />
               <br />
               <Button
@@ -193,6 +225,9 @@ export class Register extends React.Component {
               </div>
             </div>
           </Card>
+        </div>
+        <div>
+           <Footer />
         </div>
       </div>
     );
