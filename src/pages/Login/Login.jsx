@@ -4,8 +4,7 @@ import "./Login.scss";
 import Loginimage from "./../../assets/Loginimage.jpg";
 import Logo from "./../../component/logo/Logo";
 import Footer from "./../../component/Footer/Footer";
-import { TextField, Snackbar, Button } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { TextField, Button } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -19,63 +18,88 @@ export class Login extends React.Component {
     super(props);
     this.state = {
       showPassword: false,
-      snackbarOpen: false,
-      snackbarMsg: "",
+      openSnackbar: false,
+      snackbarVarient:"error",
       email: "",
       password: "",
+      responseMessage:"",
+      emailErrorStatus:false,
+      emailErrorMessage:"",
+      emailValid:false,
+      passwordErrorStatus:false,
+      passwordErrorMessage:"",
+      passwordValid:false,
     };
   }
 
-  handleChangeText = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+   handleEmailChange = (e) => {
+    this.setState({email:e.target.value},(email)=>this.validateEmail(this.state.email));
   };
-  snackbarClose = () => {
-    this.setState({ snackbarOpen: false });
+ handlePasswordChange = (e) => {
+    this.setState({password:e.target.value},(password)=>this.validatePassword(this.state.password));
+  };
+
+  /* =====================================
+    VALIDATIONS
+    =======================================*/
+  validateEmail = (input) => {
+   const regexEmail = new RegExp(
+    /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
+  );
+    let error =regexEmail.test(String(input))
+      ? ""
+      : "Not a valid email";
+    if (error === "") {
+      this.setState({emailErrorStatus:false});
+      this.setState({emailErrorMessage:error});
+      this.setState({emailValid:true});
+    } else {
+      this.setState({emailErrorStatus:true});
+      this.setState({emailErrorMessage:error});
+      this.setState({emailValid:false});
+    }
+  };
+  validatePassword = (input) => {
+    const regexPassword = new RegExp(
+    /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
+  );
+    let error = regexPassword.test(String(input))
+      ? ""
+      : "Invalid Password";
+    if (error === "") {
+      this.setState({passwordErrorStatus:false});
+      this.setState({passwordErrorMessage:error});
+      this.setState({passwordValid:true});
+    } else {
+      this.setState({passwordErrorStatus:true});
+      this.setState({passwordErrorMessage:error});
+      this.setState({passwordValid:false});
+    }
   };
 
   signIn = () => {
-    if (this.state.email === "") {
-      this.setState({
-        snackbarOpen: true,
-        snackbarMsg: "Email is Required",
-      });
-    } else if (
-      !/^[a-zA-Z0-9]{1,}([.]?[-]?[+]?[a-zA-Z0-9]{1,})?[@]{1}[a-zA-Z0-9]{1,}[.]{1}[a-z]{2,3}([.]?[a-z]{2})?$/.test(
-        this.state.email
-      )
-    ) {
-      this.setState({
-        snackbarOpen: true,
-        snackbarMsg: "Invalid Email..!",
-      });
-    } else if (this.state.password === "") {
-      this.setState({
-        snackbarOpen: true,
-        snackbarMsg: "Password is required",
-      });
-    } else if (
-      !/^[a-zA-Z0-9]*[@#$&*_+-]{1}[a-zA-Z0-9]*$/.test(this.state.password)
-    ) {
-      this.setState({
-        snackbarOpen: true,
-        snackbarMsg: "Invalid Password..!!",
-      });
-    }else {
-      const user = {
+    if (!this.state.emailValid) {
+      this.setState({responseMessage:"Invalid email"});
+      this.setState({snackbarVarient:"error"});
+      this.setState({OpenSnackbar:true});
+    } else if (!this.state.passwordValid) {
+      this.setState({responseMessage:"Invalid Password"});
+      this.setState({snackbarVarient:"error"});
+      this.setState({OpenSnackbar:true});
+    } else {
+     const user = {
         email: this.state.email,
         password: this.state.password,
       };
+      console.log("user Data",user);
       service
         .Login(user)
         .then((json) => {
           console.log("responce data==>", json);
           if (json.status === 200) {
-            this.setState({
-              snackbarOpen: true,
-              snackbarMsg: "Login Suceesful..!",
-            });
+            this.setState({responseMessage:"Login Successful"});
+            this.setState({snackbarVarient:"success"});
+            this.setState({OpenSnackbar:true});
           }
         })
         .catch((err) => {
@@ -93,15 +117,6 @@ export class Login extends React.Component {
           </Container>
         </div>
         <div className="Login">
-          <Snackbar
-            open={this.state.snackbarOpen}
-            autoHideDuration={3000}
-            onClose={this.snackbarClose}
-          >
-            <Alert onClose={this.snackbarClose} severity="error">
-              {<span> {this.state.snackbarMsg}</span>}
-            </Alert>
-          </Snackbar>
           <Card className="LoginCard" variant="outlined">
             <div className="loginImage">
               <img
@@ -119,9 +134,12 @@ export class Login extends React.Component {
                 name="email"
                 variant="outlined"
                 id="outlined-required"
-                label={<div className="inputfont">Email</div>}
-                defaultValue={this.state.email}
-                onChange={this.handleChangeText}
+                label="Email"
+                // value={this.state.email}
+                required
+                onChange={(e)=>this.handleEmailChange(e)}
+                error={this.state.emailErrorStatus}
+                helperText={this.state.emailErrorMessage}
               />
               <br />
               <TextField
@@ -130,9 +148,12 @@ export class Login extends React.Component {
                 id="outlined-adornment-password"
                 type={this.state.showPassword ? "text" : "password"}
                 variant="outlined"
-                label={<div className="inputfont">Password</div>}
-                defaultValue={this.state.password}
-                onChange={this.handleChangeText}
+                required
+                label="Password"
+                // value={this.state.password}
+                onChange={(e)=>this.handlePasswordChange(e)}
+                error={this.state.passwordErrorStatus}
+                    helperText={this.state.passwordErrorMessage}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end" sytle={{ width: "1px" }}>
