@@ -19,6 +19,7 @@ import TableHead from '@material-ui/core/TableHead';
 import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -125,6 +126,14 @@ export default function CustomPaginationActionsTable() {
   const [indexOfEditableBook,setEditIndex] = useState();
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
   
+  const [bookDetails,setBookDetails] = useState({
+    title : '',
+    decription :'',
+    author : '',
+    imageUrl : '',
+    price : '',
+    quantity : '',
+  })
 
   useEffect(()=>{
     let tempBooksArry=[];
@@ -141,6 +150,10 @@ export default function CustomPaginationActionsTable() {
         setData(tempBooksArry);
   },[])
 
+  const onBookDetailsChange = index =>(eve)=>{
+      setBookDetails({...bookDetails, [eve.target.name] : eve.target.value})  ;  
+  }
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -152,7 +165,14 @@ export default function CustomPaginationActionsTable() {
 
   let indexOfSelectedEditBook ='';
   const EditBook = (index)=>{
+    setBookDetails(data[index])
     setEditIndex(index);
+    setEdit(!editable);
+  }
+  const onSave =(index)=>{
+    let tempData =data;
+    tempData[index] = bookDetails;
+    setData( tempData);
     setEdit(!editable);
   }
   return (
@@ -183,26 +203,25 @@ export default function CustomPaginationActionsTable() {
                 <StyledTableCell align="center"> 
                     {  (editable)  && (index === indexOfEditableBook) ?  
                         <TextField                                             
-                            value={book.title} 
+                            value={bookDetails.title} 
+                            name='title'
                             variant="outlined"
                             size='small'
-                            style={{maxWidth : '70%'}} 
-                            InputProps={{
-                                disableUnderline: true,                                                
-                            }} 
+                            style={{maxWidth : '70%'}}      
+                            onChange={onBookDetailsChange(index)}                       
                         /> : book.title
                     }
                 </StyledTableCell>
                 <StyledTableCell align="center">
                     { (editable)  && (index === indexOfEditableBook) ?  
                         <TextField                             
-                            value={book.author} 
+                            value={bookDetails.author} 
+                            name='author'
                             style={{width : '70%'}} 
                             variant="outlined"
                             size='small'
-                            InputProps={{
-                                disableUnderline: true,                                                
-                            }} 
+                            onChange={onBookDetailsChange(index)}   
+                           
                         /> : book.author
                     }
                 </StyledTableCell>
@@ -210,12 +229,12 @@ export default function CustomPaginationActionsTable() {
                     { (editable)  && (index === indexOfEditableBook) ?  
                         <TextField 
                             style={{width : '30%'}} 
+                            name='price'
                             variant="outlined"
                             size='small'
-                            value={book.price} 
-                            InputProps={{
-                                disableUnderline: true,                                                
-                            }} 
+                            value={bookDetails.price} 
+                            onChange={onBookDetailsChange(index)}   
+                            
                         /> : book.price
                     }
                 </StyledTableCell>
@@ -223,18 +242,19 @@ export default function CustomPaginationActionsTable() {
                     { (editable)  && (index === indexOfEditableBook) ?  
                         <TextField
                             style={{width : '30%'}} 
-                            value={book.quantity} 
+                            name='quantity'
+                            value={bookDetails.quantity} 
                             variant="outlined"
                             size='small'
-                            InputProps={{
-                                disableUnderline: true,                                                
-                            }} 
+                            onChange={onBookDetailsChange(index)}   
                         /> : book.quantity
                     }
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                    <IconButton onClick={()=>EditBook(index)}>
-                        <EditOutlinedIcon/>
+                    <IconButton >
+                        { (editable)  && (index === indexOfEditableBook) ?
+                         <DoneOutlinedIcon onClick={()=>onSave(index)}/> 
+                        : <EditOutlinedIcon  onClick={()=>EditBook(index) }/> }
                     </IconButton>
                 </StyledTableCell>
                 <StyledTableCell align="center">

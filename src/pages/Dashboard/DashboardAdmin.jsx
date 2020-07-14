@@ -19,7 +19,7 @@ class AdminDashboard extends Component {
                 <div>
                     <div className="headderAdmin">
                         <div className='LogoAdmin'><Logo/></div>
-                        <div float='right'><Button style={{ background : '#1CA261' , color : 'white'}} className='AddButtonAdmin' > + ADD</Button></div>
+                        <div float='right'><Button style={{ background : 'white' , color : 'black'}} className='AddButtonAdmin' > + ADD</Button></div>
                     </div>
                 </div>
                 <Container className="BooksDisplayContainerAdmin">
