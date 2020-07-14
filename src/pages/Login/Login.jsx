@@ -23,16 +23,6 @@ export class Login extends React.Component {
       password: "",
     };
   }
-
-  handleChangeText = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-  snackbarClose = () => {
-    this.setState({ snackbarOpen: false });
-  };
-
   signIn = () => {
     if (this.state.email === "") {
       this.setState({
