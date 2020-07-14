@@ -4,6 +4,7 @@ import Card from "@material-ui/core/Card";
 import CheckoutMessage from "./../../assets/CheckoutMessage.jpg";
 import { Button } from "@material-ui/core";
 import Header from "./../../component/header/Header";
+import Footer from "./../../component/Footer/Footer";
 import Container from "@material-ui/core/Container";
 import Table from '@material-ui/core/Table';  
 import TableBody from '@material-ui/core/TableBody';  
@@ -24,7 +25,7 @@ export class Checkout extends React.Component {
       <div className="checkoutPage">
         <div className="checkoutLogo">
           <Container maxWidth="xl">
-            <Header />
+            <Header variant="rich"/>
           </Container>
         </div>
         <div className="checkout">
@@ -75,6 +76,10 @@ export class Checkout extends React.Component {
                    CONTINUE SHOPPING
                   </Button>
                 </div>
+        </div>
+        <br/><br/><br/>
+        <div >
+            <Footer />
         </div>
       </div>
     );

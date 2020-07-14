@@ -6,6 +6,7 @@ import  Dashboard from "./../pages/Dashboard/DashboardAdmin";
 import Checkout from "./../pages/checkout/Checkout";
 import Header from "../component/header/Header";
 import Footer from "../component/Footer/Footer";
+import Book from "../component/Book/Book";
 
 function Routes() {
   return (
@@ -16,6 +17,7 @@ function Routes() {
       <Route path="/dashboard" component={Dashboard}/>
       <Route path="/checkout" component={Checkout}/>
       <Route path="/footer" component={Footer}/>
+      <Route path="/book" component={Book}/>
     </Switch>
   );
 }
