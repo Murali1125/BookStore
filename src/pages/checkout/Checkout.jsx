@@ -78,7 +78,7 @@ export class Checkout extends React.Component {
                 </div>
         </div>
         <br/><br/><br/>
-        <div >
+        <div className="footer">
             <Footer />
         </div>
       </div>
