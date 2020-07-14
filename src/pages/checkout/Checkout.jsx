@@ -25,7 +25,7 @@ export class Checkout extends React.Component {
       <div className="checkoutPage">
         <div className="checkoutLogo">
           <Container maxWidth="xl">
-            <Header />
+            <Header variant="rich"/>
           </Container>
         </div>
         <div className="checkout">

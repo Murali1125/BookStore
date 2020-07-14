@@ -1,28 +1,4 @@
-import React from "react";
-import "./Register.scss";
-import Alert from "@material-ui/lab/Alert";
-import { TextField, Snackbar, Button } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import Logo from "./../../component/logo/Logo";
-import Footer from "./../../component/Footer/Footer";
-import Container from "@material-ui/core/Container";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-export class Register extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showPassword: false,
-      snackbarOpen: false,
-      snackbarMsg: "",
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-    };
   }
 
   handleChangeText = (event) => {
