@@ -20,14 +20,17 @@ import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
+import Truncate from 'react-truncate';
 
+
+// styles
 const StyledTableCell = withStyles((theme) => ({
     head: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: theme.palette.text.secondary,
       color: theme.palette.common.white,
     },
     body: {
-      fontSize: 14,
+      fontSize: 16,
     },
   }))(TableCell);
   
@@ -52,10 +55,10 @@ const useStyles1 = makeStyles((theme) => ({
   },
 }));
 
+// function for table pagination
 function TablePaginationActions(props) {
   const classes = useStyles1();
   const theme = useTheme();
-  //const classes = useStyles();
   const { count, page, rowsPerPage, onChangePage } = props;
 
   const handleFirstPageButtonClick = (event) => {
@@ -117,7 +120,7 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function CustomPaginationActionsTable() {
+export default function BookdDetailsTable() {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -139,7 +142,7 @@ export default function CustomPaginationActionsTable() {
     let tempBooksArry=[];
         for(var i=0;i<20;i++){            
             tempBooksArry.push({
-                title : 'StructureAnalysis',
+                title : 'StructureAnalysis Structural analysis is the determination',
                 decription : 'Structural analysis is the determination of the effects of loads on physical structures and their components. Structures subject to this type of analysis include all that must withstand loads, such as buildings, bridges, aircraft and ships.',
                 author : 'S.S. Bhavikatti',
                 imageUrl : 'https://panchayatrajengineers.files.wordpress.com/2019/02/11820192337156313445039947930760.jpg?w=640',
@@ -173,6 +176,7 @@ export default function CustomPaginationActionsTable() {
     let tempData =data;
     tempData[index] = bookDetails;
     setData( tempData);
+    setBookDetails(bookDetails);
     setEdit(!editable);
   }
   return (
@@ -180,7 +184,7 @@ export default function CustomPaginationActionsTable() {
       <Table className={classes.table} aria-label="custom pagination table">
       <TableHead>
           <TableRow>
-            <StyledTableCell align="center">Book</StyledTableCell>
+            <StyledTableCell align="center">S.No</StyledTableCell>
             <StyledTableCell align="center">Title</StyledTableCell>
             <StyledTableCell align="center">Author</StyledTableCell>
             <StyledTableCell align="center">Price</StyledTableCell>
@@ -193,75 +197,81 @@ export default function CustomPaginationActionsTable() {
           {(rowsPerPage > 0
             ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : data
-          ).map((book,index) => (
-            <StyledTableRow key={index}>
+          ).map((book,index) => (                                  
+            <StyledTableRow key={index }>
                 <StyledTableCell  align="center">
-                    <img src ={book.imageUrl} alt ={book.title} 
+                    {/* <img src ={book.imageUrl} alt ={book.title} 
                          style={{height : '50px', width:'75px'}}
-                    />
+                    /> */}
+                    {index + 1}
                 </StyledTableCell>
-                <StyledTableCell align="center"> 
+                <StyledTableCell align="center" width='200px'>                   
                     {  (editable)  && (index === indexOfEditableBook) ?  
                         <TextField                                             
                             value={bookDetails.title} 
                             name='title'
                             variant="outlined"
-                            size='small'
-                            style={{maxWidth : '70%'}}      
+                            size='small'     
+                            inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
                             onChange={onBookDetailsChange(index)}                       
-                        /> : book.title
+                        /> : 
+                        <Truncate lines={1} ellipsis={<span>...<a href='#'>more</a></span>}>
+                          {book.title}
+                       </Truncate>
                     }
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                    { (editable)  && (index === indexOfEditableBook) ?  
-                        <TextField                             
-                            value={bookDetails.author} 
-                            name='author'
-                            style={{width : '70%'}} 
-                            variant="outlined"
-                            size='small'
-                            onChange={onBookDetailsChange(index)}   
-                           
-                        /> : book.author
-                    }
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                    { (editable)  && (index === indexOfEditableBook) ?  
-                        <TextField 
-                            style={{width : '30%'}} 
-                            name='price'
-                            variant="outlined"
-                            size='small'
-                            value={bookDetails.price} 
-                            onChange={onBookDetailsChange(index)}   
-                            
-                        /> : book.price
-                    }
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                    { (editable)  && (index === indexOfEditableBook) ?  
-                        <TextField
-                            style={{width : '30%'}} 
-                            name='quantity'
-                            value={bookDetails.quantity} 
-                            variant="outlined"
-                            size='small'
-                            onChange={onBookDetailsChange(index)}   
-                        /> : book.quantity
-                    }
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                    <IconButton >
-                        { (editable)  && (index === indexOfEditableBook) ?
-                         <DoneOutlinedIcon onClick={()=>onSave(index)}/> 
-                        : <EditOutlinedIcon  onClick={()=>EditBook(index) }/> }
-                    </IconButton>
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                    <IconButton>
-                        <DeleteOutlineOutlinedIcon/>
-                    </IconButton>
-                </StyledTableCell>
+                <StyledTableCell align="center" width='200px'>                    
+                  { (editable)  && (index === indexOfEditableBook) ?  
+                      <TextField                             
+                          value={bookDetails.author} 
+                          name='author'
+                          variant="outlined"
+                          size='small'
+                          inputProps={{style: {fontSize:'14px', textAlign: 'center' }}}
+                          onChange={onBookDetailsChange(index)}                           
+                      /> : 
+                      <Truncate lines={1} ellipsis={<span>...<a href='#'>more</a></span>}>
+                        book.author
+                      </Truncate>
+                  }                    
+              </StyledTableCell>
+              <StyledTableCell align="center" width='100px'>
+                  { (editable)  && (index === indexOfEditableBook) ?  
+                      <TextField 
+                          name='price'
+                          variant="outlined"
+                          size='small'
+                          value={bookDetails.price} 
+                          inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
+                          onChange={onBookDetailsChange(index)}   
+                          
+                      /> : book.price
+                  }
+              </StyledTableCell>
+              <StyledTableCell align="center" width='100px'>
+                  { (editable)  && (index === indexOfEditableBook) ?  
+                      <TextField
+                          name='quantity'
+                          value={bookDetails.quantity} 
+                          variant="outlined"
+                          size='small'
+                          inputProps={{style: { fontSize:'14px', textAlign: 'center' }}}
+                          onChange={onBookDetailsChange(index)}   
+                      /> : book.quantity
+                  }
+              </StyledTableCell>
+              <StyledTableCell align="center" >
+                  <IconButton >
+                      { (editable)  && (index === indexOfEditableBook) ?
+                        <DoneOutlinedIcon onClick={()=>onSave(index)}/> 
+                      : <EditOutlinedIcon  onClick={()=>EditBook(index) }/> }
+                  </IconButton>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                  <IconButton>
+                      <DeleteOutlineOutlinedIcon/>
+                  </IconButton>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
