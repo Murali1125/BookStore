@@ -3,6 +3,7 @@ import Card from "@material-ui/core/Card";
 import "./Login.scss";
 import Loginimage from "./../../assets/Loginimage.jpg";
 import Logo from "./../../component/logo/Logo";
+import Footer from "./../../component/Footer/Footer";
 import { TextField, Snackbar, Button } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import Container from "@material-ui/core/Container";
@@ -10,6 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import userServices from "./../../service/userServices";
+let service = new userServices();
 
 export class Login extends React.Component {
   constructor(props) {
@@ -59,12 +62,31 @@ export class Login extends React.Component {
         snackbarOpen: true,
         snackbarMsg: "Invalid Password..!!",
       });
+    }else {
+      const user = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+      service
+        .Login(user)
+        .then((json) => {
+          console.log("responce data==>", json);
+          if (json.status === 200) {
+            this.setState({
+              snackbarOpen: true,
+              snackbarMsg: "Login Suceesful..!",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
   render() {
     return (
-      <div>
+      <div className="checkoutPage">
         <div className="LoginLogo">
           <Container maxWidth="xl">
             <Logo />
@@ -77,7 +99,7 @@ export class Login extends React.Component {
             onClose={this.snackbarClose}
           >
             <Alert onClose={this.snackbarClose} severity="error">
-              {<span className="Snackbar"> {this.state.snackbarMsg}</span>}
+              {<span> {this.state.snackbarMsg}</span>}
             </Alert>
           </Snackbar>
           <Card className="LoginCard" variant="outlined">
@@ -137,6 +159,7 @@ export class Login extends React.Component {
                 <div>
                   <Button
                     className="signup"
+                    color="primary"
                     onClick={() => this.props.history.push("/register")}
                   >
                     Create account
@@ -147,11 +170,6 @@ export class Login extends React.Component {
                     className="button-Login"
                     variant="contained"
                     color="primary"
-                    style={{
-                      width: "90px",
-                      padding: "7px 0px",
-                      fontSize: "12px",
-                    }}
                     onClick={this.signIn}
                   >
                     Login
@@ -160,6 +178,10 @@ export class Login extends React.Component {
               </div>
             </div>
           </Card>
+        </div>
+        <br /><br /><br /><br />
+        <div>
+           <Footer />
         </div>
       </div>
     );

@@ -81,7 +81,7 @@
 
 @media only screen and (max-width: 768px) {
 	.Login {
-		margin-top: 200px;
+		margin-top: 190px;
 	}
 }
 
@@ -90,32 +90,51 @@
 		background-color: #FFFFFF !important;
 	}
 	.Login {
-		margin-top: 30px;
+		margin-top:5px;
 	}
 	.LoginCard {
 		border: none !important;
+		padding-top:70px;
+		padding-bottom:120px;
 	}
 	.buttonLogin {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
+	.button-Login{
+		margin-top:10px !important;
+	}
 }
 
 @media only screen and (max-width: 411px) {
 	.Login {
-		margin-top: 100px;
+		margin-top:5px;
+	}
+	.LoginCard {
+		padding-top:100px;
+		padding-bottom:175px;
 	}
 }
 
 @media only screen and (max-width: 375px) {
 	.Login {
-		margin-top: 60px;
+		margin-top: 0px;
 	}
 }
 
 @media only screen and (max-width: 360px) {
 	.Login {
 		margin-top: 0px;
+	}
+	.LoginCard {
+		padding-top:30px;
+		padding-bottom:70px;
+	}
+}
+@media only screen and (max-width: 320px) {
+	.LoginCard {
+		padding-top:0px;
+		padding-bottom:25px;
 	}
 }
