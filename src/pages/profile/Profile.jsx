@@ -28,6 +28,7 @@ export class Profile extends React.Component {
                       localStorage.getItem("LastName") }
                 </div>
             </div>
+            <br/>
             <Divider variant="middle" />
             <div className="profileImage">
                 <div>
