@@ -7,6 +7,7 @@ import Checkout from "./../pages/checkout/Checkout";
 import Header from "../component/header/Header";
 import Footer from "../component/Footer/Footer";
 import Book from "../component/Book/Book";
+import Store from "../pages/Store/Store";
 
 function Routes() {
   return (
@@ -18,6 +19,7 @@ function Routes() {
       <Route path="/checkout" component={Checkout}/>
       <Route path="/footer" component={Footer}/>
       <Route path="/book" component={Book}/>
+      <Route path="/store" component={Store}/>
     </Switch>
   );
 }
