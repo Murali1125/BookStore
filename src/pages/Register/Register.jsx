@@ -10,6 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import userServices from "./../../service/userServices";
+let service = new userServices();
 
 export class Register extends React.Component {
   constructor(props) {
@@ -22,6 +24,9 @@ export class Register extends React.Component {
       password: "",
       firstName: "",
       lastName: "",
+      city:"",
+      address:"",
+      phoneNumber:""
     };
   }
 
@@ -82,6 +87,29 @@ export class Register extends React.Component {
         snackbarMsg:
           "Password should be minimum 8 digit and have to use atleast one characters and number",
       });
+    }else {
+      const user = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password,
+        city: this.state.city,
+        address:this.state.address,
+        phoneNumber:this.state.phoneNumber
+      };
+      console.log("User Data",user);
+      service
+        .Registration(user)
+        .then((json) => {
+          console.log("responce data==>", json);
+          if (json.status === 200) {
+            alert("Registration Sucessfull !!");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // this.props.history.push("/login");
     }
   };
 
@@ -177,7 +205,7 @@ export class Register extends React.Component {
                 className="name"
                 name="city"
                 variant="outlined"
-                id="outlined-required"
+                id="city"
                 label={<div className="inputfont">City</div>}
                 defaultValue={this.state.city}
                 onChange={this.handleChangeText}
@@ -187,7 +215,7 @@ export class Register extends React.Component {
                 className="name"
                 name="address"
                 variant="outlined"
-                id="outlined-required"
+                id="address"
                 label={<div className="inputfont">Address</div>}
                 defaultValue={this.state.address}
                 onChange={this.handleChangeText}
@@ -197,7 +225,7 @@ export class Register extends React.Component {
                 className="name"
                 name="phoneNumber"
                 variant="outlined"
-                id="outlined-required"
+                id="phoneNumber"
                 label={<div className="inputfont">Phone Number</div>}
                 defaultValue={this.state.phoneNumber}
                 onChange={this.handleChangeText}
