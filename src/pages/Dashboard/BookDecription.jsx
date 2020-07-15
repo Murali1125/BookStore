@@ -7,6 +7,7 @@ import {Dialog, TextField} from '@material-ui/core';
 import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
+import ImageIcon from '@material-ui/icons/Image';
 
 class BookDecription extends Component {
     constructor(props){
@@ -40,14 +41,21 @@ class BookDecription extends Component {
 
     render() {
         return (
-            <div className='BookDetailsAdmin'>                
+            <div className='BookDetailsAdmin' >                
                 <div className='imageContainerAdmin'>
-                    <img src={ (this.state.imageUrl !== null || this.state.imageUrl !== undefined ) ?  this.state.imageUrl : null }  alt="BookImage"
-                         className='BookImageAdmin'
-                         onClick={() =>
-                          this.fileUpload.click()
-                            }                                
-                    />  
+                    {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
+                        <img src={this.state.imageUrl}  
+                            className='BookImageAdmin'
+                            onClick={() =>
+                            this.fileUpload.click()
+                                }                                
+                        />  
+                        : <div onClick={() =>
+                                this.fileUpload.click()
+                                }>
+                                <Button style={{textTransform: 'none'}}><ImageIcon/>BookImage</Button>
+                            </div>
+                    }
                     <input
                         type="file"
                         style={{ display: "none" }}
@@ -122,10 +130,10 @@ class BookDecription extends Component {
                     />
                 </div>           
 
-                <div>
-                    <Button style={{color:'white', backgroundColor : '#4285F4'}}> 
+                <div className='ButtonsBookDetailsAdmin'>
+                    <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}> 
                         <DoneOutlinedIcon/> Save</Button>
-                    <Button><ClearOutlinedIcon/> Cancel</Button>
+                    <Button style={{backgroundColor:'#61605e' ,color : 'white', textTransform: 'none'}}><ClearOutlinedIcon/> Cancel</Button>
                 </div>    
             
             </div>

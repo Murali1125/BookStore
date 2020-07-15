@@ -1,7 +1,7 @@
 import './DashboardAdmin.scss'
 import React, { Component } from 'react';
 import BookDetailsAdmin from './BookDetailsAdmin'
-import {Container,Button} from '@material-ui/core'
+import {Container,Button,Dialog,DialogTitle,DialogContent} from '@material-ui/core'
 import Logo from './../../component/logo/Logo'
 import BookDetailsTable from './BookDetailsTable'
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
@@ -13,22 +13,51 @@ class AdminDashboard extends Component {
         super(props);
         this.state={
             booksData:'',
+            AddBookDialogOpen:false,
         }
     }
     
+    OpenAddBookDialogBox = () =>{
+        this.setState({
+            AddBookDialogOpen : true,
+        })
+        console.log("Dialogopen")
+    }
+    CloseAddBookDialogBox = () =>{
+        this.setState({
+            AddBookDialogOpen: false,
+        })
+        console.log("dialogClose")
+    }
     render() {
         return (
             <div>
                 <div>
                     <div className="headderAdmin">
                         <div className='LogoAdmin'><Logo/></div>
-                        <div float='right'><Button style={{  color : 'white'}} className='AddButtonAdmin' > <AddOutlinedIcon/><MenuBookOutlinedIcon/></Button></div>
+                        <div float='right' >
+                            <Button className='AddButtonAdmin' 
+                                    style={{  color : 'white'}} 
+                                    onClick={this.OpenAddBookDialogBox}                                    
+                            > 
+                                <AddOutlinedIcon/><MenuBookOutlinedIcon />
+                            </Button></div>
                     </div>
                 </div>
                 <Container className="BooksDisplayContainerAdmin">
                     {/* <BookDetailsAdmin/> */}
-                    {/* <BookDetailsTable/> */}
-                    <BookDecription/>
+                    <BookDetailsTable/>                    
+                    <Dialog
+                        className='AddBookDialogAdmin'
+                        open={this.state.AddBookDialogOpen}
+                        onClose={this.CloseAddBookDialogBox}   
+                        fullWidth                     
+                    >
+                        <DialogTitle >Book Store</DialogTitle>
+                        <DialogContent>
+                            <BookDecription/>
+                        </DialogContent>
+                    </Dialog>
                 </Container>
             </div>
         );
