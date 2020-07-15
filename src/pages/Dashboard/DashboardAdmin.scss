@@ -211,3 +211,94 @@ $borderColourLight: #fbfbfb;
     left: +150px;
   }
 }
+<<<<<<< HEAD
+// BookDecription Jsx file CSS
+.BookDetailsAdmin{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    justify-self: center;
+    align-self: center;
+    max-width: 400px;
+    border: 2px;
+    border-radius: 10px;
+    padding: 10px;
+    border-style: groove;  
+    & > div {
+        width: 100%;
+        margin: 10px;
+    } 
+}
+.imageContainerAdmin{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.BookImageAdmin{
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px;
+    border-style: outset;
+    border-radius: 5px;
+}
+
+// media queary
+@media all and (max-width : 750px){
+    .headderAdmin{
+        max-width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .AddButtonAdmin{
+        position: static;
+        left: -10px;
+
+    }
+    .LogoAdmin{
+        position: static;
+        left: 0;
+    }
+    .BookDetails{
+        display: flex;
+        flex-direction: column;   
+        padding-top: 15px;     
+    }
+    .authortitleDecription{
+        width: 100%;
+        max-width: 100%;
+    }
+    .buttonsAdmin{
+        width: 95%;
+        display: flex;
+        justify-content: space-between;
+        padding: 4px;
+    }
+    .PriceQuantityButtonsAdmin{
+        display: flex;
+        flex-direction: column; 
+        align-items: flex-start;       
+    }
+    .priceQuantityContainerAdmin{
+        justify-content: flex-start;
+    }
+    .decriptionTextFieldAdmin{
+        width: 65%;
+    }
+}
+@media all and (min-width : 750px ) and (max-width : 1000px){
+    .PriceQuantityButtonsAdmin{
+        flex-wrap: wrap;
+    }
+    .buttonsAdmin{
+        width: 100%;
+    }
+    .AddButtonAdmin{
+        position: static;
+        left: +150px;
+    }
+}
+=======
+>>>>>>> d0f05319c95c02310fe1008f9aadfcd2e243c465
