@@ -101,6 +101,9 @@ export class Login extends React.Component {
             localStorage.setItem("FirstName", json.data.data.firstName);
             localStorage.setItem("LastName", json.data.data.lastName);
             localStorage.setItem("Email", json.data.data.email);
+            localStorage.setItem("Address", json.data.data.address);
+            localStorage.setItem("City", json.data.data.city);
+            localStorage.setItem("Phone Number", json.data.data.phoneNumber);
             this.setState({ responseMessage: "Login Successful" });
             this.setState({ snackbarVarient: "success" });
             this.setState({ OpenSnackbar: true });
