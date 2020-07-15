@@ -1,0 +1,86 @@
+.storeContainer {
+    margin-top: 65px;
+}
+.booksHeader {
+    padding: 50px 0 10px 45px;
+    font-family: "Lato", sans-serif;
+    font-size: 25px;
+
+    & span {
+        font-size: 14px;
+    }
+}
+
+.opendropdown {
+    position: absolute;
+}
+
+.closedropdown {
+    position: absolute;
+    visibility: hidden;
+}
+
+.booksSort {
+    position: relative;
+    padding: 50px 45px 10px 0;
+    font-family: "Lato", sans-serif;
+    font-size: 15px;
+    flex-shrink: 1;
+    cursor: pointer;
+
+    & .dropdown {
+        border: 2px solid #e2e2e2;
+        width: 170px;
+        padding: 2px 5px;
+        font-size: 14px;
+    }
+    & span {
+        padding-right: 30px;
+    }
+
+    &:hover .opendropdown {
+        visibility: hidden;
+    }
+
+    &:hover .closedropdown {
+        visibility: visible;
+    }
+
+    &:hover .dropmenu{
+        visibility: visible;
+        display: initial;
+    }
+}
+
+.dropmenu {
+    position: absolute;
+    font-size: 14px;
+    list-style: none;
+    padding: 5px 24.5px 0 24.5px;
+    top: 62px;
+    background-color: #fff;
+    visibility: hidden;
+    display: none;
+        border: 2px solid #e2e2e2;
+
+
+    & li{
+    font-size: 14px;
+
+        padding: 0 0 5px 0;
+        cursor: pointer;
+    }
+    
+}
+
+.booksContainer {
+    padding-bottom: 20px;
+}
+
+.singleBookContainer {
+    padding: 20px 0;
+}
+
+.pagination {
+    padding-bottom: 30px;
+}
