@@ -1,0 +1,52 @@
+.checkoutLogo {
+  background-color: #a03037;
+  padding: 10px 0px;
+}
+.checkoutPage {
+  background-color: white;
+}
+.checkout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.checkoutimage {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+.paymentComfirm {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 18px;
+}
+.table {
+  display: flex;
+  width: 39%;
+}
+.aboutus {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .footer {
+    margin-top: 270px;
+  }
+  .checkoutimage {
+    margin-top: 280px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .checkoutimage {
+    margin-top: 120px;
+  }
+  .footer {
+    margin-top: 90px;
+  }
+}
+@media only screen and (max-width: 414px) {
+}
