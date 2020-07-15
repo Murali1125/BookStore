@@ -1,6 +1,6 @@
 .register{
     margin-top:90px;
-    margin-bottom:90px;
+    margin-bottom:140px;
     display:flex;
     justify-content: center;
 }
@@ -30,9 +30,6 @@
 .name{
     width: 80%;
 }
-.inputfont{
-    font-size:20px;
-}
 .submitbutton{
     width: 80%; 
     padding: 7px 0px; 
@@ -58,15 +55,20 @@
     color: #0423ce;
     font-Size: 13px
 }
-
+.footer {
+	position: fixed;
+	bottom: 0;
+}
 @media only screen and (max-width: 1024px) {
     .register{
        margin-top:180px;
+       margin-bottom:0px;
     }
 }
 @media only screen and (max-width: 768px) {
     .register{
-       margin-top:50px;
+       margin-top:30px;
+       margin-bottom:0px;
     }
 }
 @media only screen and (max-width: 414px) {
@@ -75,8 +77,8 @@
     }
     .registerCard{
         border:none !important;
-        padding-top:20px;
-        padding-bottom:90px;
+        padding-top:10px;
+        padding-bottom:100px;
     }
     .accountExsists{
         display:flex;
@@ -85,13 +87,13 @@
 }
 @media only screen and (max-width: 411px) {
     .registerCard{
-        padding-top:60px;
-        padding-bottom:140px;
+        padding-top:30px;
+        padding-bottom:100px;
     }
 }
 @media only screen and (max-width: 360px) {
     .registerCard{
-        padding-top:0px;
-        padding-bottom:20px;
+        padding-top:20px;
+        padding-bottom:100px;
     }
 }

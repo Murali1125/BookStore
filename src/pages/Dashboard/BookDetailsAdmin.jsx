@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Card, TextField, Button} from '@material-ui/core';
 import "./DashboardAdmin";
 import {withStyles} from '@material-ui/core/styles';
+import Truncate from 'react-truncate';
 
 const useStyles = (theme)=>({
     
@@ -23,6 +24,8 @@ class BookDetailsAdmin extends Component {
         super(props);
         this.state={
             buttonsVisible:false,
+            bookIndex:'',
+            editModeEnable :'',
             // dummy variables
             dummyBookData:[],
         }
@@ -45,37 +48,36 @@ class BookDetailsAdmin extends Component {
     }
 
     // on mouse enter on the book details container
-    OnHover = () =>{
+    OnHover = (index) =>{
         this.setState({
             buttonsVisible : true,
+            bookIndex : index,
         });
-        console.log("onHover",this.state)
     }
     OffHover = () =>{
         this.setState({
             buttonsVisible : false,
         });
-        console.log("onhover",this.state)
     }
-    OnImageHover = eve =>{
+    OnImageHover = (eve) =>{
         console.log('onImageHover Hello')
     }
     render() {
         const {classes} = this.props;
-        const visability = true;
+        const visability = this.state.buttonsVisible;
         const books = this.state.dummyBookData.map((book,index)=>{
                 return(
                     <Card   className='BookDetails' 
                             key={index} 
-                            onMouseEnter={()=>this.OnHover}
-                            onMouseLeave={()=>this.OffHover}
+                            onMouseEnter={()=>this.OnHover(index)}
+                            onMouseLeave={()=>this.OffHover()}
                             >
                         <div  className='imageAndTitleAdmin'>
                             <div className="bookimageAdmin">
                                 <img    src={book.imageUrl} 
                                         alt={book.title +"\n"+ book.author} 
                                         style={{height : '200px', width:'140px'}}
-                                        onMouseEnter={this.OnImageHover} />
+                                        onMouseEnter={()=>this.OnImageHover()} />
                             </div>                            
                         </div>
                         <div  className='authortitleDecription' >
@@ -105,6 +107,10 @@ class BookDetailsAdmin extends Component {
                             <div className='lableAndFieldsAdmin' >
                                 <span className='lablesAdmin'>Decription : </span>
                                 <span className='decriptionTextFieldAdmin'>
+                                    <Truncate 
+                                        lines ={2}
+                                        ellipsis={<span>... <a href='#'>Read more</a></span>}
+                                    >
                                     <TextField 
                                             multiline
                                             fullWidth
@@ -115,7 +121,8 @@ class BookDetailsAdmin extends Component {
                                                 disableUnderline: true,
                                                 
                                             }} 
-                                /></span>
+                                />
+                                </Truncate></span>
                             </div>
                             <div className="PriceQuantityButtonsAdmin">
                                 <div className="priceQuantityContainerAdmin">
@@ -144,10 +151,10 @@ class BookDetailsAdmin extends Component {
                                     </span>
                                 </div>
                                 <div className="buttonsAdmin">
-                                    <div className= {visability ? "ButtosContainerOn" : "ButtonsContainerOff"}>
+                                    <div className= {( visability && (this.state.bookIndex === index) )? "ButtosContainerOn" : "ButtonsContainerOff"}>
                                         <Button className={classes.saveButton}    >Edit</Button>
                                     </div>
-                                    <div className= { visability ? "ButtosContainerOn" : "ButtonsContainerOff" }>
+                                    <div className= { ( visability && (this.state.bookIndex === index) )? "ButtosContainerOn" : "ButtonsContainerOff" }>
                                         <Button className={classes.removeButton} >Remove</Button>
                                     </div>
                                 </div>
