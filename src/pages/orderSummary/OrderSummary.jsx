@@ -12,22 +12,17 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-class OrderSummary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+export default function OrderSummary() {
 
-  render() {
     return (
-      <div className="checkoutPage">
-        <div className="checkoutLogo">
+      <div className="orderPage">
+        <div className="orderLogo">
           <Container maxWidth="xl">
             <Header variant="rich" />
           </Container>
         </div>
-        <div className="checkout">
-          <div className="checkoutimage">
+        <div className="order">
+          <div className="orderimage">
             <img
               src={CheckoutMessage}
               alt="Book logo"
@@ -88,6 +83,4 @@ class OrderSummary extends React.Component {
         </div>
       </div>
     );
-  }
 }
-export default OrderSummary;
