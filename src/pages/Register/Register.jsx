@@ -168,7 +168,7 @@ export class Register extends React.Component {
         .then((json) => {
           console.log("responce data==>", json);
           if (json.status === 200) {
-            this.setState({responseMessage:"Login Successful"});
+            this.setState({responseMessage:"Registration Successful"});
             this.setState({snackbarVarient:"success"});
             this.setState({OpenSnackbar:true});
           }
@@ -176,14 +176,14 @@ export class Register extends React.Component {
         .catch((err) => {
           console.log(err);
         });
-      // this.props.history.push("/login");
+     this.props.history.push("/login");
     }
   };
  handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    this.setState({OpenSnackbar:false});
+    this.setState({ OpenSnackbar: false });
   };
 
   render() {
@@ -196,14 +196,18 @@ export class Register extends React.Component {
         </div>
         <div className="register">
           <Snackbar
-                open={this.state.openSnackbar}
-                autoHideDuration={3000}
-                onClose={(event, reason)=>this.handleClose(event, reason)}
-              >
-                <Alert onClose={(event, reason)=>this.handleClose(event, reason)} severity={this.state.snackbarVarient}>
-                  {this.state.responseMessage}
-                </Alert>
-              </Snackbar>
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={this.state.OpenSnackbar}
+          autoHideDuration={3000}
+          onClose={this.handleClose}
+        >
+          <Alert
+            onClose={this.handleClose}
+            severity={this.state.snackbarVarient}
+          >
+            {this.state.responseMessage}
+          </Alert>
+        </Snackbar>
           <Card className="registerCard" variant="outlined">
             <br />
             <span className="createAccount">Create account</span>
@@ -335,7 +339,7 @@ export class Register extends React.Component {
             </div>
           </Card>
         </div>
-        <div>
+        <div className="footer">
            <Footer />
         </div>
       </div>
