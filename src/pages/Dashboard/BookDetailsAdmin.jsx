@@ -109,10 +109,11 @@ class BookDetailsAdmin extends Component {
                                 <span className='decriptionTextFieldAdmin'>
                                     <Truncate 
                                         lines ={2}
-                                        ellipsis={<span>... <a href='#'>Read more</a></span>}
+                                        ellipsis={<span>...</span>}
                                     >
                                     <TextField 
                                             multiline
+                                            className="SearchfieldAdmin"
                                             fullWidth
                                             className='decriptionAdmin'
                                             value={book.decription}

@@ -1,13 +1,13 @@
 import './DashboardAdmin.scss'
 import React, { Component } from 'react';
-import BookDetailsAdmin from './BookDetailsAdmin'
-import {Container,Button,Dialog,DialogTitle,DialogContent} from '@material-ui/core'
+import {Container,Button,Dialog,DialogTitle,DialogContent,TextField,IconButton} from '@material-ui/core'
 import Logo from './../../component/logo/Logo'
 import BookDetailsTable from './BookDetailsTable'
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import BookDecription from './BookDecription'
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -44,7 +44,23 @@ class AdminDashboard extends Component {
             <div>
                 <div>
                     <div className="headderAdmin">
-                        <div className='LogoAdmin'><Logo/></div>
+                        <div className='LogoAdmin'><Logo/></div>                               
+                        <div className='searchBarAdmin'>           
+                            <div>
+                                <IconButton><SearchOutlinedIcon  fontSize='large' /></IconButton>
+                            </div>
+                            <div>
+                                <TextField
+                                    className='searchField'
+                                    placeholder='Search'   
+                                    fullWidth
+                                    InputProps={{
+                                        disableUnderline: true,                                    
+                                    }} 
+                                />            
+                            </div>
+                        </div>
+                       
                         <div float='right' >
                             <Button className='AddButtonAdmin' 
                                     style={{  color : 'white'}} 
@@ -55,7 +71,8 @@ class AdminDashboard extends Component {
                     </div>
                 </div>
                 <Container className="BooksDisplayContainerAdmin">                    
-                    <BookDetailsTable showBook={this.OpenBookDialogBoxWithData}/>                    
+                    <BookDetailsTable showBook={this.OpenBookDialogBoxWithData}/>  
+                    <div>
                     <Dialog
                         className='AddBookDialogAdmin'
                         open={this.state.AddBookDialogOpen}
@@ -72,6 +89,7 @@ class AdminDashboard extends Component {
                             <BookDecription bookData={this.state.selectedBookData} closeDialog={this.CloseAddBookDialogBox}/>
                         </DialogContent>
                     </Dialog>
+                    </div>                  
                 </Container>
             </div>
         );

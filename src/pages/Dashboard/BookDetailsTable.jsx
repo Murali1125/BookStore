@@ -1,5 +1,4 @@
 import React, { useState }  from 'react';
-import {TextField} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -19,11 +18,7 @@ import TableHead from '@material-ui/core/TableHead';
 import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import Truncate from 'react-truncate';
-import BookDecription from './BookDecription';
-import {Dialog,DialogTitle,DialogContent} from '@material-ui/core'
-import Logo from './../../component/logo/Logo'
 
 
 // styles
@@ -45,11 +40,11 @@ root: {
 },
 }))(TableRow);
 
-const useStyles = makeStyles({
-table: {
-    minWidth: 700,
-},
-});
+// const useStyles = makeStyles({
+// table: {
+//     minWidth: 700,
+// },
+// });
   
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -128,20 +123,16 @@ export default function BookdDetailsTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [data,setData] = useState([]);
-  const [editable,setEdit] = useState(true)
-  const [indexOfEditableBook,setEditIndex] = useState();
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  const [bookData,setBookData] = useState()
-  const [updateBook,setUpdate] = useState({update: false,
-                                           bookdata : null})
-  const [bookDetails,setBookDetails] = useState({
-    title : '',
-    decription :'',
-    author : '',
-    imageUrl : '',
-    price : '',
-    quantity : '',
-  })
+  
+  //const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+  // const [bookDetails,setBookDetails] = useState({
+  //   title : '',
+  //   decription :'',
+  //   author : '',
+  //   imageUrl : '',
+  //   price : '',
+  //   quantity : '',
+  // })
 
   useEffect(()=>{
     let tempBooksArry=[];
@@ -158,10 +149,6 @@ export default function BookdDetailsTable(props) {
         setData(tempBooksArry);
   },[])
 
-  const onBookDetailsChange = index =>(eve)=>{
-      setBookDetails({...bookDetails, [eve.target.name] : eve.target.value})  ;  
-  }
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -171,21 +158,16 @@ export default function BookdDetailsTable(props) {
     setPage(0);
   };
 
-  let indexOfSelectedEditBook ='';
   const EditBook = (bookdata)=>{
-    // setBookDetails(data[index])
-    // setEditIndex(index);
-    // setEdit(!editable);
-    console.log("table book data", bookdata);
     props.showBook(bookdata) ;
   }
-  const onSave =(index)=>{
-    let tempData =data;
-    tempData[index] = bookDetails;
-    setData( tempData);
-    setBookDetails(bookDetails);
-    setEdit(!editable);
-  }
+  // const onSave =(index)=>{
+  //   let tempData =data;
+  //   tempData[index] = bookDetails;
+  //   setData( tempData);
+  //   setBookDetails(bookDetails);
+  //   setEdit(!editable);
+  // }
  
   
   return (
