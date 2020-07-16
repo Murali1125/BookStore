@@ -6,8 +6,10 @@ import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-
+import BookStoreService from "./../../service/bookStoreService";
 import "./Store.scss";
+
+const bookStoreService = new BookStoreService();
 export default class Store extends Component {
   constructor(props) {
     super(props);
@@ -17,10 +19,23 @@ export default class Store extends Component {
     };
   }
 
+  // Get all books api call
+  getAllBooks = () => {
+    bookStoreService.GetAllBooks().then((json) => {
+      if(json.status === 200){
+        this.setState({books:json.data.data})
+      }
+      console.log(json);
+    });
+  };
+
+  componentDidMount(){
+    this.getAllBooks();
+  }
   render() {
     return (
       <React.Fragment>
-        <Grid container direction="column">
+        <Grid container direction="column" alignItems="center">
           <Header variant="rich"></Header>
           <Container maxWidth="lg" className="storeContainer">
             <Grid
@@ -62,7 +77,6 @@ export default class Store extends Component {
                 <ul className="dropmenu">
                   <li>Price : Low to High</li>
                   <li>Price : High to Low</li>
-                  
                 </ul>
               </Grid>
             </Grid>
@@ -79,6 +93,7 @@ export default class Store extends Component {
                   <Grid
                     container
                     item
+                    key={index}
                     md={3}
                     sm={6}
                     xs={12}
