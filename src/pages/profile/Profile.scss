@@ -1,0 +1,26 @@
+.profile{
+    margin-top:220px;
+    margin-bottom:140px;
+    display:flex;
+    justify-content: center;
+}
+.profileCard{
+    max-width:650px;
+    width:100%;
+    display:flex;
+    align-items: center;
+    flex-direction:column;
+    padding-top:50px;
+    padding-bottom:50px;
+}
+.profileImage{
+    width:60%;
+    align-items:center;
+    display:flex;
+    flex:row;
+    justify-content:space-around;
+}
+.footer {
+	position: fixed;
+	bottom: 0;
+}
