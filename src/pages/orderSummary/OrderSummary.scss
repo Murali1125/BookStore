@@ -1,0 +1,72 @@
+.orderLogo {
+  background-color: #a03037;
+  padding: 10px 0px;
+}
+.orderPage {
+  background-color: white;
+}
+.order {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.orderimage {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+.paymentComfirm {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 18px;
+}
+.table {
+  max-width:700px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.aboutus {
+  display: flex;
+  flex-direction:row;
+}
+.email{
+  width:30%;
+  display: flex;
+  flex-direction:column;
+}
+.header{
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:10px;
+  padding-right:10px;
+  word-wrap: break-word !important;
+}
+.footer {
+	position: fixed;
+	bottom: 0;
+}
+@media only screen and (max-width: 1024px) {
+  .orderimage {
+    margin-top: 240px;
+  }
+  .order{
+    padding-bottom:330px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .orderimage {
+    margin-top:80px;
+  }
+  .order{
+    padding-bottom:70px;
+  }
+}
+@media only screen and (max-width: 414px) {
+  .table {
+    min-width:400px !important;
+  }
+}

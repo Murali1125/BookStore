@@ -8,6 +8,8 @@ import Header from "../component/header/Header";
 import Footer from "../component/Footer/Footer";
 import Book from "../component/Book/Book";
 import Store from "../pages/Store/Store";
+import OrderSummary from "../pages/orderSummary/OrderSummary";
+import Profile from "./../pages/profile/Profile";
 
 function Routes() {
   return (
@@ -20,6 +22,8 @@ function Routes() {
       <Route path="/footer" component={Footer}/>
       <Route path="/book" component={Book}/>
       <Route path="/store" component={Store}/>
+      <Route path="/orderSummary" component={OrderSummary}/>
+      <Route path="/profile" component={Profile}/>
     </Switch>
   );
 }
