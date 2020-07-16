@@ -6,11 +6,6 @@ import { Button } from "@material-ui/core";
 import Header from "./../../component/header/Header";
 import Footer from "./../../component/Footer/Footer";
 import Container from "@material-ui/core/Container";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 
 export default function OrderSummary() {
 
@@ -39,28 +34,38 @@ export default function OrderSummary() {
           <br />
           <br />
           <br />
-          <div className="table">
-            <Card>
-              <Table stickyHeader aria-label="sticky table" className="aboutus">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">Email Id</TableCell>
-                    <TableCell align="center">Contact us</TableCell>
-                    <TableCell align="center">Address</TableCell>
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  <TableRow>
-                    <TableCell align="center">admin@bookstore.com</TableCell>
-                    <TableCell align="center">+918163475881</TableCell>
-                    <TableCell align="center">
-                      42, 14th Main, 15th Cross,Sector 4,opp to BDA complex,
+          <div>
+            <Card className="table">
+              <div className="aboutus">
+                <div className="email">
+                  <div className="header">
+                    Email Id
+                  </div>
+                  <br/>
+                  <div className="header">
+                    admin@bookstore.com
+                  </div>
+                </div>
+                <div className="email">
+                  <div className="header">
+                    Contact us
+                  </div>
+                  <br/>
+                  <div className="header">
+                    +91816347588
+                  </div>
+                </div>
+                <div className="address">
+                  <div className="header">
+                    Address
+                  </div>
+                  <br/>
+                  <div className="header">
+                     42, 14th Main, 15th Cross,Sector 4,opp to BDA complex,
                       near Kumarakom restraurant,HSR Layout,Banglore 560034
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+                  </div>
+                </div>
+              </div>
             </Card>
           </div>
           <br />

@@ -2,7 +2,6 @@ import React from "react";
 import "./Profile.scss";
 import Card from "@material-ui/core/Card";
 import Header from "./../../component/header/Header";
-import Divider from "@material-ui/core/Divider";
 import Footer from "./../../component/Footer/Footer";
 import Container from "@material-ui/core/Container";
 
@@ -19,74 +18,68 @@ export class Profile extends React.Component {
         <div className="profile">
           <Card className="profileCard" variant="outlined">
             <div className="profileImage">
-                <div>
+                <div className="name">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYF1Mjct6rfyPLrWjrjm8dAw9oZGyf-BNtaQ&usqp=CAU" alt="avtar" Width="100px" height="100px"/>
                 </div>
-                <div>
+                <div className="name"> 
                     {localStorage.getItem("FirstName") +
                       " " +
                       localStorage.getItem("LastName") }
                 </div>
             </div>
-            <br/>
-            <Divider variant="middle" />
-            <div className="profileImage">
-                <div>
+            <br />
+            <br />
+            <div className="profiledetails">
+            <div className="profileName">
+                <div className="name">
                     First Name
                 </div>
-                <div>
-                    {localStorage.getItem("FirstName")}
-                </div>
-            </div>
-            <br/>
-            <Divider variant="middle" />
-            <div className="profileImage">
-                <div>
+                <br/>
+                <div className="name">
                     Last Name
                 </div>
-                <div>
-                    {localStorage.getItem("LastName")}
-                </div>
-            </div>
-            <br/>
-            <Divider variant="middle" />
-            <div className="profileImage">
-                <div>
+                <br/>
+                <div className="name">
                     Email
                 </div>
-                <div>
-                    {localStorage.getItem("Email")}
-                </div>
-            </div>
-            <br/>
-            <Divider variant="middle" />
-            <div className="profileImage">
-                <div>
+                <br/>
+                <div className="name">
                      Address
                 </div>
-                <div>
-                    {localStorage.getItem("Address")}
-                </div>
-            </div>
-            <br/>
-            <Divider variant="middle" />
-            <div className="profileImage">
-                <div>
+                <br/>
+                <div className="name">
                      City
                 </div>
-                <div>
-                    {localStorage.getItem("City")}
-                </div>
-            </div>
-            <br/>
-            <Divider variant="middle" />
-            <div className="profileImage">
-                <div>
+                <br/>
+               <div className="name">
                      Phone Number
                 </div>
-                <div>
-                   {localStorage.getItem("Phone Number")}
+            </div>
+            <div className="profileName">
+                <div className="name">
+                    {localStorage.getItem("FirstName")}
                 </div>
+                <br/>
+                <div className="name">
+                    {localStorage.getItem("LastName")}
+                </div>
+                <br/>
+                <div className="name">
+                    {localStorage.getItem("Email")}
+                </div>
+                <br/>
+                <div className="name">
+                     {localStorage.getItem("Address")}
+                </div>
+                <br/>
+                <div className="name">
+                     {localStorage.getItem("City")}
+                </div>
+                <br/>
+                <div className="name">
+                     {localStorage.getItem("Phone Number")}
+                </div>
+            </div>
             </div>
           </Card>
         </div>
