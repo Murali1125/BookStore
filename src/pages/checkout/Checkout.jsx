@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container, TextField } from "@material-ui/core";
 import Footer from "../../component/Footer/Footer";
 import bookCover from "./../../assets/bookCover.jpg";
 
@@ -12,6 +12,9 @@ export default class Checkout extends Component {
     this.state = {
       descriptionClass: "customerDetails showPreview",
       checkoutClass: "checkout showPreview",
+      userInformation:{
+        name: localStorage.getItem("FirstName") ? `${localStorage.getItem("FirstName")} ${localStorage.getItem("LastName")}` : ""
+      },
       cartItems: [
         {
           title: "Don't Make Me Think",
@@ -148,11 +151,92 @@ export default class Checkout extends Component {
               <Grid container item className="customerDetails-header">
                 Customer Details
               </Grid>
-              <Grid container item className="customerDetails-detailForm">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor
-                et culpa id nostrum facere explicabo consequatur amet aliquid
-                repellendus laudantium magnam quasi assumenda mollitia, fugiat
-                ipsa quisquam tempore? Ea, nemo?
+              <Grid
+                container
+                item
+                className="customerDetails-detailForm"
+                xs={10}
+                spacing={2}
+              >
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Name"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Phone number"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Pincode"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Locality"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={10}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Address"
+                      variant="outlined"
+                      multiline
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="City/town"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Landmark"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid
                 container
@@ -163,6 +247,7 @@ export default class Checkout extends Component {
                 className="customerDetails-continue"
               >
                 <button
+                id="continue"
                   className="customerDetails-continue--button"
                   onClick={this.continue}
                 >
@@ -172,7 +257,11 @@ export default class Checkout extends Component {
             </Grid>
 
             {/* checkout ************************************************************** */}
-            <Grid container direction="column" className={this.state.checkoutClass}>
+            <Grid
+              container
+              direction="column"
+              className={this.state.checkoutClass}
+            >
               <Grid container item className="checkout-header">
                 My cart ({this.state.cartItems.length})
               </Grid>
@@ -184,7 +273,7 @@ export default class Checkout extends Component {
                     xs={12}
                     alignItems="flex-start"
                     justify="flex-start"
-                    className="myCart-itemDescription"
+                    className="checkout-itemDescription"
                   >
                     <Grid
                       direction="column"
@@ -230,7 +319,7 @@ export default class Checkout extends Component {
                   className="checkout-submit--button"
                   onClick={this.placeOrder}
                 >
-                  PLACE ORDER
+                  CHECKOUT
                 </button>
               </Grid>
             </Grid>
