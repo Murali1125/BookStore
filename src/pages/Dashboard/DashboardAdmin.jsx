@@ -7,6 +7,7 @@ import BookDetailsTable from './BookDetailsTable'
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import BookDecription from './BookDecription'
+import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -14,6 +15,8 @@ class AdminDashboard extends Component {
         this.state={
             booksData:'',
             AddBookDialogOpen:false,
+            selectedBookData:'',
+            isUpdateBook : false,
         }
     }
     
@@ -21,13 +24,20 @@ class AdminDashboard extends Component {
         this.setState({
             AddBookDialogOpen : true,
         })
-        console.log("Dialogopen")
+    }
+    OpenBookDialogBoxWithData = (bookData)=>{
+        this.setState({
+            isUpdateBook : true,
+            AddBookDialogOpen: true,
+            selectedBookData : bookData,
+        })
     }
     CloseAddBookDialogBox = () =>{
         this.setState({
             AddBookDialogOpen: false,
+            selectedBookData:'',
+            isUpdateBook : false,
         })
-        console.log("dialogClose")
     }
     render() {
         return (
@@ -44,18 +54,22 @@ class AdminDashboard extends Component {
                             </Button></div>
                     </div>
                 </div>
-                <Container className="BooksDisplayContainerAdmin">
-                    {/* <BookDetailsAdmin/> */}
-                    <BookDetailsTable/>                    
+                <Container className="BooksDisplayContainerAdmin">                    
+                    <BookDetailsTable showBook={this.OpenBookDialogBoxWithData}/>                    
                     <Dialog
                         className='AddBookDialogAdmin'
                         open={this.state.AddBookDialogOpen}
                         onClose={this.CloseAddBookDialogBox}   
                         fullWidth                     
                     >
-                        <DialogTitle >Book Store</DialogTitle>
+                        <DialogTitle  style={{ backgroundColor: '#A73F46', height:'60px' , color: 'white'}}>
+                            {
+                                <span className='AddBookDilogheadderAdmin'><ImportContactsOutlinedIcon fontSize="large"/> 
+                                {this.state.isUpdateBook  ?  " UpdateBook" : " AddBook" } </span>
+                            }
+                        </DialogTitle>
                         <DialogContent>
-                            <BookDecription/>
+                            <BookDecription bookData={this.state.selectedBookData} closeDialog={this.CloseAddBookDialogBox}/>
                         </DialogContent>
                     </Dialog>
                 </Container>

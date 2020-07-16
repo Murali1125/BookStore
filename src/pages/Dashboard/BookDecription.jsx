@@ -8,6 +8,7 @@ import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
+import Logo from './../../component/logo/Logo'
 
 class BookDecription extends Component {
     constructor(props){
@@ -21,7 +22,7 @@ class BookDecription extends Component {
             image:null,
             imageUrl :null,
             price : '',
-            quantity :'',
+            quantity :'',        
         }
     }
 
@@ -34,11 +35,22 @@ class BookDecription extends Component {
     }
     fileChangedHandler = (event) => {
         event.preventDefault();
-        this.setState({ image: event.target.files[0],
+        this.setState({ image : event.target.files[0],
                         imageUrl : URL.createObjectURL(event.target.files[0]) });
         console.log("imageUrl",this.state.imageUrl)
     }
-
+    
+    componentDidMount(){
+        if(Boolean (this.props.bookData) ){
+            this.setState({ title : this.props.bookData.title ,     
+                            decription : this.props.bookData.decription,
+                            author : this.props.bookData.author,
+                            imageUrl : this.props.bookData.imageUrl,
+                            price : this.props.bookData.price,
+                            quantity :this.props.bookData.quantity,
+            })
+        }         
+    }
     render() {
         return (
             <div className='BookDetailsAdmin' >                
@@ -133,7 +145,11 @@ class BookDecription extends Component {
                 <div className='ButtonsBookDetailsAdmin'>
                     <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}> 
                         <DoneOutlinedIcon/> Save</Button>
-                    <Button style={{backgroundColor:'#61605e' ,color : 'white', textTransform: 'none'}}><ClearOutlinedIcon/> Cancel</Button>
+                    <Button style={{backgroundColor:'#61605e' ,color : 'white', textTransform: 'none'}}
+                            onClick={this.props.closeDialog}
+                    >
+                        <ClearOutlinedIcon/> Cancel
+                    </Button>
                 </div>    
             
             </div>
