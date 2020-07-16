@@ -10,7 +10,8 @@ export default class Checkout extends Component {
     super(props);
 
     this.state = {
-      showFullDescription: "customerDetails showPreview",
+      descriptionClass: "customerDetails showPreview",
+      checkoutClass: "checkout showPreview",
       cartItems: [
         {
           title: "Don't Make Me Think",
@@ -39,7 +40,12 @@ export default class Checkout extends Component {
 
   placeOrder = () => {
     this.setState({
-      showFullDescription: "customerDetails",
+      descriptionClass: "customerDetails",
+    });
+  };
+  continue = () => {
+    this.setState({
+      checkoutClass: "checkout",
     });
   };
 
@@ -137,7 +143,7 @@ export default class Checkout extends Component {
             <Grid
               container
               direction="column"
-              className={this.state.showFullDescription}
+              className={this.state.descriptionClass}
             >
               <Grid container item className="customerDetails-header">
                 Customer Details
@@ -156,13 +162,17 @@ export default class Checkout extends Component {
                 justify="flex-end"
                 className="customerDetails-continue"
               >
-                <button className="customerDetails-continue--button">
+                <button
+                  className="customerDetails-continue--button"
+                  onClick={this.continue}
+                >
                   CONTINUE
                 </button>
               </Grid>
             </Grid>
 
-            <Grid container direction="column" className="checkout">
+            {/* checkout ************************************************************** */}
+            <Grid container direction="column" className={this.state.checkoutClass}>
               <Grid container item className="checkout-header">
                 My cart ({this.state.cartItems.length})
               </Grid>
