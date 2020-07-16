@@ -112,6 +112,15 @@ class Header extends Component {
                     <div className={classes.grow} />
 
                     <IconButton
+                      aria-label="show 17 new notifications"
+                      color="inherit"
+                    >
+                      <Badge badgeContent={17} color="secondary">
+                        <ShoppingCartOutlinedIcon />
+                      </Badge>
+                    </IconButton>
+
+                    <IconButton
                       edge="end"
                       aria-label="account of current user"
                       aria-controls={this.menuId}
@@ -121,14 +130,14 @@ class Header extends Component {
                     >
                       <AccountCircle />
                     </IconButton>
-                    <IconButton
+                    {/* <IconButton
                       aria-label="show 17 new notifications"
                       color="inherit"
                     >
                       <Badge badgeContent={17} color="secondary">
                         <ShoppingCartOutlinedIcon />
                       </Badge>
-                    </IconButton>
+                    </IconButton> */}
                     <Menu
                       id="simple-menu"
                       anchorEl={this.state.anchorEl}
