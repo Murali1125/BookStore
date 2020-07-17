@@ -138,7 +138,7 @@ export default function BookdDetailsTable(props) {
     let tempBooksArry=[];
         for(var i=0;i<20;i++){            
             tempBooksArry.push({
-                title : 'StructureAnalysis Structural analysis is the determination',
+                title : 'StructureAnalysis ',
                 decription : 'Structural analysis is the determination of the effects of loads on physical structures and their components. Structures subject to this type of analysis include all that must withstand loads, such as buildings, bridges, aircraft and ships.',
                 author : 'S.S. Bhavikatti',
                 imageUrl : 'https://panchayatrajengineers.files.wordpress.com/2019/02/11820192337156313445039947930760.jpg?w=640',
