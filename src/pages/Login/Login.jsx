@@ -79,11 +79,11 @@ export class Login extends React.Component {
 
   signIn = () => {
     if (!this.state.emailValid) {
-      this.setState({ responseMessage: "Invalid email" });
+      this.setState({ responseMessage: "Email is Required" });
       this.setState({ snackbarVarient: "error" });
       this.setState({ OpenSnackbar: true });
     } else if (!this.state.passwordValid) {
-      this.setState({ responseMessage: "Invalid Password" });
+      this.setState({ responseMessage: "Password is Required" });
       this.setState({ snackbarVarient: "error" });
       this.setState({ OpenSnackbar: true });
     } else {
@@ -91,11 +91,9 @@ export class Login extends React.Component {
         email: this.state.email,
         password: this.state.password,
       };
-      console.log("user Data", user);
       service
         .Login(user)
         .then((json) => {
-          console.log("responce data==>", json);
           if (json.status === 200) {
             localStorage.setItem("Token", json.data.jsonToken);
             localStorage.setItem("FirstName", json.data.data.firstName);
