@@ -198,7 +198,7 @@ export class Register extends React.Component {
         .catch((err) => {
           console.log(err);
         });
-     //this.props.history.push("/login");
+    //this.props.history.push("/login");
   };
  handleClose = (event, reason) => {
     if (reason === "clickaway") {

@@ -1,88 +1,332 @@
-import React from "react";
-import "./Checkout.scss";
-import Card from "@material-ui/core/Card";
-import CheckoutMessage from "./../../assets/CheckoutMessage.jpg";
-import { Button } from "@material-ui/core";
+import React, { Component } from "react";
 import Header from "./../../component/header/Header";
-import Footer from "./../../component/Footer/Footer";
-import Container from "@material-ui/core/Container";
-import Table from '@material-ui/core/Table';  
-import TableBody from '@material-ui/core/TableBody';  
-import TableCell from '@material-ui/core/TableCell';   
-import TableHead from '@material-ui/core/TableHead';  
-import TableRow from '@material-ui/core/TableRow';  
+import { Grid, Container, TextField } from "@material-ui/core";
+import Footer from "../../component/Footer/Footer";
+import bookCover from "./../../assets/bookCover.jpg";
 
-export class Checkout extends React.Component {
+import "./Checkout.scss";
+export default class Checkout extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      
+      descriptionClass: "customerDetails showPreview",
+      checkoutClass: "checkout showPreview",
+      userInformation:{
+        name: localStorage.getItem("FirstName") ? `${localStorage.getItem("FirstName")} ${localStorage.getItem("LastName")}` : ""
+      },
+      cartItems: [
+        {
+          title: "Don't Make Me Think",
+          author: "Steve King",
+          price: 1500,
+          count: 10,
+          image: bookCover,
+        },
+        {
+          title: "Don't Make Me Think Again",
+          author: "Steve King",
+          price: 3500,
+          count: 17,
+          image: bookCover,
+        },
+        {
+          title: "Don't Make Me Think About That Thought",
+          author: "Steve King",
+          price: 1800,
+          count: 4,
+          image: bookCover,
+        },
+      ],
     };
   }
 
-   render() {
-    return (
-      <div className="checkoutPage">
-        <div className="checkoutLogo">
-          <Container maxWidth="xl">
-            <Header variant="rich"/>
-          </Container>
-        </div>
-        <div className="checkout">
-          <div className="checkoutimage">
-            <img
-                src={CheckoutMessage}
-                alt="Book logo"
-                height="300px"
-                width="350px"
-              />
-          </div>
-          <br/>
-          <div className="paymentComfirm">
-                <span>Hurray!!!your order is confirmed </span>
-            <span> Your order is #123456 save order id for </span>
-               <span> for further communication </span>
-          </div>
-          <br/><br/><br/>
-          <div className="table">
-          <Card>
-            <Table stickyHeader aria-label="sticky table" className='aboutus'>  
-          <TableHead>  
-            <TableRow>  
-              <TableCell align="center">Email Id</TableCell>  
-              <TableCell align="center" >Contact us</TableCell>  
-              <TableCell align="center" >Address</TableCell>  
-            </TableRow>  
-          </TableHead>  
+  placeOrder = () => {
+    this.setState({
+      descriptionClass: "customerDetails",
+    });
+  };
+  continue = () => {
+    this.setState({
+      checkoutClass: "checkout",
+    });
+  };
 
-          <TableBody>  
-            <TableRow>
-                  <TableCell align="center">admin@bookstore.com</TableCell>  
-                  <TableCell align="center">+918163475881</TableCell>  
-                  <TableCell align="center">42, 14th Main, 15th Cross,Sector 4,opp to BDA complex, near Kumarakom restraurant,HSR Layout,Banglore 560034</TableCell>  
-                  
-                </TableRow>     
-          </TableBody>  
-        </Table>  
-        </Card>
-          </div>
-        <br/><br/>
-          <div>
-                  <Button
-                    className="button-Login"
-                    variant="contained"
-                    color="primary"
+  render() {
+    return (
+      <React.Fragment>
+        <Grid container direction="column">
+          <Header variant="rich"></Header>
+          <Container maxWidth="lg" className="checkoutContainer">
+            {/*  my cart ***************************************************************************** */}
+            <Grid container direction="column" className="myCart">
+              <Grid container item className="myCart-header">
+                My cart ({this.state.cartItems.length})
+              </Grid>
+              {this.state.cartItems.map((item, index) => {
+                return (
+                  <Grid
+                    container
+                    direction="row"
+                    xs={12}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    className="myCart-itemDescription"
                   >
-                   CONTINUE SHOPPING
-                  </Button>
-                </div>
-        </div>
-        <br/><br/><br/>
-        <div className="footer">
-            <Footer />
-        </div>
-      </div>
+                    <Grid
+                      direction="column"
+                      className="myCart-itemDescription--image"
+                      alignItems="center"
+                      justify="center"
+                      xs={12}
+                      sm={1}
+                    >
+                      <img
+                        src={bookCover}
+                        height="100px"
+                        width="70px"
+                        alt="bookCover"
+                      />
+                    </Grid>
+                    <Grid item direction="column">
+                      <Grid className="myCart-itemDescription--title">
+                        {item.title}
+                      </Grid>
+                      <Grid
+                        container
+                        className="myCart-itemDescription--author"
+                      >
+                        by {item.author}
+                      </Grid>
+                      <Grid className="myCart-itemDescription--price">
+                        Rs. {item.price}
+                      </Grid>
+                      <Grid
+                        container
+                        direction="row"
+                        className="myCart-itemDescription--count"
+                      >
+                        <div className="myCart-itemDescription--count-minus">
+                          &mdash;
+                        </div>
+                        <input
+                          type="number"
+                          defaultValue="1"
+                          max={item.count}
+                          min={1}
+                          className="myCart-itemDescription--count-value"
+                        ></input>
+                        <div className="myCart-itemDescription--count-plus">
+                          &#43;
+                        </div>
+                        <Grid>Remove</Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                );
+              })}
+              <Grid
+                container
+                item
+                direction="row"
+                alignItems="center"
+                justify="flex-end"
+                className="myCart-submit"
+              >
+                <button
+                  className="myCart-submit--button"
+                  onClick={this.placeOrder}
+                >
+                  PLACE ORDER
+                </button>
+              </Grid>
+            </Grid>
+
+            {/* details ****************************************************************** */}
+            <Grid
+              container
+              direction="column"
+              className={this.state.descriptionClass}
+            >
+              <Grid container item className="customerDetails-header">
+                Customer Details
+              </Grid>
+              <Grid
+                container
+                item
+                className="customerDetails-detailForm"
+                xs={10}
+                spacing={2}
+              >
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Name"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Phone number"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Pincode"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Locality"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={10}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Address"
+                      variant="outlined"
+                      multiline
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
+                <Grid container item direction="row" xs={12} spacing={2}>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="City/town"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      id=""
+                      size="small"
+                      className="pt-small"
+                      label="Landmark"
+                      variant="outlined"
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                item
+                direction="row"
+                alignItems="center"
+                justify="flex-end"
+                className="customerDetails-continue"
+              >
+                <button
+                id="continue"
+                  className="customerDetails-continue--button"
+                  onClick={this.continue}
+                >
+                  CONTINUE
+                </button>
+              </Grid>
+            </Grid>
+
+            {/* checkout ************************************************************** */}
+            <Grid
+              container
+              direction="column"
+              className={this.state.checkoutClass}
+            >
+              <Grid container item className="checkout-header">
+                My cart ({this.state.cartItems.length})
+              </Grid>
+              {this.state.cartItems.map((item, index) => {
+                return (
+                  <Grid
+                    container
+                    direction="row"
+                    xs={12}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    className="checkout-itemDescription"
+                  >
+                    <Grid
+                      direction="column"
+                      className="myCart-itemDescription--image"
+                      alignItems="center"
+                      justify="center"
+                      xs={12}
+                      sm={1}
+                    >
+                      <img
+                        src={bookCover}
+                        height="100px"
+                        width="70px"
+                        alt="bookCover"
+                      />
+                    </Grid>
+                    <Grid item direction="column">
+                      <Grid className="checkout-itemDescription--title">
+                        {item.title}
+                      </Grid>
+                      <Grid
+                        container
+                        className="checkout-itemDescription--author"
+                      >
+                        by {item.author}
+                      </Grid>
+                      <Grid className="checkout-itemDescription--price">
+                        Rs. {item.price}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                );
+              })}
+              <Grid
+                container
+                item
+                direction="row"
+                alignItems="center"
+                justify="flex-end"
+                className="checkout-submit"
+              >
+                <button
+                  className="checkout-submit--button"
+                  onClick={this.placeOrder}
+                >
+                  CHECKOUT
+                </button>
+              </Grid>
+            </Grid>
+          </Container>
+          <Footer></Footer>
+        </Grid>
+      </React.Fragment>
     );
   }
 }
-export default Checkout;

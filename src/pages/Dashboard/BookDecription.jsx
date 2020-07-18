@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {Dialog, TextField} from '@material-ui/core';
+import {TextField} from '@material-ui/core';
 import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
+import ImageIcon from '@material-ui/icons/Image';
 
 class BookDecription extends Component {
     constructor(props){
@@ -20,7 +18,7 @@ class BookDecription extends Component {
             image:null,
             imageUrl :null,
             price : '',
-            quantity :'',
+            quantity :'',        
         }
     }
 
@@ -33,21 +31,40 @@ class BookDecription extends Component {
     }
     fileChangedHandler = (event) => {
         event.preventDefault();
-        this.setState({ image: event.target.files[0],
+        this.setState({ image : event.target.files[0],
                         imageUrl : URL.createObjectURL(event.target.files[0]) });
         console.log("imageUrl",this.state.imageUrl)
     }
-
+    
+    componentDidMount(){
+        if(Boolean (this.props.bookData) ){
+            this.setState({ title : this.props.bookData.title ,     
+                            decription : this.props.bookData.decription,
+                            author : this.props.bookData.author,
+                            imageUrl : this.props.bookData.imageUrl,
+                            price : this.props.bookData.price,
+                            quantity :this.props.bookData.quantity,
+            })
+        }         
+    }
     render() {
         return (
-            <div className='BookDetailsAdmin'>                
+            <div className='BookDetailsAdmin' >                
                 <div className='imageContainerAdmin'>
-                    <img src={ (this.state.imageUrl !== null || this.state.imageUrl !== undefined ) ?  this.state.imageUrl : null }  alt="BookImage"
-                         className='BookImageAdmin'
-                         onClick={() =>
-                          this.fileUpload.click()
-                            }                                
-                    />  
+                    {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
+                        <img src={this.state.imageUrl}  
+                            className='BookImageAdmin'
+                            alt="BookImageAdmin"
+                            onClick={() =>
+                            this.fileUpload.click()
+                                }                                
+                        />  
+                        : <div onClick={() =>
+                                this.fileUpload.click()
+                                }>
+                                <Button style={{textTransform: 'none'}}><ImageIcon/>BookImage</Button>
+                            </div>
+                    }
                     <input
                         type="file"
                         style={{ display: "none" }}
@@ -122,10 +139,14 @@ class BookDecription extends Component {
                     />
                 </div>           
 
-                <div>
-                    <Button style={{color:'white', backgroundColor : '#4285F4'}}> 
+                <div className='ButtonsBookDetailsAdmin'>
+                    <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}> 
                         <DoneOutlinedIcon/> Save</Button>
-                    <Button><ClearOutlinedIcon/> Cancel</Button>
+                    <Button style={{backgroundColor:'#61605e' ,color : 'white', textTransform: 'none'}}
+                            onClick={this.props.closeDialog}
+                    >
+                        <ClearOutlinedIcon/> Cancel
+                    </Button>
                 </div>    
             
             </div>

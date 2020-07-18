@@ -1,5 +1,4 @@
 import React, { useState }  from 'react';
-import {TextField} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -19,7 +18,6 @@ import TableHead from '@material-ui/core/TableHead';
 import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import Truncate from 'react-truncate';
 
 
@@ -120,7 +118,7 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function BookdDetailsTable() {
+export default function BookdDetailsTable(props) {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -128,7 +126,9 @@ export default function BookdDetailsTable() {
   const [editable,setEdit] = useState(true)
   const [indexOfEditableBook,setEditIndex] = useState();
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  
+  const [bookData,setBookData] = useState()
+  const [updateBook,setUpdate] = useState({update: false,
+                                           bookdata : null})
   const [bookDetails,setBookDetails] = useState({
     title : '',
     decription :'',
@@ -167,10 +167,12 @@ export default function BookdDetailsTable() {
   };
 
   let indexOfSelectedEditBook ='';
-  const EditBook = (index)=>{
-    setBookDetails(data[index])
-    setEditIndex(index);
-    setEdit(!editable);
+  const EditBook = (bookdata)=>{
+    // setBookDetails(data[index])
+    // setEditIndex(index);
+    // setEdit(!editable);
+    console.log("table book data", bookdata);
+    props.showBook(bookdata) ;
   }
   const onSave =(index)=>{
     let tempData =data;
@@ -179,7 +181,10 @@ export default function BookdDetailsTable() {
     setBookDetails(bookDetails);
     setEdit(!editable);
   }
+ 
+  
   return (
+    <div>
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="custom pagination table">
       <TableHead>
@@ -206,37 +211,39 @@ export default function BookdDetailsTable() {
                     {index + 1}
                 </StyledTableCell>
                 <StyledTableCell align="center" width='200px'>                   
-                    {  (editable)  && (index === indexOfEditableBook) ?  
-                        <TextField                                             
-                            value={bookDetails.title} 
-                            name='title'
-                            variant="outlined"
-                            size='small'     
-                            inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
-                            onChange={onBookDetailsChange(index)}                       
-                        /> : 
-                        <Truncate lines={1} ellipsis={<span>...<a href='#'>more</a></span>}>
+                    { 
+                    //  (editable)  && (index === indexOfEditableBook) ?  
+                    //     <TextField                                             
+                    //         value={bookDetails.title} 
+                    //         name='title'
+                    //         variant="outlined"
+                    //         size='small'     
+                    //         inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
+                    //         onChange={onBookDetailsChange(index)}                       
+                    //     /> : 
+                        <Truncate lines={1} >
                           {book.title}
                        </Truncate>
                     }
                 </StyledTableCell>
-                <StyledTableCell align="center" width='200px'>                    
-                  { (editable)  && (index === indexOfEditableBook) ?  
-                      <TextField                             
-                          value={bookDetails.author} 
-                          name='author'
-                          variant="outlined"
-                          size='small'
-                          inputProps={{style: {fontSize:'14px', textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}                           
-                      /> : 
-                      <Truncate lines={1} ellipsis={<span>...<a href='#'>more</a></span>}>
-                        book.author
+                <StyledTableCell align="center" width='200px' >                    
+                  { 
+                  // (editable)  && (index === indexOfEditableBook) ?  
+                  //     <TextField                             
+                  //         value={bookDetails.author} 
+                  //         name='author'
+                  //         variant="outlined"
+                  //         size='small'
+                  //         inputProps={{style: {fontSize:'14px', textAlign: 'center' }}}
+                  //         onChange={onBookDetailsChange(index)}                           
+                  //     /> : 
+                      <Truncate lines={1} ellipsis={<span >...</span>}>
+                        {book.author}
                       </Truncate>
                   }                    
               </StyledTableCell>
               <StyledTableCell align="center" width='100px'>
-                  { (editable)  && (index === indexOfEditableBook) ?  
+                  {/* { (editable)  && (index === indexOfEditableBook) ?  
                       <TextField 
                           name='price'
                           variant="outlined"
@@ -245,27 +252,31 @@ export default function BookdDetailsTable() {
                           inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
                           onChange={onBookDetailsChange(index)}   
                           
-                      /> : book.price
-                  }
+                      /> :  */}
+                      { book.price }
               </StyledTableCell>
               <StyledTableCell align="center" width='100px'>
-                  { (editable)  && (index === indexOfEditableBook) ?  
+                  {/* { (editable)  && (index === indexOfEditableBook) ?  
                       <TextField
                           name='quantity'
                           value={bookDetails.quantity} 
                           variant="outlined"
                           size='small'
                           inputProps={{style: { fontSize:'14px', textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}   
-                      /> : book.quantity
-                  }
+                          onChange={onBookDetailsChange(index)}   /> : */}
+                      { book.quantity}
+                  {/* } */}
               </StyledTableCell>
-              <StyledTableCell align="center" >
-                  <IconButton >
-                      { (editable)  && (index === indexOfEditableBook) ?
-                        <DoneOutlinedIcon onClick={()=>onSave(index)}/> 
-                      : <EditOutlinedIcon  onClick={()=>EditBook(index) }/> }
-                  </IconButton>
+              <StyledTableCell align="center" >                  
+                      {/* { (editable)  && (index === indexOfEditableBook) ?
+                        <IconButton onClick={()=>onSave(index) }>
+                            <DoneOutlinedIcon />
+                        </IconButton>  : */}
+                       <IconButton onClick={()=>EditBook(book) }>
+                            <EditOutlinedIcon  /> 
+                        </IconButton>
+                        {/* } */}
+                  
               </StyledTableCell>
               <StyledTableCell align="center">
                   <IconButton>
@@ -295,5 +306,7 @@ export default function BookdDetailsTable() {
         </TableFooter>
       </Table>
     </TableContainer>
+   
+  </div>
   );
 }

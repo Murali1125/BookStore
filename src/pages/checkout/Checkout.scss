@@ -1,53 +1,197 @@
-.checkoutLogo {
-	background-color: #a03037;
-	padding: 10px 0px;
-}
-.checkoutPage{
-    background-color:white;
-}
-.checkout{
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    flex-direction:column;
-}
-.checkoutimage{
-    margin-top:60px;
-    display:flex;
-    justify-content: center;
-}
-.paymentComfirm{
-    align-items:center;
-    display:flex;
-    flex-direction:column;
-    font-weight:bold;
-    font-size:18px;
-}
-.table{
-    display:flex;
-    width:39%;
-}
-.aboutus{
-    display:flex;
-    justify-content: center;
+.checkoutContainer {
+  margin-top: 140px;
 }
 
-@media only screen and (max-width: 1024px) {
-	.footer{
-        margin-top:270px;
+.myCart {
+  border: 1px solid #dddddd;
+  max-width: 900px;
+  padding: 25px 40px;
+  margin-bottom: 30px;
+  font-family: "Lato", sans-serif;
+  background-color: #fff;
+
+  &-header {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 25px;
+  }
+
+  &-itemDescription {
+    margin: 20px auto;
+    &--image {
+      margin-right: 30px;
     }
-    .checkoutimage{
-        margin-top:280px;
+    &--title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
+
+    &--author {
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    &--price {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    &--count {
+      &-minus {
+        border: 1px solid #c2c2c2;
+        background-color: #fafafa;
+        height: 25px;
+        width: 25px;
+        color: #000;
+        text-align: center;
+        border-radius: 50%;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+
+      &-value {
+        border: 1px solid #c2c2c2;
+
+        text-align: center;
+      }
+      &-value::-webkit-outer-spin-button,
+      &-value::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+      &-plus {
+        border: 1px solid #c2c2c2;
+
+        background-color: #fafafa;
+        height: 25px;
+        width: 25px;
+
+        text-align: center;
+        border-radius: 50%;
+        margin-left: 10px;
+        margin-right: 40px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-submit {
+    &--button {
+      width: 200px;
+      padding: 10px 30px;
+      font-size: 15px;
+      color: #fff;
+      background-color: #3371b5;
+      border: 1px solid #3371b5;
+      border-radius: 2px;
+      outline: none;
+    }
+  }
 }
-@media only screen and (max-width: 768px) {
-    .checkoutimage{
-        margin-top:120px;
-    }
-    .footer{
-        margin-top:90px;
-    }
+
+.showPreview {
+  height: 80px;
+
+  .customerDetails-detailForm {
+    display: none;
+    visibility: hidden;
+  }
+
+  .customerDetails-continue {
+    display: none;
+    visibility: hidden;
+  }
+
+  .checkout-itemDescription {
+    display: none;
+    visibility: hidden;
+  }
+
+  .checkout-submit {
+    display: none;
+    visibility: hidden;
+  }
 }
-@media only screen and (max-width: 414px) {
-    
+
+.customerDetails {
+  border: 1px solid #dddddd;
+  max-width: 900px;
+  padding: 25px 40px;
+  margin-bottom: 30px;
+  transition: all 2s ease;
+
+  font-family: "Lato", sans-serif;
+  background-color: #fff;
+  &-header {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 25px;
+  }
+
+  &-continue {
+    &--button {
+      width: 200px;
+
+      padding: 10px 30px;
+      font-size: 15px;
+      color: #fff;
+      background-color: #3371b5;
+      border: 1px solid #3371b5;
+      border-radius: 2px;
+      outline: none;
+    }
+  }
+}
+
+.checkout {
+  border: 1px solid #dddddd;
+  max-width: 900px;
+  padding: 25px 40px;
+  margin-bottom: 200px;
+  font-family: "Lato", sans-serif;
+  background-color: #fff;
+
+  &-header {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 25px;
+  }
+
+  &-itemDescription {
+    margin: 20px auto;
+    &--image {
+      margin-right: 30px;
+    }
+    &--title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    &--author {
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    &--price {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+  }
+  &-submit {
+    &--button {
+      width: 200px;
+
+      padding: 10px 30px;
+      font-size: 15px;
+      color: #fff;
+      background-color: #3371b5;
+      border: 1px solid #3371b5;
+      border-radius: 2px;
+      outline: none;
+    }
+  }
 }

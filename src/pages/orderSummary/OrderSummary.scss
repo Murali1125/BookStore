@@ -1,17 +1,17 @@
-.checkoutLogo {
+.orderLogo {
   background-color: #a03037;
   padding: 10px 0px;
 }
-.checkoutPage {
+.orderPage {
   background-color: white;
 }
-.checkout {
+.order {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.checkoutimage {
+.orderimage {
   margin-top: 60px;
   display: flex;
   justify-content: center;
@@ -24,29 +24,49 @@
   font-size: 18px;
 }
 .table {
+  max-width:700px;
+  width: 100%;
   display: flex;
-  width: 39%;
+  flex-wrap: wrap;
 }
 .aboutus {
   display: flex;
-  justify-content: center;
+  flex-direction:row;
 }
-
+.email{
+  width:30%;
+  display: flex;
+  flex-direction:column;
+}
+.header{
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:10px;
+  padding-right:10px;
+  word-wrap: break-word !important;
+}
+.footer {
+	position: fixed;
+	bottom: 0;
+}
 @media only screen and (max-width: 1024px) {
-  .footer {
-    margin-top: 270px;
+  .orderimage {
+    margin-top: 240px;
   }
-  .checkoutimage {
-    margin-top: 280px;
+  .order{
+    padding-bottom:330px;
   }
 }
 @media only screen and (max-width: 768px) {
-  .checkoutimage {
-    margin-top: 120px;
+  .orderimage {
+    margin-top:80px;
   }
-  .footer {
-    margin-top: 90px;
+  .order{
+    padding-bottom:70px;
   }
 }
 @media only screen and (max-width: 414px) {
+  .table {
+    min-width:400px !important;
+  }
 }
