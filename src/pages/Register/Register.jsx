@@ -135,24 +135,46 @@ export class Register extends React.Component {
 
 
   Register = () => {
-    if (!this.state.firstNameValid) {
-      this.setState({responseMessage:"Invalid First Name"});
-      this.setState({snackbarVarient:"error"});
-      this.setState({OpenSnackbar:true});
-    } else if (!this.state.lastNameValid) {
-      this.setState({responseMessage:"Invalid Last Name"});
-      this.setState({snackbarVarient:"error"});
-      this.setState({OpenSnackbar:true});
-    } else
-    if (!this.state.emailValid) {
-      this.setState({responseMessage:"Invalid email"});
-      this.setState({snackbarVarient:"error"});
-      this.setState({OpenSnackbar:true});
-    } else if (!this.state.passwordValid) {
-      this.setState({responseMessage:"Invalid Password"});
-      this.setState({snackbarVarient:"error"});
-      this.setState({OpenSnackbar:true});
+    let errorFirstname =this.state.firstName ? "" : "First Name is Required";
+    if (errorFirstname === "") {
+      this.setState({firstNameErrorStatus:false});
+      this.setState({firstNameErrorMessage:errorFirstname});
+      this.setState({firstNameValid:true});
     } else {
+      this.setState({firstNameErrorStatus:true});
+      this.setState({firstNameErrorMessage:errorFirstname});
+      this.setState({firstNameValid:false});
+    }
+    let errorLastname =this.state.lastName ? "" : "Last Name is Required";
+    if (errorLastname === "") {
+      this.setState({lastNameErrorStatus:false});
+      this.setState({lastNameErrorMessage:errorLastname});
+      this.setState({lastNameValid:true});
+    } else {
+      this.setState({lastNameErrorStatus:true});
+      this.setState({lastNameErrorMessage:errorLastname});
+      this.setState({lastNameValid:false});
+    }
+    let errorEmail =this.state.email ? "" : "Email is Required";
+    if (errorEmail === "") {
+      this.setState({ emailErrorStatus: false });
+      this.setState({ emailErrorMessage: errorEmail });
+      this.setState({ emailValid: true });
+    } else {
+      this.setState({ emailErrorStatus: true });
+      this.setState({ emailErrorMessage: errorEmail });
+      this.setState({ emailValid: false });
+    }
+    let errorPassword =this.state.password ? "" : "Password is Required";
+    if (errorPassword === "") {
+      this.setState({ passwordErrorStatus: false });
+      this.setState({ passwordErrorMessage: errorPassword });
+      this.setState({ passwordValid: true });
+    } else {
+      this.setState({ passwordErrorStatus: true });
+      this.setState({ passwordErrorMessage: errorPassword });
+      this.setState({ passwordValid: false });
+    }
       const user = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -176,8 +198,7 @@ export class Register extends React.Component {
         .catch((err) => {
           console.log(err);
         });
-     this.props.history.push("/login");
-    }
+     //this.props.history.push("/login");
   };
  handleClose = (event, reason) => {
     if (reason === "clickaway") {
