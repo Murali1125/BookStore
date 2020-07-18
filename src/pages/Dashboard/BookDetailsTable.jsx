@@ -40,11 +40,11 @@ root: {
 },
 }))(TableRow);
 
-const useStyles = makeStyles({
-table: {
-    minWidth: 700,
-},
-});
+// const useStyles = makeStyles({
+// table: {
+//     minWidth: 700,
+// },
+// });
   
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -123,26 +123,14 @@ export default function BookdDetailsTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [data,setData] = useState([]);
-  const [editable,setEdit] = useState(true)
-  const [indexOfEditableBook,setEditIndex] = useState();
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  const [bookData,setBookData] = useState()
-  const [updateBook,setUpdate] = useState({update: false,
-                                           bookdata : null})
-  const [bookDetails,setBookDetails] = useState({
-    title : '',
-    decription :'',
-    author : '',
-    imageUrl : '',
-    price : '',
-    quantity : '',
-  })
+  
+ 
 
   useEffect(()=>{
     let tempBooksArry=[];
         for(var i=0;i<20;i++){            
             tempBooksArry.push({
-                title : 'StructureAnalysis Structural analysis is the determination',
+                title : 'StructureAnalysis ',
                 decription : 'Structural analysis is the determination of the effects of loads on physical structures and their components. Structures subject to this type of analysis include all that must withstand loads, such as buildings, bridges, aircraft and ships.',
                 author : 'S.S. Bhavikatti',
                 imageUrl : 'https://panchayatrajengineers.files.wordpress.com/2019/02/11820192337156313445039947930760.jpg?w=640',
@@ -153,10 +141,6 @@ export default function BookdDetailsTable(props) {
         setData(tempBooksArry);
   },[])
 
-  const onBookDetailsChange = index =>(eve)=>{
-      setBookDetails({...bookDetails, [eve.target.name] : eve.target.value})  ;  
-  }
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -166,21 +150,10 @@ export default function BookdDetailsTable(props) {
     setPage(0);
   };
 
-  let indexOfSelectedEditBook ='';
   const EditBook = (bookdata)=>{
-    // setBookDetails(data[index])
-    // setEditIndex(index);
-    // setEdit(!editable);
-    console.log("table book data", bookdata);
     props.showBook(bookdata) ;
   }
-  const onSave =(index)=>{
-    let tempData =data;
-    tempData[index] = bookDetails;
-    setData( tempData);
-    setBookDetails(bookDetails);
-    setEdit(!editable);
-  }
+
  
   
   return (
@@ -205,78 +178,28 @@ export default function BookdDetailsTable(props) {
           ).map((book,index) => (                                  
             <StyledTableRow key={index }>
                 <StyledTableCell  align="center">
-                    {/* <img src ={book.imageUrl} alt ={book.title} 
-                         style={{height : '50px', width:'75px'}}
-                    /> */}
                     {index + 1}
                 </StyledTableCell>
-                <StyledTableCell align="center" width='200px'>                   
-                    { 
-                    //  (editable)  && (index === indexOfEditableBook) ?  
-                    //     <TextField                                             
-                    //         value={bookDetails.title} 
-                    //         name='title'
-                    //         variant="outlined"
-                    //         size='small'     
-                    //         inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
-                    //         onChange={onBookDetailsChange(index)}                       
-                    //     /> : 
-                        <Truncate lines={1} >
-                          {book.title}
-                       </Truncate>
-                    }
+                <StyledTableCell align="center" width='200px'>      
+                  <Truncate lines={1} >
+                    {book.title}
+                  </Truncate>
                 </StyledTableCell>
-                <StyledTableCell align="center" width='200px' >                    
-                  { 
-                  // (editable)  && (index === indexOfEditableBook) ?  
-                  //     <TextField                             
-                  //         value={bookDetails.author} 
-                  //         name='author'
-                  //         variant="outlined"
-                  //         size='small'
-                  //         inputProps={{style: {fontSize:'14px', textAlign: 'center' }}}
-                  //         onChange={onBookDetailsChange(index)}                           
-                  //     /> : 
-                      <Truncate lines={1} ellipsis={<span >...</span>}>
-                        {book.author}
-                      </Truncate>
-                  }                    
+                <StyledTableCell align="center" width='200px' >          
+                  <Truncate lines={1} ellipsis={<span >...</span>}>
+                    {book.author}
+                  </Truncate>                                   
               </StyledTableCell>
               <StyledTableCell align="center" width='100px'>
-                  {/* { (editable)  && (index === indexOfEditableBook) ?  
-                      <TextField 
-                          name='price'
-                          variant="outlined"
-                          size='small'
-                          value={bookDetails.price} 
-                          inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}   
-                          
-                      /> :  */}
-                      { book.price }
+                { book.price }
               </StyledTableCell>
               <StyledTableCell align="center" width='100px'>
-                  {/* { (editable)  && (index === indexOfEditableBook) ?  
-                      <TextField
-                          name='quantity'
-                          value={bookDetails.quantity} 
-                          variant="outlined"
-                          size='small'
-                          inputProps={{style: { fontSize:'14px', textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}   /> : */}
-                      { book.quantity}
-                  {/* } */}
+                { book.quantity}
               </StyledTableCell>
               <StyledTableCell align="center" >                  
-                      {/* { (editable)  && (index === indexOfEditableBook) ?
-                        <IconButton onClick={()=>onSave(index) }>
-                            <DoneOutlinedIcon />
-                        </IconButton>  : */}
-                       <IconButton onClick={()=>EditBook(book) }>
-                            <EditOutlinedIcon  /> 
-                        </IconButton>
-                        {/* } */}
-                  
+                <IconButton onClick={()=>EditBook(book) }>
+                    <EditOutlinedIcon  /> 
+                </IconButton>                      
               </StyledTableCell>
               <StyledTableCell align="center">
                   <IconButton>
