@@ -5,11 +5,7 @@ import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
-<<<<<<< HEAD
 import {AddBook} from './../../service/AdminServices'
-=======
-
->>>>>>> b568eeced1c7886f70fdb52f1c5bb29dd76ab129
 class BookDecription extends Component {
     constructor(props){
         super(props);
@@ -77,11 +73,7 @@ class BookDecription extends Component {
                     {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
                         <img src={this.state.imageUrl}  
                             className='BookImageAdmin'
-<<<<<<< HEAD
                             alt="BookImage"
-=======
-                            alt="BookImageAdmin"
->>>>>>> b568eeced1c7886f70fdb52f1c5bb29dd76ab129
                             onClick={() =>
                             this.fileUpload.click()
                                 }                                
