@@ -17,6 +17,8 @@ class AdminDashboard extends Component {
             AddBookDialogOpen:false,
             selectedBookData:'',
             isUpdateBook : false,
+            hideSearch : false,
+            isScreenBelow600 : false,
         }
     }
     
@@ -39,26 +41,55 @@ class AdminDashboard extends Component {
             isUpdateBook : false,
         })
     }
-    render() {
+
+    componentDidMount() {
+        window.addEventListener("resize", this.resize.bind(this));
+        this.resize();
+    }
+    
+    resize() {
+        this.setState({ hideSearch: window.innerWidth >= 600,
+                        isScreenBelow600 : true});
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.resize.bind(this));
+    }
+    onSearchIconClick = () =>{
+        this.setState({hideSearch: !(this.state.hideSearch)})
+        console.log(this.state.hideSearch)
+        console.log("open search bar")
+    }
+    render() { 
         return (
             <div>
                 <div>
                     <div className="headderAdmin">
                         <div className='LogoAdmin'><Logo/></div>                               
-                        <div className='searchBarAdmin'>           
+                        <div className={ this.state.hideSearch ? 'searchBarAdmin' : 'searchBarOffAdmin' } 
+                            // style={ this.state.isScreenBelow600 ? {zIndex : '100', position: 'relative',width: '100%'} : null}
+                        >           
                             <div>
-                                <IconButton><SearchOutlinedIcon  fontSize='large' /></IconButton>
+                                <IconButton onClick={this.onSearchIconClick }>
+                                    <SearchOutlinedIcon style= { this.state.hideSearch ?  null : {color :'white'}}
+                                                                 fontSize='large'                                                                  
+                                    />
+                                </IconButton>
                             </div>
-                            <div>
-                                <TextField
-                                    className='searchField'
-                                    placeholder='Search'   
-                                    fullWidth
-                                    InputProps={{
-                                        disableUnderline: true,                                    
-                                    }} 
-                                />            
-                            </div>
+                            { (this.state.hideSearch)  ?                            
+                                    <div>
+                                        <TextField                                    
+                                            className=  'searchField'  
+                                            placeholder='Search'   
+                                            fullWidth                   
+                                            InputProps={{
+                                                disableUnderline: true,                                    
+                                            }} 
+                                            
+                                        />            
+                                    </div>
+                                : null 
+                            }
                         </div>
                        
                         <div float='right' >

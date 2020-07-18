@@ -8,7 +8,7 @@ $borderColourLight: #fbfbfb;
   align-items: center;
 }
 // headder admin dash board
-.headderAdmin {
+.headderAdmin { 
   width: 100%;
   height: 60px;
   min-width: 320px;
@@ -23,9 +23,8 @@ $borderColourLight: #fbfbfb;
   position: relative;
   left: -8%;
 }
-.searchBarAdmin{
+ @mixin searchBar{
   display: flex;
-  width: 50%;
   height: 40px;
   max-width: 500px;
   flex-direction: row;
@@ -35,13 +34,17 @@ $borderColourLight: #fbfbfb;
   position: relative;
   left: -10%;
 }
+.searchBarAdmin{
+  width: 50%;
+  @include searchBar();  
+}
+.searchBarOffAdmin{
+  @include searchBar();
+  background: none ;
+}
 .searchField{
   width: 100% !important;
 }
-// .AddButtonAdmin {
-//   position: relative;
-//   left: 200px;
-// }
 .AddBookDialogAdmin{
   width: 100%;
   display: flex;
@@ -368,15 +371,4 @@ $borderColourLight: #fbfbfb;
     margin : 10px !important;
   }
 }
-// @media all and (min-width : 750px ) and (max-width : 1000px){
-//     .PriceQuantityButtonsAdmin{
-//         flex-wrap: wrap;
-//     }
-//     .buttonsAdmin{
-//         width: 100%;
-//     }
-//     .AddButtonAdmin{
-//         position: static;
-//         left: +150px;
-//     }
-// }
+

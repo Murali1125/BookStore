@@ -25,7 +25,7 @@ class BookDecription extends Component {
     
     // on change of any field
     onChange = eve =>{
-        this.setState({
+        this.setState({             
             [eve.target.name] : eve.target.value
         })
     }
@@ -118,7 +118,7 @@ class BookDecription extends Component {
                         variant='outlined'
                         label = 'Price'
                         fullWidth
-                        type='tel'
+                        type='number'
                         name='price'
                         size='small'
                         inputProps={{style: { fontSize:'14px'}}}
@@ -128,7 +128,7 @@ class BookDecription extends Component {
                 <div>
                     <TextField 
                         value={this.state.quantity} 
-                        type='tel'
+                        type='number'
                         variant='outlined'
                         label = 'Quantity'
                         fullWidth

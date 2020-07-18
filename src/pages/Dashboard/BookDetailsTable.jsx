@@ -124,15 +124,7 @@ export default function BookdDetailsTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [data,setData] = useState([]);
   
-  //const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  // const [bookDetails,setBookDetails] = useState({
-  //   title : '',
-  //   decription :'',
-  //   author : '',
-  //   imageUrl : '',
-  //   price : '',
-  //   quantity : '',
-  // })
+ 
 
   useEffect(()=>{
     let tempBooksArry=[];
@@ -161,13 +153,7 @@ export default function BookdDetailsTable(props) {
   const EditBook = (bookdata)=>{
     props.showBook(bookdata) ;
   }
-  // const onSave =(index)=>{
-  //   let tempData =data;
-  //   tempData[index] = bookDetails;
-  //   setData( tempData);
-  //   setBookDetails(bookDetails);
-  //   setEdit(!editable);
-  // }
+
  
   
   return (
@@ -192,78 +178,28 @@ export default function BookdDetailsTable(props) {
           ).map((book,index) => (                                  
             <StyledTableRow key={index }>
                 <StyledTableCell  align="center">
-                    {/* <img src ={book.imageUrl} alt ={book.title} 
-                         style={{height : '50px', width:'75px'}}
-                    /> */}
                     {index + 1}
                 </StyledTableCell>
-                <StyledTableCell align="center" width='200px'>                   
-                    { 
-                    //  (editable)  && (index === indexOfEditableBook) ?  
-                    //     <TextField                                             
-                    //         value={bookDetails.title} 
-                    //         name='title'
-                    //         variant="outlined"
-                    //         size='small'     
-                    //         inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
-                    //         onChange={onBookDetailsChange(index)}                       
-                    //     /> : 
-                        <Truncate lines={1} >
-                          {book.title}
-                       </Truncate>
-                    }
+                <StyledTableCell align="center" width='200px'>      
+                  <Truncate lines={1} >
+                    {book.title}
+                  </Truncate>
                 </StyledTableCell>
-                <StyledTableCell align="center" width='200px' >                    
-                  { 
-                  // (editable)  && (index === indexOfEditableBook) ?  
-                  //     <TextField                             
-                  //         value={bookDetails.author} 
-                  //         name='author'
-                  //         variant="outlined"
-                  //         size='small'
-                  //         inputProps={{style: {fontSize:'14px', textAlign: 'center' }}}
-                  //         onChange={onBookDetailsChange(index)}                           
-                  //     /> : 
-                      <Truncate lines={1} ellipsis={<span >...</span>}>
-                        {book.author}
-                      </Truncate>
-                  }                    
+                <StyledTableCell align="center" width='200px' >          
+                  <Truncate lines={1} ellipsis={<span >...</span>}>
+                    {book.author}
+                  </Truncate>                                   
               </StyledTableCell>
               <StyledTableCell align="center" width='100px'>
-                  {/* { (editable)  && (index === indexOfEditableBook) ?  
-                      <TextField 
-                          name='price'
-                          variant="outlined"
-                          size='small'
-                          value={bookDetails.price} 
-                          inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}   
-                          
-                      /> :  */}
-                      { book.price }
+                { book.price }
               </StyledTableCell>
               <StyledTableCell align="center" width='100px'>
-                  {/* { (editable)  && (index === indexOfEditableBook) ?  
-                      <TextField
-                          name='quantity'
-                          value={bookDetails.quantity} 
-                          variant="outlined"
-                          size='small'
-                          inputProps={{style: { fontSize:'14px', textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}   /> : */}
-                      { book.quantity}
-                  {/* } */}
+                { book.quantity}
               </StyledTableCell>
               <StyledTableCell align="center" >                  
-                      {/* { (editable)  && (index === indexOfEditableBook) ?
-                        <IconButton onClick={()=>onSave(index) }>
-                            <DoneOutlinedIcon />
-                        </IconButton>  : */}
-                       <IconButton onClick={()=>EditBook(book) }>
-                            <EditOutlinedIcon  /> 
-                        </IconButton>
-                        {/* } */}
-                  
+                <IconButton onClick={()=>EditBook(book) }>
+                    <EditOutlinedIcon  /> 
+                </IconButton>                      
               </StyledTableCell>
               <StyledTableCell align="center">
                   <IconButton>
