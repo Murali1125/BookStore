@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {Dialog, TextField} from '@material-ui/core';
+import {TextField} from '@material-ui/core';
 import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
-import Logo from './../../component/logo/Logo'
-
+import {AddBook} from './../../service/AdminServices'
 class BookDecription extends Component {
     constructor(props){
         super(props);
@@ -29,7 +25,7 @@ class BookDecription extends Component {
     
     // on change of any field
     onChange = eve =>{
-        this.setState({
+        this.setState({             
             [eve.target.name] : eve.target.value
         })
     }
@@ -51,6 +47,25 @@ class BookDecription extends Component {
             })
         }         
     }
+
+    onSave = () =>{
+        console.log('onsave')
+        let Book = {
+            "Title": this.state.title,
+            "Description": this.state.decription,
+            "Author": this.state.author,
+            "BooksAvailable": this.state.quantity,
+            "Price": this.state.price,
+        }
+        AddBook(Book)
+        .then(responce=>{
+            console.log(responce)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+        this.props.closeDialog();
+    }
     render() {
         return (
             <div className='BookDetailsAdmin' >                
@@ -58,6 +73,7 @@ class BookDecription extends Component {
                     {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
                         <img src={this.state.imageUrl}  
                             className='BookImageAdmin'
+                            alt="BookImage"
                             onClick={() =>
                             this.fileUpload.click()
                                 }                                
@@ -121,7 +137,7 @@ class BookDecription extends Component {
                         variant='outlined'
                         label = 'Price'
                         fullWidth
-                        type='tel'
+                        type='number'
                         name='price'
                         size='small'
                         inputProps={{style: { fontSize:'14px'}}}
@@ -131,7 +147,7 @@ class BookDecription extends Component {
                 <div>
                     <TextField 
                         value={this.state.quantity} 
-                        type='tel'
+                        type='number'
                         variant='outlined'
                         label = 'Quantity'
                         fullWidth
@@ -143,7 +159,9 @@ class BookDecription extends Component {
                 </div>           
 
                 <div className='ButtonsBookDetailsAdmin'>
-                    <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}> 
+                    <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}
+                            onClick={this.onSave}
+                    > 
                         <DoneOutlinedIcon/> Save</Button>
                     <Button style={{backgroundColor:'#61605e' ,color : 'white', textTransform: 'none'}}
                             onClick={this.props.closeDialog}

@@ -50,7 +50,7 @@ export class Login extends React.Component {
     const regexEmail = new RegExp(
       /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
     );
-    let error = regexEmail.test(String(input)) ? "" : "Not a valid email";
+    let error = regexEmail.test(String(input)) ? "" : "Email is Invalid";
     if (error === "") {
       this.setState({ emailErrorStatus: false });
       this.setState({ emailErrorMessage: error });
@@ -65,7 +65,7 @@ export class Login extends React.Component {
     const regexPassword = new RegExp(
       /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
     );
-    let error = regexPassword.test(String(input)) ? "" : "Invalid Password";
+    let error = regexPassword.test(String(input)) ? "" : "Password is Invalid";
     if (error === "") {
       this.setState({ passwordErrorStatus: false });
       this.setState({ passwordErrorMessage: error });
@@ -78,24 +78,34 @@ export class Login extends React.Component {
   };
 
   signIn = () => {
-    if (!this.state.emailValid) {
-      this.setState({ responseMessage: "Invalid email" });
-      this.setState({ snackbarVarient: "error" });
-      this.setState({ OpenSnackbar: true });
-    } else if (!this.state.passwordValid) {
-      this.setState({ responseMessage: "Invalid Password" });
-      this.setState({ snackbarVarient: "error" });
-      this.setState({ OpenSnackbar: true });
+    let errorEmail =this.state.email ? "" : "Email is Required";
+    if (errorEmail === "") {
+      this.setState({ emailErrorStatus: false });
+      this.setState({ emailErrorMessage: errorEmail });
+      this.setState({ emailValid: true });
     } else {
-      const user = {
+      this.setState({ emailErrorStatus: true });
+      this.setState({ emailErrorMessage: errorEmail });
+      this.setState({ emailValid: false });
+    }
+    let errorPassword =this.state.password ? "" : "Password is Required";
+    if (errorPassword === "") {
+      this.setState({ passwordErrorStatus: false });
+      this.setState({ passwordErrorMessage: errorPassword });
+      this.setState({ passwordValid: true });
+    } else {
+      this.setState({ passwordErrorStatus: true });
+      this.setState({ passwordErrorMessage: errorPassword });
+      this.setState({ passwordValid: false });
+    }
+    const user = {
         email: this.state.email,
         password: this.state.password,
       };
-      console.log("user Data", user);
       service
         .Login(user)
         .then((json) => {
-          console.log("responce data==>", json);
+          console.log("loginResponce",json)
           if (json.status === 200) {
             localStorage.setItem("Token", json.data.jsonToken);
             localStorage.setItem("FirstName", json.data.data.firstName);
@@ -112,7 +122,6 @@ export class Login extends React.Component {
         .catch((err) => {
           console.log(err);
         });
-    }
   };
   handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -123,7 +132,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className="checkoutPage">
+      <div className="loginPage">
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={this.state.OpenSnackbar}

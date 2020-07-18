@@ -66,7 +66,14 @@ class Header extends Component {
   };
 
   logout = () => {
-    this.props.onLogoutClick();
+    localStorage.removeItem("Token");
+    localStorage.removeItem("FirstName");
+    localStorage.removeItem("LastName");
+    localStorage.removeItem("Email");
+    localStorage.removeItem("Address");
+    localStorage.removeItem("City");
+    localStorage.removeItem("Phone Number");
+    //this.props.onLogoutClick();
   };
 
   cart = () => {
