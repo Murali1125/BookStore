@@ -50,7 +50,7 @@ export class Login extends React.Component {
     const regexEmail = new RegExp(
       /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
     );
-    let error = regexEmail.test(String(input)) ? "" : "Not a valid email";
+    let error = regexEmail.test(String(input)) ? "" : "Email is Invalid";
     if (error === "") {
       this.setState({ emailErrorStatus: false });
       this.setState({ emailErrorMessage: error });
@@ -65,7 +65,7 @@ export class Login extends React.Component {
     const regexPassword = new RegExp(
       /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
     );
-    let error = regexPassword.test(String(input)) ? "" : "Invalid Password";
+    let error = regexPassword.test(String(input)) ? "" : "Password is Invalid";
     if (error === "") {
       this.setState({ passwordErrorStatus: false });
       this.setState({ passwordErrorMessage: error });
@@ -78,16 +78,27 @@ export class Login extends React.Component {
   };
 
   signIn = () => {
-    if (!this.state.emailValid) {
-      this.setState({ responseMessage: "Email is Required" });
-      this.setState({ snackbarVarient: "error" });
-      this.setState({ OpenSnackbar: true });
-    } else if (!this.state.passwordValid) {
-      this.setState({ responseMessage: "Password is Required" });
-      this.setState({ snackbarVarient: "error" });
-      this.setState({ OpenSnackbar: true });
+    let errorEmail =this.state.email ? "" : "Email is Required";
+    if (errorEmail === "") {
+      this.setState({ emailErrorStatus: false });
+      this.setState({ emailErrorMessage: errorEmail });
+      this.setState({ emailValid: true });
     } else {
-      const user = {
+      this.setState({ emailErrorStatus: true });
+      this.setState({ emailErrorMessage: errorEmail });
+      this.setState({ emailValid: false });
+    }
+    let errorPassword =this.state.password ? "" : "Password is Required";
+    if (errorPassword === "") {
+      this.setState({ passwordErrorStatus: false });
+      this.setState({ passwordErrorMessage: errorPassword });
+      this.setState({ passwordValid: true });
+    } else {
+      this.setState({ passwordErrorStatus: true });
+      this.setState({ passwordErrorMessage: errorPassword });
+      this.setState({ passwordValid: false });
+    }
+    const user = {
         email: this.state.email,
         password: this.state.password,
       };
@@ -110,7 +121,6 @@ export class Login extends React.Component {
         .catch((err) => {
           console.log(err);
         });
-    }
   };
   handleClose = (event, reason) => {
     if (reason === "clickaway") {
