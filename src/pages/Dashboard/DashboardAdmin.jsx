@@ -1,6 +1,5 @@
 import './DashboardAdmin.scss'
 import React, { Component } from 'react';
-import BookDetailsAdmin from './BookDetailsAdmin'
 import {Container,Button,Dialog,DialogTitle,DialogContent} from '@material-ui/core'
 import Logo from './../../component/logo/Logo'
 import BookDetailsTable from './BookDetailsTable'

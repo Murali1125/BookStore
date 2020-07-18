@@ -10,3 +10,4 @@ describe("Profile component", () => {
     expect(wrapper.exists()).toBe(true);
   });
 });
+

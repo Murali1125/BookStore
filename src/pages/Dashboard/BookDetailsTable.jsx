@@ -1,5 +1,4 @@
 import React, { useState }  from 'react';
-import {TextField} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -19,11 +18,7 @@ import TableHead from '@material-ui/core/TableHead';
 import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import Truncate from 'react-truncate';
-import BookDecription from './BookDecription';
-import {Dialog,DialogTitle,DialogContent} from '@material-ui/core'
-import Logo from './../../component/logo/Logo'
 
 
 // styles
