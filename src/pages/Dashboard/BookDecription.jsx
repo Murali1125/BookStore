@@ -5,7 +5,7 @@ import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
-
+import {AddBook} from './../../service/AdminServices'
 class BookDecription extends Component {
     constructor(props){
         super(props);
@@ -46,6 +46,25 @@ class BookDecription extends Component {
                             quantity :this.props.bookData.quantity,
             })
         }         
+    }
+
+    onSave = () =>{
+        console.log('onsave')
+        let Book = {
+            "Title": this.state.title,
+            "Description": this.state.decription,
+            "Author": this.state.author,
+            "BooksAvailable": this.state.quantity,
+            "Price": this.state.price,
+        }
+        AddBook(Book)
+        .then(responce=>{
+            console.log(responce)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+        this.props.closeDialog();
     }
     render() {
         return (
@@ -140,7 +159,9 @@ class BookDecription extends Component {
                 </div>           
 
                 <div className='ButtonsBookDetailsAdmin'>
-                    <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}> 
+                    <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}
+                            onClick={this.onSave}
+                    > 
                         <DoneOutlinedIcon/> Save</Button>
                     <Button style={{backgroundColor:'#61605e' ,color : 'white', textTransform: 'none'}}
                             onClick={this.props.closeDialog}
