@@ -6,9 +6,15 @@ const apiUrl = Configuration.url;
 
 class BookStoreService {
   GetAllBooks(data) {
-    console.log("get axios services", data);
     return axiosService.Get(`${apiUrl}Book`, null, false);
   }
 
+  GetAllBooksByKeyword(data) {
+    return axiosService.Get(`${apiUrl}Book/${data}`, null, false);
+  }
+
+  SortBooks(parameter, order){
+    return axiosService.Get(`${apiUrl}Book/${parameter}/SortBy/${order}`, null, false);
+  }
 }
 export default BookStoreService;
