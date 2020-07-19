@@ -12,8 +12,12 @@ export default class Checkout extends Component {
     this.state = {
       descriptionClass: "customerDetails showPreview",
       checkoutClass: "checkout showPreview",
-      userInformation:{
-        name: localStorage.getItem("FirstName") ? `${localStorage.getItem("FirstName")} ${localStorage.getItem("LastName")}` : ""
+      userInformation: {
+        name: localStorage.getItem("FirstName")
+          ? `${localStorage.getItem("FirstName")} ${localStorage.getItem(
+              "LastName"
+            )}`
+          : "",
       },
       cartItems: [
         {
@@ -155,11 +159,12 @@ export default class Checkout extends Component {
                 container
                 item
                 className="customerDetails-detailForm"
-                xs={10}
+                md={10}
+                xs={12}
                 spacing={2}
               >
                 <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item xs={5}>
+                  <Grid item md={5} xs={12}>
                     <TextField
                       id=""
                       size="small"
@@ -169,7 +174,7 @@ export default class Checkout extends Component {
                       fullWidth
                     ></TextField>
                   </Grid>
-                  <Grid item xs={5}>
+                  <Grid item md={5} xs={12}>
                     <TextField
                       id=""
                       size="small"
@@ -181,7 +186,7 @@ export default class Checkout extends Component {
                   </Grid>
                 </Grid>
                 <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item xs={5}>
+                  <Grid item md={5} xs={12}>
                     <TextField
                       id=""
                       size="small"
@@ -191,7 +196,7 @@ export default class Checkout extends Component {
                       fullWidth
                     ></TextField>
                   </Grid>
-                  <Grid item xs={5}>
+                  <Grid item md={5} xs={12}>
                     <TextField
                       id=""
                       size="small"
@@ -203,7 +208,7 @@ export default class Checkout extends Component {
                   </Grid>
                 </Grid>
                 <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item xs={10}>
+                  <Grid item md={10} xs={12}>
                     <TextField
                       id=""
                       size="small"
@@ -216,7 +221,7 @@ export default class Checkout extends Component {
                   </Grid>
                 </Grid>
                 <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item xs={5}>
+                  <Grid item md={5} xs={12}>
                     <TextField
                       id=""
                       size="small"
@@ -226,7 +231,7 @@ export default class Checkout extends Component {
                       fullWidth
                     ></TextField>
                   </Grid>
-                  <Grid item xs={5}>
+                  <Grid item md={5} xs={12}>
                     <TextField
                       id=""
                       size="small"
@@ -247,7 +252,7 @@ export default class Checkout extends Component {
                 className="customerDetails-continue"
               >
                 <button
-                id="continue"
+                  id="continue"
                   className="customerDetails-continue--button"
                   onClick={this.continue}
                 >
