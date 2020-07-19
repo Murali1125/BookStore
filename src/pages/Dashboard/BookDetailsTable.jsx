@@ -127,18 +127,21 @@ export default function BookdDetailsTable(props) {
  
 
   useEffect(()=>{
-    let tempBooksArry=[];
-        for(var i=0;i<20;i++){            
-            tempBooksArry.push({
-                title : 'StructureAnalysis ',
-                decription : 'Structural analysis is the determination of the effects of loads on physical structures and their components. Structures subject to this type of analysis include all that must withstand loads, such as buildings, bridges, aircraft and ships.',
-                author : 'S.S. Bhavikatti',
-                imageUrl : 'https://panchayatrajengineers.files.wordpress.com/2019/02/11820192337156313445039947930760.jpg?w=640',
-                price : '200',
-                quantity : '15',
-            })        
-        }
-        setData(tempBooksArry);
+    // let tempBooksArry=[];
+    //     for(var i=0;i<20;i++){            
+    //         tempBooksArry.push({
+    //             title : 'StructureAnalysis ',
+    //             decription : 'Structural analysis is the determination of the effects of loads on physical structures and their components. Structures subject to this type of analysis include all that must withstand loads, such as buildings, bridges, aircraft and ships.',
+    //             author : 'S.S. Bhavikatti',
+    //             imageUrl : 'https://panchayatrajengineers.files.wordpress.com/2019/02/11820192337156313445039947930760.jpg?w=640',
+    //             price : '200',
+    //             quantity : '15',
+    //         })        
+    //     }
+    //if(props.booksData !== null ||  props.booksData !== undefined){
+        console.log("books data", props.booksData)
+        setData(props.booksData);
+   // }
   },[])
 
   const handleChangePage = (event, newPage) => {
@@ -154,8 +157,7 @@ export default function BookdDetailsTable(props) {
     props.showBook(bookdata) ;
   }
 
- 
-  
+
   return (
     <div>
     <TableContainer component={Paper}>

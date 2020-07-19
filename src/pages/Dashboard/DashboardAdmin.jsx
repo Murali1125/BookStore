@@ -1,10 +1,6 @@
 import './DashboardAdmin.scss'
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import {Container,Button,Dialog,DialogTitle,DialogContent,TextField,IconButton} from '@material-ui/core'
-=======
-import {Container,Button,Dialog,DialogTitle,DialogContent} from '@material-ui/core'
->>>>>>> b568eeced1c7886f70fdb52f1c5bb29dd76ab129
 import Logo from './../../component/logo/Logo'
 import BookDetailsTable from './BookDetailsTable'
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
@@ -12,6 +8,7 @@ import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import BookDecription from './BookDecription'
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import {GetAllBooks} from './../../service/AdminServices'
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -23,7 +20,9 @@ class AdminDashboard extends Component {
             isUpdateBook : false,
             hideSearch : false,
             isScreenBelow600 : false,
+            booksData : [],
         }
+
     }
     
     OpenAddBookDialogBox = () =>{
@@ -47,6 +46,19 @@ class AdminDashboard extends Component {
     }
 
     componentDidMount() {
+        console.log("component did mount")
+        GetAllBooks()
+        .then(responce=>{
+            if(responce.status === 200 ){
+                console.log("Get all books",responce)
+                this.setState({
+                    booksData : responce.data.data
+                })
+            }
+        })
+        .catch(error=>{
+            console.log(error);
+        })
         window.addEventListener("resize", this.resize.bind(this));
         this.resize();
     }
@@ -106,7 +118,9 @@ class AdminDashboard extends Component {
                     </div>
                 </div>
                 <Container className="BooksDisplayContainerAdmin">                    
-                    <BookDetailsTable showBook={this.OpenBookDialogBoxWithData}/>  
+                    <BookDetailsTable   showBook={this.OpenBookDialogBoxWithData}
+                                        booksData={this.state.booksData}
+                    />  
                     <div>
                     <Dialog
                         className='AddBookDialogAdmin'
