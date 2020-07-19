@@ -13,7 +13,7 @@ export default function OrderSummary() {
       <div className="orderPage">
         <div className="orderLogo">
           <Container maxWidth="xl">
-            <Header variant="rich" />
+            <Header variant="normal" />
           </Container>
         </div>
         <div className="order">
