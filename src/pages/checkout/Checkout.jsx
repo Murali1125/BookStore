@@ -1,60 +1,98 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
-import { Grid, Container, TextField } from "@material-ui/core";
+import {
+  Grid,
+  Container,
+  TextField,
+  Icon,
+  IconButton,
+} from "@material-ui/core";
 import Footer from "../../component/Footer/Footer";
 import bookCover from "./../../assets/bookCover.jpg";
-
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import "./Checkout.scss";
+import CartService from "./../../service/cartService";
+
+const cartService = new CartService();
 export default class Checkout extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      placeOrderButton: "myCart-submit--button",
+      continueButton: "customerDetails-continue--button",
+      editDescription: "edit",
       descriptionClass: "customerDetails showPreview",
       checkoutClass: "checkout showPreview",
-      userInformation: {
-        name: localStorage.getItem("FirstName")
-          ? `${localStorage.getItem("FirstName")} ${localStorage.getItem(
-              "LastName"
-            )}`
-          : "",
-      },
-      cartItems: [
-        {
-          title: "Don't Make Me Think",
-          author: "Steve King",
-          price: 1500,
-          count: 10,
-          image: bookCover,
-        },
-        {
-          title: "Don't Make Me Think Again",
-          author: "Steve King",
-          price: 3500,
-          count: 17,
-          image: bookCover,
-        },
-        {
-          title: "Don't Make Me Think About That Thought",
-          author: "Steve King",
-          price: 1800,
-          count: 4,
-          image: bookCover,
-        },
-      ],
+      disable: false,
+
+      name: localStorage.getItem("FirstName")
+        ? `${localStorage.getItem("FirstName")} ${localStorage.getItem(
+            "LastName"
+          )}`
+        : "",
+      phone: localStorage.getItem("Phone Number")
+        ? localStorage.getItem("Phone Number")
+        : "",
+      address: localStorage.getItem("Address")
+        ? localStorage.getItem("Address")
+        : "",
+      city: localStorage.getItem("City") ? localStorage.getItem("City") : "",
+      pincode: localStorage.getItem("Pin Code")
+        ? localStorage.getItem("Pin Code")
+        : "",
+      locality: localStorage.getItem("locality")
+        ? localStorage.getItem("locality")
+        : "",
+      landmark: localStorage.getItem("landmark")
+        ? localStorage.getItem("landmark")
+        : "",
+
+      cartItems: [],
     };
   }
 
+  getCart = () => {
+    cartService.GetCart(localStorage.getItem("Token")).then((json) => {
+      console.log(json);
+      this.setState({
+        cartItems: [...json.data.data].map((item) => ({ ...item, count: 1 })),
+      });
+    });
+  };
+
+  removeFromCart=(cartId)=>{
+    cartService.RemoveFromCart(cartId,localStorage.getItem("Token")).then((json)=>{
+      console.log(json);
+    })
+  }
   placeOrder = () => {
     this.setState({
       descriptionClass: "customerDetails",
+      placeOrderButton: "myCart-submit--button-hidden",
+    });
+  };
+  editDescription = () => {
+    this.setState({
+      disable: false,
+      editDescription: "edit",
+      continueButton: "customerDetails-continue--button",
+      checkoutClass: "checkout showPreview",
     });
   };
   continue = () => {
     this.setState({
       checkoutClass: "checkout",
+      continueButton: "customerDetails-continue--button-hidden",
+      editDescription: "edit-show",
+      disable: true,
     });
+    console.log(this.state.name);
   };
+
+  componentDidMount() {
+    this.getCart();
+  }
 
   render() {
     return (
@@ -68,6 +106,7 @@ export default class Checkout extends Component {
                 My cart ({this.state.cartItems.length})
               </Grid>
               {this.state.cartItems.map((item, index) => {
+                console.log("ITem", item);
                 return (
                   <Grid
                     container
@@ -115,15 +154,15 @@ export default class Checkout extends Component {
                         </div>
                         <input
                           type="number"
-                          defaultValue="1"
-                          max={item.count}
+                          defaultValue={item.count}
+                          max={1000}
                           min={1}
                           className="myCart-itemDescription--count-value"
                         ></input>
                         <div className="myCart-itemDescription--count-plus">
                           &#43;
                         </div>
-                        <Grid>Remove</Grid>
+                        <Grid onClick={this.removeFromCart(item.cartId)}>Remove</Grid>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -138,7 +177,7 @@ export default class Checkout extends Component {
                 className="myCart-submit"
               >
                 <button
-                  className="myCart-submit--button"
+                  className={this.state.placeOrderButton}
                   onClick={this.placeOrder}
                 >
                   PLACE ORDER
@@ -149,11 +188,20 @@ export default class Checkout extends Component {
             {/* details ****************************************************************** */}
             <Grid
               container
-              direction="column"
+              direction="row"
               className={this.state.descriptionClass}
             >
-              <Grid container item className="customerDetails-header">
+              <Grid container item className="customerDetails-header" xs={11}>
                 Customer Details
+              </Grid>
+              <Grid
+                container
+                item
+                xs={1}
+                className={this.state.editDescription}
+                onClick={this.editDescription}
+              >
+                <EditOutlinedIcon />
               </Grid>
               <Grid
                 container
@@ -170,6 +218,11 @@ export default class Checkout extends Component {
                       size="small"
                       className="pt-small"
                       label="Name"
+                      defaultValue={this.state.name}
+                      disabled={this.state.disable}
+                      onChange={(event) =>
+                        this.setState({ name: event.target.value })
+                      }
                       variant="outlined"
                       fullWidth
                     ></TextField>
@@ -180,6 +233,11 @@ export default class Checkout extends Component {
                       size="small"
                       className="pt-small"
                       label="Phone number"
+                      defaultValue={this.state.phone}
+                      disabled={this.state.disable}
+                      onChange={(event) =>
+                        this.setState({ phone: event.target.value })
+                      }
                       variant="outlined"
                       fullWidth
                     ></TextField>
@@ -192,6 +250,11 @@ export default class Checkout extends Component {
                       size="small"
                       className="pt-small"
                       label="Pincode"
+                      defaultValue={this.state.pincode}
+                      disabled={this.state.disable}
+                      onChange={(event) =>
+                        this.setState({ pincode: event.target.value })
+                      }
                       variant="outlined"
                       fullWidth
                     ></TextField>
@@ -202,6 +265,11 @@ export default class Checkout extends Component {
                       size="small"
                       className="pt-small"
                       label="Locality"
+                      defaultValue={this.state.locality}
+                      disabled={this.state.disable}
+                      onChange={(event) =>
+                        this.setState({ locality: event.target.value })
+                      }
                       variant="outlined"
                       fullWidth
                     ></TextField>
@@ -214,6 +282,11 @@ export default class Checkout extends Component {
                       size="small"
                       className="pt-small"
                       label="Address"
+                      defaultValue={this.state.address}
+                      disabled={this.state.disable}
+                      onChange={(event) =>
+                        this.setState({ address: event.target.value })
+                      }
                       variant="outlined"
                       multiline
                       fullWidth
@@ -227,6 +300,11 @@ export default class Checkout extends Component {
                       size="small"
                       className="pt-small"
                       label="City/town"
+                      defaultValue={this.state.city}
+                      disabled={this.state.disable}
+                      onChange={(event) =>
+                        this.setState({ city: event.target.value })
+                      }
                       variant="outlined"
                       fullWidth
                     ></TextField>
@@ -237,6 +315,11 @@ export default class Checkout extends Component {
                       size="small"
                       className="pt-small"
                       label="Landmark"
+                      defaultValue={this.state.landmark}
+                      disabled={this.state.disable}
+                      onChange={(event) =>
+                        this.setState({ landmark: event.target.value })
+                      }
                       variant="outlined"
                       fullWidth
                     ></TextField>
@@ -253,7 +336,7 @@ export default class Checkout extends Component {
               >
                 <button
                   id="continue"
-                  className="customerDetails-continue--button"
+                  className={this.state.continueButton}
                   onClick={this.continue}
                 >
                   CONTINUE
