@@ -8,7 +8,6 @@ import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import BookDecription from './BookDecription'
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import {GetAllBooks} from './../../service/AdminServices'
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -20,9 +19,8 @@ class AdminDashboard extends Component {
             isUpdateBook : false,
             hideSearch : false,
             isScreenBelow600 : false,
-            booksData : [],
+            data : [],
         }
-
     }
     
     OpenAddBookDialogBox = () =>{
@@ -44,21 +42,10 @@ class AdminDashboard extends Component {
             isUpdateBook : false,
         })
     }
-
-    componentDidMount() {
-        console.log("component did mount")
-        GetAllBooks()
-        .then(responce=>{
-            if(responce.status === 200 ){
-                console.log("Get all books",responce)
-                this.setState({
-                    booksData : responce.data.data
-                })
-            }
-        })
-        .catch(error=>{
-            console.log(error);
-        })
+    ReturnBooksData(){
+        return this.state.data;
+    }
+    componentWillMount() {       
         window.addEventListener("resize", this.resize.bind(this));
         this.resize();
     }
@@ -82,9 +69,7 @@ class AdminDashboard extends Component {
                 <div>
                     <div className="headderAdmin">
                         <div className='LogoAdmin'><Logo/></div>                               
-                        <div className={ this.state.hideSearch ? 'searchBarAdmin' : 'searchBarOffAdmin' } 
-                            // style={ this.state.isScreenBelow600 ? {zIndex : '100', position: 'relative',width: '100%'} : null}
-                        >           
+                        <div className={ this.state.hideSearch ? 'searchBarAdmin' : 'searchBarOffAdmin' }>           
                             <div>
                                 <IconButton onClick={this.onSearchIconClick }>
                                     <SearchOutlinedIcon style= { this.state.hideSearch ?  null : {color :'white'}}
@@ -119,7 +104,6 @@ class AdminDashboard extends Component {
                 </div>
                 <Container className="BooksDisplayContainerAdmin">                    
                     <BookDetailsTable   showBook={this.OpenBookDialogBoxWithData}
-                                        booksData={this.state.booksData}
                     />  
                     <div>
                     <Dialog
