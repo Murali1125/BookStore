@@ -50,8 +50,8 @@ export class Login extends React.Component {
     const regexEmail = new RegExp(
       /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
     );
-    let error = regexEmail.test(String(input)) ? "" : "Email is Invalid";
-    if (error === "") {
+    let error = regexEmail.test(String(input)) ? " " : "Email is Invalid";
+    if (error === " ") {
       this.setState({ emailErrorStatus: false });
       this.setState({ emailErrorMessage: error });
       this.setState({ emailValid: true });
@@ -65,8 +65,8 @@ export class Login extends React.Component {
     const regexPassword = new RegExp(
       /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
     );
-    let error = regexPassword.test(String(input)) ? "" : "Password is Invalid";
-    if (error === "") {
+    let error = regexPassword.test(String(input)) ? " " : "Password is Invalid";
+    if (error === " ") {
       this.setState({ passwordErrorStatus: false });
       this.setState({ passwordErrorMessage: error });
       this.setState({ passwordValid: true });
@@ -78,7 +78,7 @@ export class Login extends React.Component {
   };
 
   signIn = () => {
-    let errorEmail =this.state.email ? "" : "Email is Required";
+    let errorEmail =this.state.email ? " " : "Email is Required";
     if (errorEmail === "") {
       this.setState({ emailErrorStatus: false });
       this.setState({ emailErrorMessage: errorEmail });
@@ -88,7 +88,7 @@ export class Login extends React.Component {
       this.setState({ emailErrorMessage: errorEmail });
       this.setState({ emailValid: false });
     }
-    let errorPassword =this.state.password ? "" : "Password is Required";
+    let errorPassword =this.state.password ? " " : "Password is Required";
     if (errorPassword === "") {
       this.setState({ passwordErrorStatus: false });
       this.setState({ passwordErrorMessage: errorPassword });
