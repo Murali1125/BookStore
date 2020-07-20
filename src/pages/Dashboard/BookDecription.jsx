@@ -18,7 +18,8 @@ class BookDecription extends Component {
             image:null,
             imageUrl :null,
             price : '',
-            quantity :'',        
+            quantity :'',    
+            bookId: null    
         }
     }
 
@@ -39,14 +40,17 @@ class BookDecription extends Component {
     componentDidMount(){
         if(Boolean (this.props.bookData) ){
             this.setState({ title : this.props.bookData.title ,     
-                            decription : this.props.bookData.decription,
+                            decription : this.props.bookData.description,
                             author : this.props.bookData.author,
                             imageUrl : this.props.bookData.imageUrl,
                             price : this.props.bookData.price,
-                            quantity :this.props.bookData.quantity,
+                            quantity :this.props.bookData.booksAvailable,
+                            bookId : this.props.bookData.bookId,
             })
         }         
     }
+    
+    
 
     onSave = () =>{
         console.log('onsave')
