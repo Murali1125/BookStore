@@ -1,9 +1,12 @@
-.footer {
-  position: relative;
-  bottom: 0px;
+.globalFooter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 3.5rem;
   background-color: #000;
   color: #fff;
-  line-height: 3.5rem;
+  // line-height: 3.5rem;
   font-family: "Lato", sans-serif;
+  text-align: center;
 }
