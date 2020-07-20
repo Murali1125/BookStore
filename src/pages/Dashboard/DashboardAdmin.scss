@@ -7,24 +7,43 @@ $borderColourLight: #fbfbfb;
   justify-content: center;
   align-items: center;
 }
-.headderAdmin {
+// headder admin dash board
+.headderAdmin { 
   width: 100%;
   height: 60px;
   min-width: 320px;
-  //padding-left: 10%;
   background-color: $headderColour;
   display: flex;
+  padding-left: 20px;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 }
 .LogoAdmin {
   position: relative;
-  left: -20%;
+  left: -8%;
 }
-.AddButtonAdmin {
+ @mixin searchBar{
+  display: flex;
+  height: 40px;
+  max-width: 500px;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
   position: relative;
-  left: 200px;
+  left: -10%;
+}
+.searchBarAdmin{
+  width: 50%;
+  @include searchBar();  
+}
+.searchBarOffAdmin{
+  @include searchBar();
+  background: none ;
+}
+.searchField{
+  width: 100% !important;
 }
 .AddBookDialogAdmin{
   width: 100%;
@@ -175,7 +194,6 @@ $borderColourLight: #fbfbfb;
 // BookDecription Jsx file CSS
 .BookDetailsAdmin{
   display: flex;  
-  box-shadow: 20px black;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -183,7 +201,7 @@ $borderColourLight: #fbfbfb;
   align-self: center;
   max-width: 400px;
   border: 2px;
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 10px;
   border-style : solid;
   border-color: #F5F5F5;
@@ -224,15 +242,16 @@ $borderColourLight: #fbfbfb;
 @media all and (max-width: 750px) {
   .headderAdmin {
     max-width: 100%;
+    padding-left: 1px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  .AddButtonAdmin {
-    position: static;
-    left: -10px;
-  }
   .LogoAdmin {
+    position: static;
+    left: 0;
+  }
+  .searchBarAdmin{
     position: static;
     left: 0;
   }
@@ -263,18 +282,7 @@ $borderColourLight: #fbfbfb;
     width: 65%;
   }
 }
-@media all and (min-width: 750px) and (max-width: 1000px) {
-  .PriceQuantityButtonsAdmin {
-    flex-wrap: wrap;
-  }
-  .buttonsAdmin {
-    width: 100%;
-  }
-  .AddButtonAdmin {
-    position: static;
-    left: +150px;
-  }
-}
+
 
 // BookDecription Jsx file CSS
 .BookDetailsAdmin{
@@ -308,12 +316,16 @@ $borderColourLight: #fbfbfb;
     border-radius: 5px;
 }
 
-@media all and (max-width : 750px){
+@media all and (max-width : 1100px){
     .headderAdmin{
         max-width: 100%;
+        padding-left: 1px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+    }
+    .SearchfieldAdmin{
+      display: none;
     }
     .AddButtonAdmin{
         position: static;
@@ -351,15 +363,12 @@ $borderColourLight: #fbfbfb;
         width: 65%;
     }
 }
-@media all and (min-width : 750px ) and (max-width : 1000px){
-    .PriceQuantityButtonsAdmin{
-        flex-wrap: wrap;
-    }
-    .buttonsAdmin{
-        width: 100%;
-    }
-    .AddButtonAdmin{
-        position: static;
-        left: +150px;
-    }
+@media all and (max-width:450px){
+  .MuiDialog-paperFullWidth{
+    width: calc(100% - 20px) !important;
+  }
+  .MuiDialog-paper{
+    margin : 10px !important;
+  }
 }
+

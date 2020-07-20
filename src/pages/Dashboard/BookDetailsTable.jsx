@@ -1,5 +1,4 @@
 import React, { useState }  from 'react';
-import {TextField} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -19,14 +18,10 @@ import TableHead from '@material-ui/core/TableHead';
 import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import Truncate from 'react-truncate';
-import BookDecription from './BookDecription';
-import {Dialog,DialogTitle,DialogContent} from '@material-ui/core'
-import Logo from './../../component/logo/Logo'
+import {GetAllBooks} from './../../service/AdminServices'
 
 
-// styles
 const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.text.secondary,
@@ -45,11 +40,6 @@ root: {
 },
 }))(TableRow);
 
-const useStyles = makeStyles({
-table: {
-    minWidth: 700,
-},
-});
   
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -128,39 +118,19 @@ export default function BookdDetailsTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [data,setData] = useState([]);
-  const [editable,setEdit] = useState(true)
-  const [indexOfEditableBook,setEditIndex] = useState();
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  const [bookData,setBookData] = useState()
-  const [updateBook,setUpdate] = useState({update: false,
-                                           bookdata : null})
-  const [bookDetails,setBookDetails] = useState({
-    title : '',
-    decription :'',
-    author : '',
-    imageUrl : '',
-    price : '',
-    quantity : '',
-  })
-
+  
   useEffect(()=>{
-    let tempBooksArry=[];
-        for(var i=0;i<20;i++){            
-            tempBooksArry.push({
-                title : 'StructureAnalysis Structural analysis is the determination',
-                decription : 'Structural analysis is the determination of the effects of loads on physical structures and their components. Structures subject to this type of analysis include all that must withstand loads, such as buildings, bridges, aircraft and ships.',
-                author : 'S.S. Bhavikatti',
-                imageUrl : 'https://panchayatrajengineers.files.wordpress.com/2019/02/11820192337156313445039947930760.jpg?w=640',
-                price : '200',
-                quantity : '15',
-            })        
+    GetAllBooks()
+    .then(responce=>{
+        if(responce.status === 200 ){
+            console.log("Get all books",responce.data.data)
+            setData(responce.data.data);
         }
-        setData(tempBooksArry);
+    })
+    .catch(error=>{
+        console.log(error);
+    })
   },[])
-
-  const onBookDetailsChange = index =>(eve)=>{
-      setBookDetails({...bookDetails, [eve.target.name] : eve.target.value})  ;  
-  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -171,147 +141,87 @@ export default function BookdDetailsTable(props) {
     setPage(0);
   };
 
-  let indexOfSelectedEditBook ='';
   const EditBook = (bookdata)=>{
-    // setBookDetails(data[index])
-    // setEditIndex(index);
-    // setEdit(!editable);
-    console.log("table book data", bookdata);
     props.showBook(bookdata) ;
   }
-  const onSave =(index)=>{
-    let tempData =data;
-    tempData[index] = bookDetails;
-    setData( tempData);
-    setBookDetails(bookDetails);
-    setEdit(!editable);
+  const readBooksData = ()=>{
+    setData(props.booksData)
   }
- 
-  
+  let booksdata;
   return (
     <div>
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="custom pagination table">
-      <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">S.No</StyledTableCell>
-            <StyledTableCell align="center">Title</StyledTableCell>
-            <StyledTableCell align="center">Author</StyledTableCell>
-            <StyledTableCell align="center">Price</StyledTableCell>
-            <StyledTableCell align="center">Quantity</StyledTableCell>
-            <StyledTableCell align="center">Edit</StyledTableCell>
-            <StyledTableCell align="center">Remove</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : data
-          ).map((book,index) => (                                  
-            <StyledTableRow key={index }>
-                <StyledTableCell  align="center">
-                    {/* <img src ={book.imageUrl} alt ={book.title} 
-                         style={{height : '50px', width:'75px'}}
-                    /> */}
-                    {index + 1}
-                </StyledTableCell>
-                <StyledTableCell align="center" width='200px'>                   
-                    { 
-                    //  (editable)  && (index === indexOfEditableBook) ?  
-                    //     <TextField                                             
-                    //         value={bookDetails.title} 
-                    //         name='title'
-                    //         variant="outlined"
-                    //         size='small'     
-                    //         inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
-                    //         onChange={onBookDetailsChange(index)}                       
-                    //     /> : 
-                        <Truncate lines={1} >
-                          {book.title}
-                       </Truncate>
-                    }
-                </StyledTableCell>
-                <StyledTableCell align="center" width='200px' >                    
-                  { 
-                  // (editable)  && (index === indexOfEditableBook) ?  
-                  //     <TextField                             
-                  //         value={bookDetails.author} 
-                  //         name='author'
-                  //         variant="outlined"
-                  //         size='small'
-                  //         inputProps={{style: {fontSize:'14px', textAlign: 'center' }}}
-                  //         onChange={onBookDetailsChange(index)}                           
-                  //     /> : 
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="custom pagination table">
+          <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">S.No</StyledTableCell>
+                <StyledTableCell align="center">Title</StyledTableCell>
+                <StyledTableCell align="center">Author</StyledTableCell>
+                <StyledTableCell align="center">Price</StyledTableCell>
+                <StyledTableCell align="center">Quantity</StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell>
+                <StyledTableCell align="center">Remove</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {  (rowsPerPage > 0
+                ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : data
+              ).map((book,index) => (                                  
+                <StyledTableRow key={index }>
+                    <StyledTableCell  align="center">
+                        {index + 1}
+                    </StyledTableCell>
+                    <StyledTableCell align="center" width='200px'>      
+                      <Truncate lines={1} >
+                        {book.title}
+                      </Truncate>
+                    </StyledTableCell>
+                    <StyledTableCell align="center" width='200px' >          
                       <Truncate lines={1} ellipsis={<span >...</span>}>
                         {book.author}
-                      </Truncate>
-                  }                    
-              </StyledTableCell>
-              <StyledTableCell align="center" width='100px'>
-                  {/* { (editable)  && (index === indexOfEditableBook) ?  
-                      <TextField 
-                          name='price'
-                          variant="outlined"
-                          size='small'
-                          value={bookDetails.price} 
-                          inputProps={{style: { fontSize:'14px',textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}   
-                          
-                      /> :  */}
-                      { book.price }
-              </StyledTableCell>
-              <StyledTableCell align="center" width='100px'>
-                  {/* { (editable)  && (index === indexOfEditableBook) ?  
-                      <TextField
-                          name='quantity'
-                          value={bookDetails.quantity} 
-                          variant="outlined"
-                          size='small'
-                          inputProps={{style: { fontSize:'14px', textAlign: 'center' }}}
-                          onChange={onBookDetailsChange(index)}   /> : */}
-                      { book.quantity}
-                  {/* } */}
-              </StyledTableCell>
-              <StyledTableCell align="center" >                  
-                      {/* { (editable)  && (index === indexOfEditableBook) ?
-                        <IconButton onClick={()=>onSave(index) }>
-                            <DoneOutlinedIcon />
-                        </IconButton>  : */}
-                       <IconButton onClick={()=>EditBook(book) }>
-                            <EditOutlinedIcon  /> 
-                        </IconButton>
-                        {/* } */}
-                  
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                  <IconButton>
-                      <DeleteOutlineOutlinedIcon/>
-                  </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={data.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true,
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
-   
+                      </Truncate>                                   
+                  </StyledTableCell>
+                  <StyledTableCell align="center" width='100px'>
+                    { book.price }
+                  </StyledTableCell>
+                  <StyledTableCell align="center" width='100px'>
+                    { book.booksAvailable}
+                  </StyledTableCell>
+                  <StyledTableCell align="center" >                  
+                    <IconButton onClick={()=>EditBook(book) }>
+                        <EditOutlinedIcon  /> 
+                    </IconButton>                      
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                      <IconButton>
+                          <DeleteOutlineOutlinedIcon/>
+                      </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
+              )) }
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  colSpan={3}
+                  count={data.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: { 'aria-label': 'rows per page' },
+                    native: true,
+                  }}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
   </div>
   );
 }
+
