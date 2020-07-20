@@ -23,24 +23,24 @@ export class Register extends React.Component {
       password: "",
       firstName: "",
       lastName: "",
-      city:"",
-      address:"",
-      phoneNumber:"",
+      city: "",
+      address: "",
+      phoneNumber: "",
       openSnackbar: false,
-      snackbarVarient:"error",
-      responseMessage:"",
-      firstNameErrorStatus:false,
-      firstNameErrorMessage:"",
-      firstNameValid:false,
-      lastNameErrorStatus:false,
-      lastNameErrorMessage:"",
-      lastNameValid:false,
-      emailErrorStatus:false,
-      emailErrorMessage:"",
-      emailValid:false,
-      passwordErrorStatus:false,
-      passwordErrorMessage:"",
-      passwordValid:false,
+      snackbarVarient: "error",
+      responseMessage: "",
+      firstNameErrorStatus: false,
+      firstNameErrorMessage: "",
+      firstNameValid: false,
+      lastNameErrorStatus: false,
+      lastNameErrorMessage: "",
+      lastNameValid: false,
+      emailErrorStatus: false,
+      emailErrorMessage: "",
+      emailValid: false,
+      passwordErrorStatus: false,
+      passwordErrorMessage: "",
+      passwordValid: false,
     };
   }
 
@@ -50,89 +50,88 @@ export class Register extends React.Component {
     });
   };
   handleFirstNameChange = (e) => {
-    this.setState({firstName:e.target.value},(firstName)=>this.validateFirstname(this.state.firstName));
+    this.setState({ firstName: e.target.value }, (firstName) =>
+      this.validateFirstname(this.state.firstName)
+    );
   };
   handleLastNameChange = (e) => {
-    this.setState({lastName:e.target.value},(lastName)=>this.validateLastname(this.state.lastName));
+    this.setState({ lastName: e.target.value }, (lastName) =>
+      this.validateLastname(this.state.lastName)
+    );
   };
-   handleEmailChange = (e) => {
-    this.setState({email:e.target.value},(email)=>this.validateEmail(this.state.email));
+  handleEmailChange = (e) => {
+    this.setState({ email: e.target.value }, (email) =>
+      this.validateEmail(this.state.email)
+    );
   };
- handlePasswordChange = (e) => {
-    this.setState({password:e.target.value},(password)=>this.validatePassword(this.state.password));
+  handlePasswordChange = (e) => {
+    this.setState({ password: e.target.value }, (password) =>
+      this.validatePassword(this.state.password)
+    );
   };
   /* =====================================
     VALIDATIONS
     =======================================*/
   validateFirstname = (input) => {
-   const regexName = new RegExp(
-    /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
-  );
-    let error =regexName.test(String(input))
-      ? ""
-      : "Invalid First Name";
+    const regexName = new RegExp(
+      /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
+    );
+    let error = regexName.test(String(input)) ? "" : "Invalid First Name";
     if (error === "") {
-      this.setState({firstNameErrorStatus:false});
-      this.setState({firstNameErrorMessage:error});
-      this.setState({firstNameValid:true});
+      this.setState({ firstNameErrorStatus: false });
+      this.setState({ firstNameErrorMessage: error });
+      this.setState({ firstNameValid: true });
     } else {
-      this.setState({firstNameErrorStatus:true});
-      this.setState({firstNameErrorMessage:error});
-      this.setState({firstNameValid:false});
+      this.setState({ firstNameErrorStatus: true });
+      this.setState({ firstNameErrorMessage: error });
+      this.setState({ firstNameValid: false });
     }
   };
   validateLastname = (input) => {
-   const regexName = new RegExp(
-    /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
-  );
-    let error =regexName.test(String(input))
-      ? ""
-      : "Invalid Last Name";
+    const regexName = new RegExp(
+      /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
+    );
+    let error = regexName.test(String(input)) ? "" : "Invalid Last Name";
     if (error === "") {
-      this.setState({lastNameErrorStatus:false});
-      this.setState({lastNameErrorMessage:error});
-      this.setState({lastNameValid:true});
+      this.setState({ lastNameErrorStatus: false });
+      this.setState({ lastNameErrorMessage: error });
+      this.setState({ lastNameValid: true });
     } else {
-      this.setState({lastNameErrorStatus:true});
-      this.setState({lastNameErrorMessage:error});
-      this.setState({lastNameValid:false});
+      this.setState({ lastNameErrorStatus: true });
+      this.setState({ lastNameErrorMessage: error });
+      this.setState({ lastNameValid: false });
     }
   };
   validateEmail = (input) => {
-   const regexEmail = new RegExp(
-    /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
-  );
-    let error =regexEmail.test(String(input))
-      ? ""
-      : "Not a valid email";
+    const regexEmail = new RegExp(
+      /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
+    );
+    let error = regexEmail.test(String(input)) ? "" : "Not a valid email";
     if (error === "") {
-      this.setState({emailErrorStatus:false});
-      this.setState({emailErrorMessage:error});
-      this.setState({emailValid:true});
+      this.setState({ emailErrorStatus: false });
+      this.setState({ emailErrorMessage: error });
+      this.setState({ emailValid: true });
     } else {
-      this.setState({emailErrorStatus:true});
-      this.setState({emailErrorMessage:error});
-      this.setState({emailValid:false});
+      this.setState({ emailErrorStatus: true });
+      this.setState({ emailErrorMessage: error });
+      this.setState({ emailValid: false });
     }
   };
   validatePassword = (input) => {
     const regexPassword = new RegExp(
-    /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
-  );
-    let error = regexPassword.test(String(input))
-      ? ""
-      : "Invalid Password";
+      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
+    );
+    let error = regexPassword.test(String(input)) ? "" : "Invalid Password";
     if (error === "") {
-      this.setState({passwordErrorStatus:false});
-      this.setState({passwordErrorMessage:error});
-      this.setState({passwordValid:true});
+      this.setState({ passwordErrorStatus: false });
+      this.setState({ passwordErrorMessage: error });
+      this.setState({ passwordValid: true });
     } else {
-      this.setState({passwordErrorStatus:true});
-      this.setState({passwordErrorMessage:error});
-      this.setState({passwordValid:false});
+      this.setState({ passwordErrorStatus: true });
+      this.setState({ passwordErrorMessage: error });
+      this.setState({ passwordValid: false });
     }
   };
-
 
   Register = () => {
     let errorFirstname =this.state.firstName ? "" : "First Name is Required";
@@ -165,7 +164,7 @@ export class Register extends React.Component {
       this.setState({ emailErrorMessage: errorEmail });
       this.setState({ emailValid: false });
     }
-    let errorPassword =this.state.password ? "" : "Password is Required";
+    let errorPassword = this.state.password ? "" : "Password is Required";
     if (errorPassword === "") {
       this.setState({ passwordErrorStatus: false });
       this.setState({ passwordErrorMessage: errorPassword });
@@ -200,7 +199,8 @@ export class Register extends React.Component {
         });
     //this.props.history.push("/login");
   };
- handleClose = (event, reason) => {
+
+  handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -217,18 +217,18 @@ export class Register extends React.Component {
         </div>
         <div className="register">
           <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={this.state.OpenSnackbar}
-          autoHideDuration={3000}
-          onClose={this.handleClose}
-        >
-          <Alert
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={this.state.OpenSnackbar}
+            autoHideDuration={3000}
             onClose={this.handleClose}
-            severity={this.state.snackbarVarient}
           >
-            {this.state.responseMessage}
-          </Alert>
-        </Snackbar>
+            <Alert
+              onClose={this.handleClose}
+              severity={this.state.snackbarVarient}
+            >
+              {this.state.responseMessage}
+            </Alert>
+          </Snackbar>
           <Card className="registerCard" variant="outlined">
             <br />
             <span className="createAccount">Create account</span>
@@ -242,7 +242,7 @@ export class Register extends React.Component {
                 id="firstName"
                 label="First Name"
                 required
-                onChange={(e)=>this.handleFirstNameChange(e)}
+                onChange={(e) => this.handleFirstNameChange(e)}
                 error={this.state.firstNameErrorStatus}
                 helperText={this.state.firstNameErrorMessage}
               />
@@ -254,7 +254,7 @@ export class Register extends React.Component {
                 id="lastName"
                 label="Last Name"
                 required
-                onChange={(e)=>this.handleLastNameChange(e)}
+                onChange={(e) => this.handleLastNameChange(e)}
                 error={this.state.lastNameErrorStatus}
                 helperText={this.state.lastNameErrorMessage}
               />
@@ -266,7 +266,7 @@ export class Register extends React.Component {
                 id="outlined-required"
                 label="Email"
                 required
-                onChange={(e)=>this.handleEmailChange(e)}
+                onChange={(e) => this.handleEmailChange(e)}
                 error={this.state.emailErrorStatus}
                 helperText={this.state.emailErrorMessage}
               />
@@ -279,9 +279,9 @@ export class Register extends React.Component {
                 variant="outlined"
                 required
                 label="Password"
-                onChange={(e)=>this.handlePasswordChange(e)}
+                onChange={(e) => this.handlePasswordChange(e)}
                 error={this.state.passwordErrorStatus}
-                    helperText={this.state.passwordErrorMessage}
+                helperText={this.state.passwordErrorMessage}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end" sytle={{ width: "1px" }}>
@@ -302,7 +302,7 @@ export class Register extends React.Component {
                   ),
                 }}
               />
-              <br/>
+              <br />
               <span className="textline">
                 Passwords must be at least 8 characters.
               </span>
@@ -361,7 +361,7 @@ export class Register extends React.Component {
           </Card>
         </div>
         <div className="footer">
-           <Footer />
+          <Footer />
         </div>
       </div>
     );
