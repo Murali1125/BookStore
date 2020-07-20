@@ -20,6 +20,7 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import Truncate from 'react-truncate';
 import {GetAllBooks} from './../../service/AdminServices'
+import {DeleteBook} from './../../service/AdminServices'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -132,6 +133,17 @@ export default function BookdDetailsTable(props) {
     })
   },[])
 
+  const Delete=(BookId)=>{
+    console.log("Delete ID",BookId);
+    DeleteBook(BookId).then((json) => {  
+      console.log("responce data==>",json);
+    if(json.data.status==='Success'){  
+    alert('Record deleted successfully!!');  
+    }  
+    })  
+  }
+
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -195,7 +207,7 @@ export default function BookdDetailsTable(props) {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                       <IconButton>
-                          <DeleteOutlineOutlinedIcon/>
+                          <DeleteOutlineOutlinedIcon onClick={()=>Delete(book.bookId)}/>
                       </IconButton>
                   </StyledTableCell>
                 </StyledTableRow>
