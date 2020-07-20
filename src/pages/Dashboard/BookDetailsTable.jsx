@@ -186,7 +186,7 @@ export default function BookdDetailsTable(props) {
                     { book.price }
                   </StyledTableCell>
                   <StyledTableCell align="center" width='100px'>
-                    { book.quantity}
+                    { book.booksAvailable}
                   </StyledTableCell>
                   <StyledTableCell align="center" >                  
                     <IconButton onClick={()=>EditBook(book) }>
@@ -224,3 +224,4 @@ export default function BookdDetailsTable(props) {
   </div>
   );
 }
+
