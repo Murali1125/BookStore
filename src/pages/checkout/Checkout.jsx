@@ -61,11 +61,13 @@ export default class Checkout extends Component {
     });
   };
 
-  removeFromCart=(cartId)=>{
-    cartService.RemoveFromCart(cartId,localStorage.getItem("Token")).then((json)=>{
-      console.log(json);
-    })
-  }
+  removeFromCart = (cartId) => {
+    cartService
+      .RemoveFromCart(cartId, localStorage.getItem("Token"))
+      .then((json) => {
+        console.log(json);
+      });
+  };
   placeOrder = () => {
     this.setState({
       descriptionClass: "customerDetails",
@@ -103,71 +105,77 @@ export default class Checkout extends Component {
             {/*  my cart ***************************************************************************** */}
             <Grid container direction="column" className="myCart">
               <Grid container item className="myCart-header">
-                My cart ({this.state.cartItems.length})
+                My cart ({this.state.cartItems.filter((item) => item.isDeleted === 1).length})
               </Grid>
-              {this.state.cartItems.map((item, index) => {
-                console.log("ITem", item);
-                return (
-                  <Grid
-                    container
-                    direction="row"
-                    xs={12}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                    className="myCart-itemDescription"
-                  >
+              {this.state.cartItems
+                .filter((item) => item.isDeleted === 1)
+                .map((item, index) => {
+                  console.log("ITem", item);
+                  return (
                     <Grid
-                      direction="column"
-                      className="myCart-itemDescription--image"
-                      alignItems="center"
-                      justify="center"
+                      container
+                      direction="row"
                       xs={12}
-                      sm={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                      className="myCart-itemDescription"
                     >
-                      <img
-                        src={bookCover}
-                        height="100px"
-                        width="70px"
-                        alt="bookCover"
-                      />
-                    </Grid>
-                    <Grid item direction="column">
-                      <Grid className="myCart-itemDescription--title">
-                        {item.title}
-                      </Grid>
                       <Grid
-                        container
-                        className="myCart-itemDescription--author"
+                        direction="column"
+                        className="myCart-itemDescription--image"
+                        alignItems="center"
+                        justify="center"
+                        xs={12}
+                        sm={1}
                       >
-                        by {item.author}
+                        <img
+                          src={bookCover}
+                          height="100px"
+                          width="70px"
+                          alt="bookCover"
+                        />
                       </Grid>
-                      <Grid className="myCart-itemDescription--price">
-                        Rs. {item.price}
-                      </Grid>
-                      <Grid
-                        container
-                        direction="row"
-                        className="myCart-itemDescription--count"
-                      >
-                        <div className="myCart-itemDescription--count-minus">
-                          &mdash;
-                        </div>
-                        <input
-                          type="number"
-                          defaultValue={item.count}
-                          max={1000}
-                          min={1}
-                          className="myCart-itemDescription--count-value"
-                        ></input>
-                        <div className="myCart-itemDescription--count-plus">
-                          &#43;
-                        </div>
-                        <Grid onClick={this.removeFromCart(item.cartId)}>Remove</Grid>
+                      <Grid item direction="column">
+                        <Grid className="myCart-itemDescription--title">
+                          {item.title}
+                        </Grid>
+                        <Grid
+                          container
+                          className="myCart-itemDescription--author"
+                        >
+                          by {item.author}
+                        </Grid>
+                        <Grid className="myCart-itemDescription--price">
+                          Rs. {item.price}
+                        </Grid>
+                        <Grid
+                          container
+                          direction="row"
+                          className="myCart-itemDescription--count"
+                        >
+                          <div className="myCart-itemDescription--count-minus">
+                            &mdash;
+                          </div>
+                          <input
+                            type="number"
+                            defaultValue={item.count}
+                            max={1000}
+                            min={1}
+                            className="myCart-itemDescription--count-value"
+                          ></input>
+                          <div className="myCart-itemDescription--count-plus">
+                            &#43;
+                          </div>
+                          <Grid
+                            onClick={() => this.removeFromCart(item.cartId)}
+                          >
+                            Remove
+                          </Grid>
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                );
-              })}
+                  );
+                })}
               <Grid
                 container
                 item
@@ -351,7 +359,7 @@ export default class Checkout extends Component {
               className={this.state.checkoutClass}
             >
               <Grid container item className="checkout-header">
-                My cart ({this.state.cartItems.length})
+                My cart ({this.state.cartItems.filter((item) => item.isDeleted === 1).length})
               </Grid>
               {this.state.cartItems.map((item, index) => {
                 return (
