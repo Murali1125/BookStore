@@ -50,6 +50,15 @@
        margin-top:270px;
     }
 }
+@media only screen and (max-width: 450px) {
+    .profile{
+       margin-top:70px;
+       margin-bottom:0px;
+    }
+    .profileCard{
+        border:none !important;
+    }
+}
 @media only screen and (max-width: 414px) {
     .profile{
        margin-top:0px;
@@ -77,5 +86,11 @@
     .profileCard{
         padding-top:100px;
         padding-bottom:20px;
+    }
+}
+@media only screen and (max-width: 280px) {
+    .profile{
+       margin-top:45px;
+       margin-bottom:0px;
     }
 }
