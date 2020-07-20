@@ -16,11 +16,11 @@ export default class Book extends Component {
   }
 
   // Click handler for add to bag button
-  AddToBagHandler = () => {
+  AddToBagHandler = (bookId) => {
     if (this.state.addToBagClicked === false) {
       this.setState({
         addToBagClicked: true,
-      });
+      },this.props.addToCart(bookId));
     } else {
       this.setState({
         addToBagClicked: false,
@@ -41,9 +41,14 @@ export default class Book extends Component {
     }
   };
 
-  normalButtons = (
+  normalButtons =(bookId) => (
     <div className="bookButtons">
-      <div className="addToBag" onClick={() => this.AddToBagHandler()}>
+      <div
+        className="addToBag"
+        onClick={() =>
+          this.AddToBagHandler(bookId)
+        }
+      >
         ADD TO BAG
       </div>
       <div className="wishlist" onClick={() => this.AddtoWishlist()}>
@@ -60,7 +65,7 @@ export default class Book extends Component {
 
   afterClickOnwishlist = (
     <div className="bookButtons">
-      <div className="wishlisted">WISHLIST</div>
+      <div className="wishlisted">ADDED TO WISHLIST</div>
     </div>
   );
 
@@ -69,7 +74,7 @@ export default class Book extends Component {
       <React.Fragment>
         <div className="book">
           <Tooltip
-            content={<div >{this.props.children.description}</div>}
+            content={<div>{this.props.children.description}</div>}
             direction="right-start"
           >
             <Grid
@@ -123,7 +128,7 @@ export default class Book extends Component {
               ? this.afterClickOnAdd
               : this.state.wishlistClicked
               ? this.afterClickOnwishlist
-              : this.normalButtons}
+              : this.normalButtons(this.props.children.bookId)}
           </Grid>
         </div>
       </React.Fragment>

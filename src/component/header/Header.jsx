@@ -37,12 +37,8 @@ class Header extends Component {
   }
 
   search = (event) => {
-    this.setState(
-      {
-        search: event.target.value,
-      },
-      () => console.log(this.state.search)
-    );
+    this.props.onSearch(event.target.value);
+   
   };
 
   handleProfileMenuOpen = (event) => {
@@ -66,14 +62,9 @@ class Header extends Component {
   };
 
   logout = () => {
-    localStorage.removeItem("Token");
-    localStorage.removeItem("FirstName");
-    localStorage.removeItem("LastName");
-    localStorage.removeItem("Email");
-    localStorage.removeItem("Address");
-    localStorage.removeItem("City");
-    localStorage.removeItem("Phone Number");
-    //this.props.onLogoutClick();
+    console.log(this.props);
+    this.props.onLogout();
+  
   };
 
   cart = () => {
@@ -137,14 +128,6 @@ class Header extends Component {
                     >
                       <AccountCircle />
                     </IconButton>
-                    {/* <IconButton
-                      aria-label="show 17 new notifications"
-                      color="inherit"
-                    >
-                      <Badge badgeContent={17} color="secondary">
-                        <ShoppingCartOutlinedIcon />
-                      </Badge>
-                    </IconButton> */}
                     <Menu
                       id="simple-menu"
                       anchorEl={this.state.anchorEl}
@@ -165,7 +148,7 @@ class Header extends Component {
                       </MenuItem>
 
                       <MenuItem
-                        onClick={() => this.logout()}
+                        onClick={()=>this.logout()}
                         style={{
                           display: "flex",
                           alignItems: "center",
