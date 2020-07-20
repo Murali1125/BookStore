@@ -13,8 +13,20 @@ class BookStoreService {
     return axiosService.Get(`${apiUrl}Book/${data}`, null, false);
   }
 
-  SortBooks(parameter, order){
-    return axiosService.Get(`${apiUrl}Book/${parameter}/SortBy/${order}`, null, false);
+  SortBooks(parameter, order) {
+    return axiosService.Get(
+      `${apiUrl}Book/${parameter}/SortBy/${order}`,
+      null,
+      false
+    );
+  }
+
+  AddToCart(bookId, token) {
+    return axiosService.Post(`${apiUrl}Cart/${bookId}/1`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 }
 export default BookStoreService;
