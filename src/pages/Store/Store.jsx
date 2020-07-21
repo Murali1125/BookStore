@@ -100,10 +100,11 @@ export default class Store extends Component {
     localStorage.removeItem("FirstName");
     localStorage.removeItem("LastName");
     localStorage.removeItem("Email");
+    localStorage.removeItem("User Role");
     localStorage.removeItem("Address");
     localStorage.removeItem("City");
     localStorage.removeItem("Phone Number");
-    this.props.history.push("/store");
+    this.props.history.push("/");
   };
 
   componentDidMount() {
@@ -117,7 +118,7 @@ export default class Store extends Component {
             variant="rich"
             onSearch={(value) => this.onSearch(value)}
             onProfileClick={() => this.onProfileClick()}
-            onLogout={()=>this.onLogoutClick}
+            onLogout={()=>this.onLogoutClick()}
           ></Header>
           <Container maxWidth="lg" className="storeContainer">
             <Grid
