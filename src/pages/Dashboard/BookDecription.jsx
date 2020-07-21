@@ -5,7 +5,7 @@ import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
-import {AddBook} from './../../service/AdminServices'
+import {AddBook,UpdateBook} from './../../service/AdminServices'
 class BookDecription extends Component {
     constructor(props){
         super(props);
@@ -19,7 +19,8 @@ class BookDecription extends Component {
             imageUrl :null,
             price : '',
             quantity :'',    
-            bookId: null    
+            bookId: null,
+            status : 'addBook',
         }
     }
 
@@ -46,11 +47,11 @@ class BookDecription extends Component {
                             price : this.props.bookData.price,
                             quantity :this.props.bookData.booksAvailable,
                             bookId : this.props.bookData.bookId,
+                            status : "updateBook",
             })
         }         
     }
-    
-    
+        
 
     onSave = () =>{
         console.log('onsave')
@@ -59,15 +60,26 @@ class BookDecription extends Component {
             "Description": this.state.decription,
             "Author": this.state.author,
             "BooksAvailable": this.state.quantity,
-            "Price": this.state.price,
+            "Price": this.state.price,            
         }
-        AddBook(Book)
-        .then(responce=>{
-            console.log(responce)
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+        if(this.state.status === "updateBook") {
+            UpdateBook(Book,this.state.bookId) 
+            .then(responce=>{
+                console.log(responce)
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+        }
+        else{
+            AddBook(Book)        
+            .then(responce=>{
+                console.log(responce)
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+        }
         this.props.closeDialog();
     }
     render() {

@@ -20,9 +20,15 @@ class AdminDashboard extends Component {
             hideSearch : false,
             isScreenBelow600 : false,
             data : [],
+            searchWord:'',
+            updateData:false,
         }
     }
-    
+    onSearchWordChange = eve =>{
+        this.setState({
+            searchWord :  eve.target.value,
+        })
+    }
     OpenAddBookDialogBox = () =>{
         this.setState({
             AddBookDialogOpen : true,
@@ -40,10 +46,14 @@ class AdminDashboard extends Component {
             AddBookDialogOpen: false,
             selectedBookData:'',
             isUpdateBook : false,
+            updateData : !this.state.updateData,
         })
+
     }
-    ReturnBooksData(){
-        return this.state.data;
+    setRefreshFalse = ()=>{
+        this.setState({
+            updateData : false
+        })
     }
     componentWillMount() {       
         window.addEventListener("resize", this.resize.bind(this));
@@ -82,6 +92,8 @@ class AdminDashboard extends Component {
                                         <TextField                                    
                                             className=  'searchField'  
                                             placeholder='Search'   
+                                            onChange={this.onSearchWordChange}
+                                            value={this.state.searchWord}
                                             fullWidth                   
                                             InputProps={{
                                                 disableUnderline: true,                                    
@@ -104,6 +116,8 @@ class AdminDashboard extends Component {
                 </div>
                 <Container className="BooksDisplayContainerAdmin">                    
                     <BookDetailsTable   showBook={this.OpenBookDialogBoxWithData}
+                                        searchWord={this.state.searchWord}
+                                        refresh={this.state.updateData}
                     />  
                     <div>
                     <Dialog

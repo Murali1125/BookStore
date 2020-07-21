@@ -19,7 +19,8 @@ import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import Truncate from 'react-truncate';
-import {GetAllBooks} from './../../service/AdminServices'
+import {GetAllBooks,DeleteBook,SearchList} from './../../service/AdminServices'
+
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -118,12 +119,13 @@ export default function BookdDetailsTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [data,setData] = useState([]);
-  
+  //const [refresh,setRefresh] =useState(false)
+  // const [searchWord,setSearchWord] = useState(props.searchWord)
+  console.log('search word props ', props.searchWord)
   useEffect(()=>{
     GetAllBooks()
     .then(responce=>{
         if(responce.status === 200 ){
-            console.log("Get all books",responce.data.data)
             setData(responce.data.data);
         }
     })
@@ -131,6 +133,38 @@ export default function BookdDetailsTable(props) {
         console.log(error);
     })
   },[])
+  
+  useEffect(()=>{
+    if(Boolean(props.searchWord)){
+      SearchList(props.searchWord)
+      .then(responce=>{
+        console.log("search list",responce)
+              let temp = [...data];
+              temp[temp.length] = responce.data.data
+              console.log("temp ",temp)
+              setData(temp);          
+      })
+      .catch(error=>{
+          console.log(error);
+      })
+    }
+  },[props.searchWord])
+  // useEffect(()=>{
+  //   if(Boolean(props.refresh)){
+  //     GetAllBooks()
+  //     .then(responce=>{
+  //       setData(responce.data.data);        
+  //   })
+  //   .catch(error=>{
+  //       console.log(error);
+  //   })    
+  //   }
+  // },[props.refresh])
+
+  // useEffect (()=>{
+  //   setSearchWord(props.searchWord)
+  //   console.log('search word' , searchWord)
+  // },[searchWord])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -146,6 +180,15 @@ export default function BookdDetailsTable(props) {
   }
   const readBooksData = ()=>{
     setData(props.booksData)
+  }
+  const onDelete = (id)=>{
+    DeleteBook(id)
+    .then(responce=>{
+      console.log("delete", responce)
+    })
+    .catch(error=>{
+      console.log(error)
+    })
   }
   let booksdata;
   return (
@@ -194,7 +237,7 @@ export default function BookdDetailsTable(props) {
                     </IconButton>                      
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                      <IconButton>
+                      <IconButton onClick={()=>onDelete(book.bookId)}>
                           <DeleteOutlineOutlinedIcon/>
                       </IconButton>
                   </StyledTableCell>

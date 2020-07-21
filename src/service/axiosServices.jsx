@@ -12,4 +12,7 @@ export default class AxiosService{
     Delete(url,id,isHeaderRequired){
         return axios.delete(url,id,isHeaderRequired);
     }
+    Put(url,data,isHeaderRequired){
+        return axios.put(url,data,isHeaderRequired);
+    }
 }
