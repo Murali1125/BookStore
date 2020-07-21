@@ -133,13 +133,13 @@ export default function BookdDetailsTable(props) {
     })
   },[])
 
-  const Delete=(BookId)=>{
-    console.log("Delete ID",BookId);
-    DeleteBook(BookId).then((json) => {  
+  const Delete=(bookId)=>{
+    console.log("Delete ID",bookId);
+    DeleteBook(bookId).then((json) => {  
       console.log("responce data==>",json);
-    if(json.data.status==='Success'){  
-    alert('Record deleted successfully!!');  
-    }  
+    // if(json.data.status==='Success'){  
+    // alert('Record deleted successfully!!');  
+    // }  
     })  
   }
 
