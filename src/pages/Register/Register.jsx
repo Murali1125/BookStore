@@ -360,7 +360,7 @@ export class Register extends React.Component {
             </div>
           </Card>
         </div>
-        <div className="footer">
+        <div >
           <Footer />
         </div>
       </div>

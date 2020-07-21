@@ -10,6 +10,7 @@ import Book from "../component/Book/Book";
 import Store from "../pages/Store/Store";
 import OrderSummary from "../pages/orderSummary/OrderSummary";
 import Profile from "./../pages/profile/Profile";
+import {PrivateRoute} from "./privateroute"
 
 function Routes() {
   return (
