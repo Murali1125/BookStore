@@ -13,6 +13,5 @@ export function GetAllBooks(){
     return axiosService.Get(url+"Book",null,header)
 }
 export function DeleteBook(bookId){
-    console.log("delete book",bookId);
     return axiosService.Delete(url+"Book/"+bookId,header)
 }
