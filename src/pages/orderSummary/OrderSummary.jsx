@@ -83,7 +83,7 @@ export default function OrderSummary() {
         <br />
         <br />
         <br />
-        <div className="footer">
+        <div>
           <Footer />
         </div>
       </div>
