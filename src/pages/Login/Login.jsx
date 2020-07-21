@@ -237,7 +237,7 @@ export class Login extends React.Component {
         <br />
         <br />
         <br />
-        <div className="footer">
+        <div>
           <Footer />
         </div>
       </div>
