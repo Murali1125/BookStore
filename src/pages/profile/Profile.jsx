@@ -8,15 +8,17 @@ import { Grid } from "@material-ui/core";
 import Book from "../../component/Book/Book";
 import Pagination from "@material-ui/lab/Pagination";
 import WishlistService from "./../../service/wishlistService";
+import CartService from "./../../service/cartService";
 
 const wishlistService = new WishlistService();
+const cartService = new CartService();
 
 export class Profile extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      books: [],
+      wishlist: [],
       page: 1,
       itemsPerPage: 12,
     };
@@ -30,11 +32,28 @@ export class Profile extends React.Component {
     wishlistService.GetWishlist(localStorage.getItem("Token")).then((json) => {
       if (json.status === 200) {
         this.setState({
-          books: json.data.data,
+          wishlist: json.data.data,
         });
       }
       console.log("All books", json);
     });
+  };
+
+  addToCart = (wishlistId) => {
+    cartService
+      .AddToCartFromWishlist(wishlistId, localStorage.getItem("Token"))
+      .then((json) => {
+        console.log("Added to cart", json);
+      });
+  };
+
+  removeFromwishlist = (wishlistId) => {
+    wishlistService
+      .RemoveFromWishlist(wishlistId, localStorage.getItem("Token"))
+      .then((json) => {
+         this.getAllWishlist();
+      });
+     
   };
 
   componentDidMount() {
@@ -82,7 +101,7 @@ export class Profile extends React.Component {
                 <br />
                 <div className="name">Phone Number</div>
               </div>
-              <div className="profileName">
+              <div className="profileValue">
                 <div className="name">{localStorage.getItem("FirstName")}</div>
                 <br />
                 <div className="name">{localStorage.getItem("LastName")}</div>
@@ -118,7 +137,7 @@ export class Profile extends React.Component {
             >
               Wishlist
               <span className="bookCount">
-                &nbsp;({this.state.books.length} items)
+                &nbsp;({this.state.wishlist.filter(book => book.isDeleted ===false).length} items)
               </span>
             </Grid>
           </Grid>
@@ -130,7 +149,7 @@ export class Profile extends React.Component {
             justify="flex-start"
             className="booksContainer"
           >
-            {this.state.books.length === 0 ? (
+            {this.state.wishlist.length === 0 ? (
               <Grid
                 container
                 item
@@ -145,12 +164,13 @@ export class Profile extends React.Component {
                 No books Found
               </Grid>
             ) : (
-              this.state.books
+              this.state.wishlist.filter(book => book.isDeleted ===false)
                 .slice(
                   (this.state.page - 1) * this.state.itemsPerPage,
                   this.state.page * this.state.itemsPerPage
                 )
                 .map((book, index) => {
+                  console.log(book)
                   return (
                     <Grid
                       container
@@ -165,8 +185,10 @@ export class Profile extends React.Component {
                     >
                       <Book
                         key={index}
-                        addToCart={(bookId) => this.addToCart(bookId)}
-                        // addToWishlist={(bookId) => this.addTowishlist(bookId)}
+                        addToCart={() => this.addToCart(book.wishListId)}
+                        removeFromWishlist={() => this.removeFromwishlist(book.wishListId)}
+                       
+                        variant="wishlist"
                       >
                         {book}
                       </Book>
@@ -184,7 +206,7 @@ export class Profile extends React.Component {
           >
             <Pagination
               count={Math.ceil(
-                this.state.books.length / this.state.itemsPerPage
+                this.state.wishlist.length / this.state.itemsPerPage
               )}
               page={this.state.page}
               onChange={(event, value) => this.changePage(event, value)}
