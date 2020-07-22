@@ -117,10 +117,11 @@ export default class Store extends Component {
     localStorage.removeItem("FirstName");
     localStorage.removeItem("LastName");
     localStorage.removeItem("Email");
+    localStorage.removeItem("User Role");
     localStorage.removeItem("Address");
     localStorage.removeItem("City");
     localStorage.removeItem("Phone Number");
-    this.props.history.push("/store");
+    this.props.history.push("/");
   };
 
   getNoOfItemsInCart = (value) => {

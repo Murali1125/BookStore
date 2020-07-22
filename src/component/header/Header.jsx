@@ -63,8 +63,7 @@ class Header extends Component {
 
   logout = () => {
     console.log(this.props);
-    this.props.onLogout();
-  
+    this.props.onLogout(); 
   };
 
   cart = () => {
@@ -148,7 +147,7 @@ class Header extends Component {
                       </MenuItem>
 
                       <MenuItem
-                        onClick={()=>this.logout()}
+                        onClick={() => this.logout()}
                         style={{
                           display: "flex",
                           alignItems: "center",
