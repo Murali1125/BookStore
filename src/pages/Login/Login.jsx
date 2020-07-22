@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import auth from "./../../service/auth";
 import userServices from "./../../service/userServices";
 let service = new userServices();
 
@@ -50,8 +51,8 @@ export class Login extends React.Component {
     const regexEmail = new RegExp(
       /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
     );
-    let error = regexEmail.test(String(input)) ? " " : "Email is Invalid";
-    if (error === " ") {
+    let error = regexEmail.test(String(input)) ? "" : "Email is Invalid";
+    if (error === "") {
       this.setState({ emailErrorStatus: false });
       this.setState({ emailErrorMessage: error });
       this.setState({ emailValid: true });
@@ -65,8 +66,8 @@ export class Login extends React.Component {
     const regexPassword = new RegExp(
       /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
     );
-    let error = regexPassword.test(String(input)) ? " " : "Password is Invalid";
-    if (error === " ") {
+    let error = regexPassword.test(String(input)) ? "" : "Password is Invalid";
+    if (error === "") {
       this.setState({ passwordErrorStatus: false });
       this.setState({ passwordErrorMessage: error });
       this.setState({ passwordValid: true });
@@ -78,7 +79,7 @@ export class Login extends React.Component {
   };
 
   signIn = () => {
-    let errorEmail =this.state.email ? " " : "Email is Required";
+    let errorEmail =this.state.email ? "" : "Email is Required";
     if (errorEmail === "") {
       this.setState({ emailErrorStatus: false });
       this.setState({ emailErrorMessage: errorEmail });
@@ -88,7 +89,7 @@ export class Login extends React.Component {
       this.setState({ emailErrorMessage: errorEmail });
       this.setState({ emailValid: false });
     }
-    let errorPassword =this.state.password ? " " : "Password is Required";
+    let errorPassword = this.state.password ? "" : "Password is Required";
     if (errorPassword === "") {
       this.setState({ passwordErrorStatus: false });
       this.setState({ passwordErrorMessage: errorPassword });
@@ -106,22 +107,42 @@ export class Login extends React.Component {
         .Login(user)
         .then((json) => {
           console.log("loginResponce",json)
-          if (json.status === 200) {
+          if (json.data.success === true) {
             localStorage.setItem("Token", json.data.jsonToken);
             localStorage.setItem("FirstName", json.data.data.firstName);
             localStorage.setItem("LastName", json.data.data.lastName);
             localStorage.setItem("Email", json.data.data.email);
+            localStorage.setItem("User Role", json.data.data.userRole);
             localStorage.setItem("Address", json.data.data.address);
             localStorage.setItem("City", json.data.data.city);
             localStorage.setItem("Phone Number", json.data.data.phoneNumber);
             this.setState({ responseMessage: "Login Successful" });
             this.setState({ snackbarVarient: "success" });
             this.setState({ OpenSnackbar: true });
+            if(json.data.data.userRole==="Admin"){
+              auth.login();
+                    if(auth.isAuthenticated){
+                        setTimeout(() => {
+							this.props.history.push("/dashboard");
+						}, 2000);
+                    }
+            }
+            else{
+              auth.login();
+                    if(auth.isAuthenticated){
+                        setTimeout(() => {
+							this.props.history.push("/");
+						}, 2000);
+                    }
+            }
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.setState({ responseMessage: "Username or Password is Incorrect" });
+            this.setState({ snackbarVarient: "error" });
+            this.setState({ OpenSnackbar: true });
         });
+        
   };
   handleClose = (event, reason) => {
     if (reason === "clickaway") {

@@ -183,21 +183,26 @@ export class Register extends React.Component {
         address:this.state.address,
         phoneNumber:this.state.phoneNumber
       };
-      console.log("User Data",user);
       service
         .Registration(user)
         .then((json) => {
-          console.log("responce data==>", json);
-          if (json.status === 200) {
+          if (json.data.success === true) {
             this.setState({responseMessage:"Registration Successful"});
             this.setState({snackbarVarient:"success"});
+            this.setState({OpenSnackbar:true});
+            setTimeout(() => {
+							this.props.history.push("/login");
+						}, 200);
+          }
+          else {
+            this.setState({responseMessage:"Email ID is already Exsist"});
+            this.setState({snackbarVarient:"error"});
             this.setState({OpenSnackbar:true});
           }
         })
         .catch((err) => {
           console.log(err);
         });
-    //this.props.history.push("/login");
   };
 
   handleClose = (event, reason) => {
