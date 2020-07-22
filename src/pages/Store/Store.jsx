@@ -8,10 +8,12 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import BookStoreService from "./../../service/bookStoreService";
 import CartService from "./../../service/cartService";
+import WishlistService from "./../../service/wishlistService";
 import "./Store.scss";
 
 const bookStoreService = new BookStoreService();
-const cartService = new CartService();  
+const cartService = new CartService();
+const wishlistService = new WishlistService();
 export default class Store extends Component {
   constructor(props) {
     super(props);
@@ -20,8 +22,7 @@ export default class Store extends Component {
       books: [],
       page: 1,
       itemsPerPage: 12,
-
-      currentPosts: [],
+      itemsInCart: 0,
     };
   }
 
@@ -32,9 +33,11 @@ export default class Store extends Component {
   getAllBooks = () => {
     bookStoreService.GetAllBooks().then((json) => {
       if (json.status === 200) {
-        this.setState({ books: json.data.data });
+        this.setState({
+          books: json.data.data,
+        });
       }
-      console.log(json);
+      console.log("All books",json);
     });
   };
 
@@ -46,7 +49,7 @@ export default class Store extends Component {
       bookStoreService.GetAllBooksByKeyword(value).then((json) => {
         console.log(json);
         if (json.data.success === true) {
-          this.setState({ books: [json.data.data] });
+          this.setState({ books: [...json.data.data] });
         } else {
           this.setState({ books: [] });
         }
@@ -61,6 +64,7 @@ export default class Store extends Component {
       .then((json) => {
         console.log("sorted");
         if (json.data.success === true) {
+          console.log(json.data.data);
           this.setState({ books: json.data.data });
         }
       })
@@ -80,12 +84,25 @@ export default class Store extends Component {
   };
 
   // Add book to cart
-  addToCart = (bookId) =>{
-    console.log("book id", bookId, localStorage.getItem("Token"));
-    cartService.AddToCart(bookId,localStorage.getItem("Token")).then((json)=>{
-      console.log("Added to cart", json);
-    })
-  }
+  addToCart = (bookId) => {
+    console.log("Add to cart called",bookId);
+    cartService
+      .AddToCart(bookId, localStorage.getItem("Token"))
+      .then((json) => {
+        console.log("Added to cart", json);
+      });
+  };
+
+  // Add book to wishlist
+  addTowishlist = (bookId) => {
+    const token = localStorage.getItem("Token");
+    console.log(token);
+    wishlistService
+      .AddToWishlist(bookId,{},token)
+      .then((json) => {
+        console.log("Added to wishlist", json);
+      });
+  };
 
   onProfileClick = () => {
     if (localStorage.getItem("Token")) {
@@ -106,6 +123,10 @@ export default class Store extends Component {
     this.props.history.push("/store");
   };
 
+  getNoOfItemsInCart = (value) => {
+    this.setState({ itemsInCart: value });
+  };
+
   componentDidMount() {
     this.getAllBooks();
   }
@@ -117,7 +138,7 @@ export default class Store extends Component {
             variant="rich"
             onSearch={(value) => this.onSearch(value)}
             onProfileClick={() => this.onProfileClick()}
-            onLogout={()=>this.onLogoutClick}
+            onLogout={() => this.onLogoutClick}
           ></Header>
           <Container maxWidth="lg" className="storeContainer">
             <Grid
@@ -177,18 +198,19 @@ export default class Store extends Component {
               justify="flex-start"
               className="booksContainer"
             >
-              {this.state.books === [] ? (
+              {this.state.books.length === 0 ? (
                 <Grid
                   container
                   item
-                  md={3}
+                  md={12}
                   sm={6}
                   xs={12}
                   className="singleBookContainer"
                   alignItems="center"
                   justify="center"
+                  style={{fontsize: 40}}
                 >
-                  No books
+                  No books Found
                 </Grid>
               ) : (
                 this.state.books
@@ -209,7 +231,13 @@ export default class Store extends Component {
                         alignItems="center"
                         justify="center"
                       >
-                        <Book addToCart={(bookId)=>this.addToCart(bookId)}>{book}</Book>
+                        <Book
+                          key={index}
+                          addToCart={(bookId) => this.addToCart(bookId)}
+                          addToWishlist={(bookId)=>this.addTowishlist(bookId)}
+                        >
+                          {book}
+                        </Book>
                       </Grid>
                     );
                   })
