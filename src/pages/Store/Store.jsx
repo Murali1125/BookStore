@@ -104,7 +104,7 @@ export default class Store extends Component {
     localStorage.removeItem("Address");
     localStorage.removeItem("City");
     localStorage.removeItem("Phone Number");
-    this.props.history.push("/");
+    this.props.history.push("/login");
   };
 
   componentDidMount() {
