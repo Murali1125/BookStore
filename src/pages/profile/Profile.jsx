@@ -83,7 +83,7 @@ export class Profile extends React.Component {
             </div>
           </Card>
         </div>
-        <div className="footer">
+        <div>
           <Footer />
         </div>
       </div>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
 import "./Book.scss";
 import bookCover from "./../../assets/bookCover.jpg";
+import Truncate from "react-truncate";
+import Tooltip from "react-tooltip-lite";
 
 export default class Book extends Component {
   constructor(props) {
@@ -14,11 +16,11 @@ export default class Book extends Component {
   }
 
   // Click handler for add to bag button
-  AddToBagHandler = () => {
+  AddToBagHandler = (bookId) => {
     if (this.state.addToBagClicked === false) {
       this.setState({
         addToBagClicked: true,
-      });
+      },this.props.addToCart(bookId));
     } else {
       this.setState({
         addToBagClicked: false,
@@ -39,9 +41,14 @@ export default class Book extends Component {
     }
   };
 
-  normalButtons = (
+  normalButtons =(bookId) => (
     <div className="bookButtons">
-      <div className="addToBag" onClick={() => this.AddToBagHandler()}>
+      <div
+        className="addToBag"
+        onClick={() =>
+          this.AddToBagHandler(bookId)
+        }
+      >
         ADD TO BAG
       </div>
       <div className="wishlist" onClick={() => this.AddtoWishlist()}>
@@ -58,7 +65,7 @@ export default class Book extends Component {
 
   afterClickOnwishlist = (
     <div className="bookButtons">
-      <div className="wishlisted">WISHLIST</div>
+      <div className="wishlisted">ADDED TO WISHLIST</div>
     </div>
   );
 
@@ -66,15 +73,26 @@ export default class Book extends Component {
     return (
       <React.Fragment>
         <div className="book">
-          <Grid
-            container
-            item
-            alignItems="center"
-            justify="center"
-            className="bookImage"
+          <Tooltip
+            content={<div>{this.props.children.description}</div>}
+            direction="right-start"
           >
-            <img src={bookCover} height="130px" width="90px" alt="bookCover" />
-          </Grid>
+            <Grid
+              container
+              item
+              alignItems="center"
+              justify="center"
+              className="bookImage"
+            >
+              <img
+                src={bookCover}
+                height="130px"
+                width="90px"
+                alt="bookCover"
+              />
+            </Grid>
+          </Tooltip>
+
           <Grid
             container
             item
@@ -83,14 +101,34 @@ export default class Book extends Component {
             justify="flex-start"
             className="bookInfo"
           >
-            <div className="bookTitle">Don't Make Me Think</div>
-            <div className="bookAuthor">by Steve Krug</div>
-            <div className="bookPrice">Rs. 1500</div>
+            <Truncate
+              className="bookTitle"
+              lines={1}
+              ellipsis={
+                <span className="show">
+                  ... <span className="hide">{this.props.children.title}</span>
+                </span>
+              }
+            >
+              {this.props.children.title}
+            </Truncate>
+            <Truncate
+              className="bookAuthor"
+              lines={1}
+              ellipsis={
+                <span className="show">
+                  ... <span className="hide">{this.props.children.author}</span>
+                </span>
+              }
+            >
+              by {this.props.children.author}
+            </Truncate>
+            <div className="bookPrice">Rs. {this.props.children.price}</div>
             {this.state.addToBagClicked
               ? this.afterClickOnAdd
               : this.state.wishlistClicked
               ? this.afterClickOnwishlist
-              : this.normalButtons}
+              : this.normalButtons(this.props.children.bookId)}
           </Grid>
         </div>
       </React.Fragment>

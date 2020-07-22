@@ -15,7 +15,7 @@ describe("Login component", () => {
       it('renders a password input', () => {
         expect(shallow( <Login /> ).find('#outlined-adornment-password').length).toEqual(1)
       })
-});
+}); 
 
 describe('Email input', () => {
   //testing email input for Fundoo notes
