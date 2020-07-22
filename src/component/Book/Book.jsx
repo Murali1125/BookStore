@@ -63,7 +63,7 @@ export default class Book extends Component {
       <div className="addToBag" onClick={() => this.AddToBagHandler(bookId)}>
         ADD TO BAG
       </div>
-      <div className="wishlist" onClick={() => this.AddtoWishlist(bookId)}>
+      <div className="wishlist" onClick={() => this.props.removeFromWishlist()}>
         REMOVE
       </div>
     </div>
@@ -101,10 +101,7 @@ export default class Book extends Component {
     return (
       <React.Fragment>
         <div className="book">
-          <Tooltip
-            content={<div>{this.props.children.description}</div>}
-            direction="right-start"
-          >
+          {this.props.variant === "wishlist" ? (
             <Grid
               container
               item
@@ -124,7 +121,32 @@ export default class Book extends Component {
                 </div>
               ) : null}
             </Grid>
-          </Tooltip>
+          ) : (
+            <Tooltip
+              content={<div>{this.props.children.description}</div>}
+              direction="right-start"
+            >
+              <Grid
+                container
+                item
+                alignItems="center"
+                justify="center"
+                className="bookImage"
+              >
+                <img
+                  src={bookCover}
+                  height="130px"
+                  width="90px"
+                  alt="bookCover"
+                />
+                {this.props.children.booksAvailable === 0 ? (
+                  <div className="outOfStock">
+                    <Grid className="outOfStock-label">OUT OF STOCK</Grid>
+                  </div>
+                ) : null}
+              </Grid>
+            </Tooltip>
+          )}
 
           <Grid
             container
@@ -167,7 +189,9 @@ export default class Book extends Component {
               ? this.afterClickOnAdd
               : this.state.wishlistClicked
               ? this.afterClickOnwishlist
-              : this.props.children.booksAvailable===0 ? this.outOfStockButtons(this.props.children.bookId): this.normalButtons(this.props.children.bookId)}
+              : this.props.children.booksAvailable === 0
+              ? this.outOfStockButtons(this.props.children.bookId)
+              : this.normalButtons(this.props.children.bookId)}
           </Grid>
         </div>
       </React.Fragment>
