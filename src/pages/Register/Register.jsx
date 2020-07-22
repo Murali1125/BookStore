@@ -134,27 +134,27 @@ export class Register extends React.Component {
   };
 
   Register = () => {
-    let errorFirstname = this.state.firstName ? "" : "First Name is Required";
+    let errorFirstname =this.state.firstName ? "" : "First Name is Required";
     if (errorFirstname === "") {
-      this.setState({ firstNameErrorStatus: false });
-      this.setState({ firstNameErrorMessage: errorFirstname });
-      this.setState({ firstNameValid: true });
+      this.setState({firstNameErrorStatus:false});
+      this.setState({firstNameErrorMessage:errorFirstname});
+      this.setState({firstNameValid:true});
     } else {
-      this.setState({ firstNameErrorStatus: true });
-      this.setState({ firstNameErrorMessage: errorFirstname });
-      this.setState({ firstNameValid: false });
+      this.setState({firstNameErrorStatus:true});
+      this.setState({firstNameErrorMessage:errorFirstname});
+      this.setState({firstNameValid:false});
     }
-    let errorLastname = this.state.lastName ? "" : "Last Name is Required";
+    let errorLastname =this.state.lastName ? "" : "Last Name is Required";
     if (errorLastname === "") {
-      this.setState({ lastNameErrorStatus: false });
-      this.setState({ lastNameErrorMessage: errorLastname });
-      this.setState({ lastNameValid: true });
+      this.setState({lastNameErrorStatus:false});
+      this.setState({lastNameErrorMessage:errorLastname});
+      this.setState({lastNameValid:true});
     } else {
-      this.setState({ lastNameErrorStatus: true });
-      this.setState({ lastNameErrorMessage: errorLastname });
-      this.setState({ lastNameValid: false });
+      this.setState({lastNameErrorStatus:true});
+      this.setState({lastNameErrorMessage:errorLastname});
+      this.setState({lastNameValid:false});
     }
-    let errorEmail = this.state.email ? "" : "Email is Required";
+    let errorEmail =this.state.email ? "" : "Email is Required";
     if (errorEmail === "") {
       this.setState({ emailErrorStatus: false });
       this.setState({ emailErrorMessage: errorEmail });
@@ -174,30 +174,35 @@ export class Register extends React.Component {
       this.setState({ passwordErrorMessage: errorPassword });
       this.setState({ passwordValid: false });
     }
-    const user = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      city: this.state.city,
-      address: this.state.address,
-      phoneNumber: this.state.phoneNumber,
-    };
-    console.log("User Data", user);
-    service
-      .Registration(user)
-      .then((json) => {
-        console.log("responce data==>", json);
-        if (json.status === 200) {
-          this.setState({ responseMessage: "Registration Successful" });
-          this.setState({ snackbarVarient: "success" });
-          this.setState({ OpenSnackbar: true });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    //this.props.history.push("/login");
+      const user = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password,
+        city: this.state.city,
+        address:this.state.address,
+        phoneNumber:this.state.phoneNumber
+      };
+      service
+        .Registration(user)
+        .then((json) => {
+          if (json.data.success === true) {
+            this.setState({responseMessage:"Registration Successful"});
+            this.setState({snackbarVarient:"success"});
+            this.setState({OpenSnackbar:true});
+            setTimeout(() => {
+							this.props.history.push("/login");
+						}, 200);
+          }
+          else {
+            this.setState({responseMessage:"Email ID is already Exsist"});
+            this.setState({snackbarVarient:"error"});
+            this.setState({OpenSnackbar:true});
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   handleClose = (event, reason) => {
@@ -360,7 +365,7 @@ export class Register extends React.Component {
             </div>
           </Card>
         </div>
-        <div className="footer">
+        <div >
           <Footer />
         </div>
       </div>

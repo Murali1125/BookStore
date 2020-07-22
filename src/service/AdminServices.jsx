@@ -19,10 +19,12 @@ export function UpdateBook(data,id){
     return axiosService.Put(url+"Book/"+id,data,header);
 };
 export function DeleteBook(bookId){
-    //return axiosService.Delete(url+"Book/"+bookId,null,header);
-    return axios.delete(url+"Book/"+bookId,header)
+    return axiosService.Delete(url+"Book/"+bookId,header);
 }
 export function SearchList(searchWord){
     console.log("search word in adminservice", searchWord)
     return axiosService.Get(url+"Book/"+searchWord,null,false);
+}
+export function DeleteBook(bookId){
+    return axiosService.Delete(url+"Book/"+bookId,header)
 }

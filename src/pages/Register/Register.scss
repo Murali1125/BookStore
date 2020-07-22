@@ -55,10 +55,7 @@
     color: #0423ce;
     font-Size: 13px
 }
-.footer {
-	position: fixed;
-	bottom: 0;
-}
+
 @media only screen and (max-width: 1024px) {
     .register{
        margin-top:180px;
@@ -69,6 +66,15 @@
     .register{
        margin-top:30px;
        margin-bottom:0px;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .register{
+       margin-top:0px;
+    }
+    .registerCard{
+        border:none !important;
+        padding-bottom:100px;
     }
 }
 @media only screen and (max-width: 414px) {

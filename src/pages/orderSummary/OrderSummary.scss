@@ -45,10 +45,7 @@
   padding-right:10px;
   word-wrap: break-word !important;
 }
-.footer {
-	position: fixed;
-	bottom: 0;
-}
+
 @media only screen and (max-width: 1024px) {
   .orderimage {
     margin-top: 240px;
@@ -60,9 +57,10 @@
 @media only screen and (max-width: 768px) {
   .orderimage {
     margin-top:80px;
+    margin-bottom:0px;
   }
   .order{
-    padding-bottom:70px;
+    padding-bottom:0px;
   }
 }
 @media only screen and (max-width: 414px) {
