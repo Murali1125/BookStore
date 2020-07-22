@@ -18,9 +18,12 @@ export default class Book extends Component {
   // Click handler for add to bag button
   AddToBagHandler = (bookId) => {
     if (this.state.addToBagClicked === false) {
-      this.setState({
-        addToBagClicked: true,
-      },this.props.addToCart(bookId));
+      this.setState(
+        {
+          addToBagClicked: true,
+        },
+        () => this.props.addToCart(bookId)
+      );
     } else {
       this.setState({
         addToBagClicked: false,
@@ -29,11 +32,14 @@ export default class Book extends Component {
   };
 
   // click handler for add to woshlist button
-  AddtoWishlist = () => {
+  AddtoWishlist = (bookId) => {
     if (this.state.wishlistClicked === false) {
-      this.setState({
-        wishlistClicked: true,
-      });
+      this.setState(
+        {
+          wishlistClicked: true,
+        },
+        () => this.props.addToWishlist(bookId)
+      );
     } else {
       this.setState({
         wishlistClicked: false,
@@ -41,19 +47,35 @@ export default class Book extends Component {
     }
   };
 
-  normalButtons =(bookId) => (
+  normalButtons = (bookId) => (
     <div className="bookButtons">
-      <div
-        className="addToBag"
-        onClick={() =>
-          this.AddToBagHandler(bookId)
-        }
-      >
+      <div className="addToBag" onClick={() => this.AddToBagHandler(bookId)}>
         ADD TO BAG
       </div>
-      <div className="wishlist" onClick={() => this.AddtoWishlist()}>
+      <div className="wishlist" onClick={() => this.AddtoWishlist(bookId)}>
         WISHLIST
       </div>
+    </div>
+  );
+
+  wishlistButtons = (bookId) => (
+    <div className="bookButtons">
+      <div className="addToBag" onClick={() => this.AddToBagHandler(bookId)}>
+        ADD TO BAG
+      </div>
+      <div className="wishlist" onClick={() => this.AddtoWishlist(bookId)}>
+        REMOVE
+      </div>
+    </div>
+  );
+
+  outOfStockButtons = (bookId) => (
+    <div className="bookButtons">
+    <div></div>
+      <div className="wishlist" onClick={() => this.AddtoWishlist(bookId)}>
+        WISHLIST
+      </div>
+      <div></div>
     </div>
   );
 
@@ -66,6 +88,12 @@ export default class Book extends Component {
   afterClickOnwishlist = (
     <div className="bookButtons">
       <div className="wishlisted">ADDED TO WISHLIST</div>
+    </div>
+  );
+
+  afterClickOnRemove = (
+    <div className="bookButtons">
+      <div className="wishlisted">REMOVED FROM WISHLIST</div>
     </div>
   );
 
@@ -90,6 +118,11 @@ export default class Book extends Component {
                 width="90px"
                 alt="bookCover"
               />
+              {this.props.children.booksAvailable === 0 ? (
+                <div className="outOfStock">
+                  <Grid className="outOfStock-label">OUT OF STOCK</Grid>
+                </div>
+              ) : null}
             </Grid>
           </Tooltip>
 
@@ -124,11 +157,17 @@ export default class Book extends Component {
               by {this.props.children.author}
             </Truncate>
             <div className="bookPrice">Rs. {this.props.children.price}</div>
-            {this.state.addToBagClicked
+            {this.props.variant === "wishlist"
+              ? this.state.addToBagClicked
+                ? this.afterClickOnAdd
+                : this.state.wishlistClicked
+                ? this.afterClickOnwishlist
+                : this.wishlistButtons(this.props.children.bookId)
+              : this.state.addToBagClicked
               ? this.afterClickOnAdd
               : this.state.wishlistClicked
               ? this.afterClickOnwishlist
-              : this.normalButtons(this.props.children.bookId)}
+              : this.props.children.booksAvailable===0 ? this.outOfStockButtons(this.props.children.bookId): this.normalButtons(this.props.children.bookId)}
           </Grid>
         </div>
       </React.Fragment>
