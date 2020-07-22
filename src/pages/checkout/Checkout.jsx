@@ -25,6 +25,7 @@ export default class Checkout extends Component {
       descriptionClass: "customerDetails showPreview",
       checkoutClass: "checkout showPreview",
       disable: false,
+      validationMessage: "",
 
       name: localStorage.getItem("FirstName")
         ? `${localStorage.getItem("FirstName")} ${localStorage.getItem(
@@ -83,12 +84,26 @@ export default class Checkout extends Component {
     });
   };
   continue = () => {
-    this.setState({
-      checkoutClass: "checkout",
-      continueButton: "customerDetails-continue--button-hidden",
-      editDescription: "edit-show",
-      disable: true,
-    });
+    if (
+      this.state.name === "" ||
+      this.state.address === "" ||
+      this.state.city === "" ||
+      this.state.landmark === "" ||
+      this.state.locality === "" ||
+      this.state.phone === "" ||
+      this.state.pincode === ""
+    ) {
+      this.setState({ validationMessage: "Please fill all the details*" });
+    } else{
+      this.setState({
+        checkoutClass: "checkout",
+        continueButton: "customerDetails-continue--button-hidden",
+        editDescription: "edit-show",
+        disable: true,
+        validationMessage: "",
+      });
+    }
+    
     console.log(this.state.name);
   };
 
@@ -105,10 +120,16 @@ export default class Checkout extends Component {
             {/*  my cart ***************************************************************************** */}
             <Grid container direction="column" className="myCart">
               <Grid container item className="myCart-header">
-                My cart ({this.state.cartItems.filter((item) => item.isDeleted === 1).length})
+                My cart (
+                {
+                  this.state.cartItems.filter(
+                    (item) => item.isDeleted === false
+                  ).length
+                }
+                )
               </Grid>
               {this.state.cartItems
-                .filter((item) => item.isDeleted === 1)
+                .filter((item) => item.isDeleted === false)
                 .map((item, index) => {
                   console.log("ITem", item);
                   return (
@@ -197,6 +218,7 @@ export default class Checkout extends Component {
             <Grid
               container
               direction="row"
+              justify="space-between"
               className={this.state.descriptionClass}
             >
               <Grid container item className="customerDetails-header" xs={11}>
@@ -233,6 +255,7 @@ export default class Checkout extends Component {
                       }
                       variant="outlined"
                       fullWidth
+                      required
                     ></TextField>
                   </Grid>
                   <Grid item md={5} xs={12}>
@@ -248,6 +271,7 @@ export default class Checkout extends Component {
                       }
                       variant="outlined"
                       fullWidth
+                      required
                     ></TextField>
                   </Grid>
                 </Grid>
@@ -265,6 +289,7 @@ export default class Checkout extends Component {
                       }
                       variant="outlined"
                       fullWidth
+                      required
                     ></TextField>
                   </Grid>
                   <Grid item md={5} xs={12}>
@@ -280,6 +305,7 @@ export default class Checkout extends Component {
                       }
                       variant="outlined"
                       fullWidth
+                      required
                     ></TextField>
                   </Grid>
                 </Grid>
@@ -298,6 +324,7 @@ export default class Checkout extends Component {
                       variant="outlined"
                       multiline
                       fullWidth
+                      required
                     ></TextField>
                   </Grid>
                 </Grid>
@@ -315,6 +342,7 @@ export default class Checkout extends Component {
                       }
                       variant="outlined"
                       fullWidth
+                      required
                     ></TextField>
                   </Grid>
                   <Grid item md={5} xs={12}>
@@ -330,8 +358,19 @@ export default class Checkout extends Component {
                       }
                       variant="outlined"
                       fullWidth
+                      required
                     ></TextField>
                   </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  direction="row"
+                  xs={12}
+                  spacing={0}
+                  className="customerDetails-validation"
+                >
+                  {this.state.validationMessage}
                 </Grid>
               </Grid>
               <Grid
@@ -359,50 +398,58 @@ export default class Checkout extends Component {
               className={this.state.checkoutClass}
             >
               <Grid container item className="checkout-header">
-                My cart ({this.state.cartItems.filter((item) => item.isDeleted === 1).length})
+                My cart (
+                {
+                  this.state.cartItems.filter(
+                    (item) => item.isDeleted === false
+                  ).length
+                }
+                )
               </Grid>
-              {this.state.cartItems.map((item, index) => {
-                return (
-                  <Grid
-                    container
-                    direction="row"
-                    xs={12}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                    className="checkout-itemDescription"
-                  >
+              {this.state.cartItems
+                .filter((item) => item.isDeleted === false)
+                .map((item, index) => {
+                  return (
                     <Grid
-                      direction="column"
-                      className="myCart-itemDescription--image"
-                      alignItems="center"
-                      justify="center"
+                      container
+                      direction="row"
                       xs={12}
-                      sm={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                      className="checkout-itemDescription"
                     >
-                      <img
-                        src={bookCover}
-                        height="100px"
-                        width="70px"
-                        alt="bookCover"
-                      />
-                    </Grid>
-                    <Grid item direction="column">
-                      <Grid className="checkout-itemDescription--title">
-                        {item.title}
-                      </Grid>
                       <Grid
-                        container
-                        className="checkout-itemDescription--author"
+                        direction="column"
+                        className="myCart-itemDescription--image"
+                        alignItems="center"
+                        justify="center"
+                        xs={12}
+                        sm={1}
                       >
-                        by {item.author}
+                        <img
+                          src={bookCover}
+                          height="100px"
+                          width="70px"
+                          alt="bookCover"
+                        />
                       </Grid>
-                      <Grid className="checkout-itemDescription--price">
-                        Rs. {item.price}
+                      <Grid item direction="column">
+                        <Grid className="checkout-itemDescription--title">
+                          {item.title}
+                        </Grid>
+                        <Grid
+                          container
+                          className="checkout-itemDescription--author"
+                        >
+                          by {item.author}
+                        </Grid>
+                        <Grid className="checkout-itemDescription--price">
+                          Rs. {item.price}
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                );
-              })}
+                  );
+                })}
               <Grid
                 container
                 item
