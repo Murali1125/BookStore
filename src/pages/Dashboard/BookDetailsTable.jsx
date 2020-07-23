@@ -116,13 +116,17 @@ const useStyles2 = makeStyles({
 
 export default function BookdDetailsTable(props) {
   const classes = useStyles2();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data,setData] = useState([]);
-  //const [refresh,setRefresh] =useState(false)
-  // const [searchWord,setSearchWord] = useState(props.searchWord)
+
+  const [snackbarOpen,setSnackbarOpen] = useState(false);
+  const [snackbarMessage,setmessage] = useState('');
+  const [snackbarSeverity,setServicity] = useState('success')
   console.log('search word props ', props.searchWord)
-  useEffect(()=>{
+
+
+  const LoadData =()=>{
     GetAllBooks()
     .then(responce=>{
         if(responce.status === 200 ){
@@ -132,15 +136,22 @@ export default function BookdDetailsTable(props) {
     .catch(error=>{
         console.log(error);
     })
+  }
+  useEffect(()=>{
+    LoadData();
   },[])
-  
+  useEffect(()=>{
+    console.log("updatedata",props.dataUpdated)
+    LoadData();
+    console.log(props.dataUpdated)
+  },[props.dataUpdated])
+
   useEffect(()=>{
     if(Boolean(props.searchWord)){
       SearchList(props.searchWord)
       .then(responce=>{
         console.log("search list",responce)
-              let temp = [...data];
-              temp[temp.length] = responce.data.data
+              let temp = [...responce.data.data];
               console.log("temp ",temp)
               setData(temp);          
       })
@@ -149,22 +160,7 @@ export default function BookdDetailsTable(props) {
       })
     }
   },[props.searchWord])
-  // useEffect(()=>{
-  //   if(Boolean(props.refresh)){
-  //     GetAllBooks()
-  //     .then(responce=>{
-  //       setData(responce.data.data);        
-  //   })
-  //   .catch(error=>{
-  //       console.log(error);
-  //   })    
-  //   }
-  // },[props.refresh])
-
-  // useEffect (()=>{
-  //   setSearchWord(props.searchWord)
-  //   console.log('search word' , searchWord)
-  // },[searchWord])
+  
 
   const Delete=(bookId)=>{
     console.log("Delete ID",bookId);
@@ -193,14 +189,21 @@ export default function BookdDetailsTable(props) {
     DeleteBook(id)
     .then(responce=>{
       console.log("delete", responce)
+      LoadData();
     })
     .catch(error=>{
       console.log(error)
     })
+
   }
   let booksdata;
   return (
     <div>
+        {/* <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={SnackbarCloseHandler} severity={snackbarSeverity}>
+                {snackBarMessage}
+            </Alert>
+        </Snackbar>  */}
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="custom pagination table">
           <TableHead>

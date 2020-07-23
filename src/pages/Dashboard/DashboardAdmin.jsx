@@ -1,6 +1,6 @@
 import './DashboardAdmin.scss'
 import React, { Component } from 'react';
-import {Container,Button,Dialog,DialogTitle,DialogContent,TextField,IconButton} from '@material-ui/core'
+import {Container,Button,Dialog,DialogTitle,DialogContent,TextField,IconButton,Typography} from '@material-ui/core'
 import Logo from './../../component/logo/Logo'
 import BookDetailsTable from './BookDetailsTable'
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
@@ -8,6 +8,8 @@ import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import BookDecription from './BookDecription'
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import Popover from '@material-ui/core/Popover';
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -22,8 +24,26 @@ class AdminDashboard extends Component {
             data : [],
             searchWord:'',
             updateData:false,
+            dataUpdated:'',
+            anchorEl : null,
         }
     }
+
+    handleClick = (event) => {
+        this.setState({
+            anchorEl : event.currentTarget
+        })
+    };
+    
+    handleClose = () => {
+        this.setState({ anchorEl : null});
+    };
+    LogOut =()=>{
+        localStorage. clear();
+        this.props.history.push("/login")
+
+    }
+
     onSearchWordChange = eve =>{
         this.setState({
             searchWord :  eve.target.value,
@@ -41,12 +61,12 @@ class AdminDashboard extends Component {
             selectedBookData : bookData,
         })
     }
-    CloseAddBookDialogBox = () =>{
+    CloseAddBookDialogBox = (data) =>{
         this.setState({
             AddBookDialogOpen: false,
             selectedBookData:'',
             isUpdateBook : false,
-            updateData : !this.state.updateData,
+            dataUpdated : data,
         })
 
     }
@@ -82,7 +102,7 @@ class AdminDashboard extends Component {
                         <div className={ this.state.hideSearch ? 'searchBarAdmin' : 'searchBarOffAdmin' }>           
                             <div>
                                 <IconButton onClick={this.onSearchIconClick }>
-                                    <SearchOutlinedIcon style= { this.state.hideSearch ?  null : {color :'white'}}
+                                    <SearchOutlinedIcon style= { this.state.hideSearch ?  null : {color :'white', position : 'relative', left : '20px'}}
                                                                  fontSize='large'                                                                  
                                     />
                                 </IconButton>
@@ -111,13 +131,36 @@ class AdminDashboard extends Component {
                                     onClick={this.OpenAddBookDialogBox}                                    
                             > 
                                 <AddOutlinedIcon/><MenuBookOutlinedIcon />
-                            </Button></div>
+                            </Button>
+                            <IconButton style={{ color : 'white', marginLeft : '20px'}}
+                                        onClick={this.handleClick}
+                            ><AccountCircleOutlinedIcon/></IconButton>
+                            </div>
+                            <Popover
+                                open={Boolean(this.state.anchorEl)}
+                                anchorEl={this.state.anchorEl}
+                                onClose={this.handleClose}
+                                anchorOrigin={{
+                                  vertical: 'bottom',
+                                  horizontal: 'center',
+                                }}
+                                transformOrigin={{
+                                  vertical: 'top',
+                                  horizontal: 'center',
+                                }}
+                            >
+                                <Button
+                                    type='button'
+                                    style={{padding: '5px',textTransform: 'none'}}
+                                    onClick={this.LogOut}
+                                >logOut</Button>
+                            </Popover>
                     </div>
                 </div>
                 <Container className="BooksDisplayContainerAdmin">                    
                     <BookDetailsTable   showBook={this.OpenBookDialogBoxWithData}
                                         searchWord={this.state.searchWord}
-                                        refresh={this.state.updateData}
+                                        dataUpdated = {this.state.dataUpdated}
                     />  
                     <div>
                     <Dialog

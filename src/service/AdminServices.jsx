@@ -15,8 +15,8 @@ export function AddBook(data){
 export function GetAllBooks(){
     return axiosService.Get(url+"Book",null,header);
 }
-export function UpdateBook(data,id){
-    return axiosService.Put(url+"Book/"+id,data,header);
+export  function UpdateBook(data,id){
+    return   axiosService.Put(url+"Book/"+id,data,header);
 };
 export function DeleteBook(bookId){
     return axiosService.Delete(url+"Book/"+bookId,header);

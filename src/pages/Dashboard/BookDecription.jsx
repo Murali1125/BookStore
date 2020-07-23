@@ -6,6 +6,11 @@ import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
 import {AddBook,UpdateBook} from './../../service/AdminServices'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import {Alert} from '@material-ui/core'
+
+
 class BookDecription extends Component {
     constructor(props){
         super(props);
@@ -21,6 +26,9 @@ class BookDecription extends Component {
             quantity :'',    
             bookId: null,
             status : 'addBook',
+            snackbarOpen : false,
+            snackBarMessage : '',
+            snackbarSeverity : 'success',
         }
     }
 
@@ -52,8 +60,7 @@ class BookDecription extends Component {
         }         
     }
         
-
-    onSave = () =>{
+    onSave = async ()=>{
         console.log('onsave')
         let Book = {
             "Title": this.state.title,
@@ -63,28 +70,65 @@ class BookDecription extends Component {
             "Price": this.state.price,            
         }
         if(this.state.status === "updateBook") {
-            UpdateBook(Book,this.state.bookId) 
-            .then(responce=>{
-                console.log(responce)
+            await UpdateBook(Book,this.state.bookId) 
+            .then(responce=>{                
+                console.log("book updated sucessfully", responce)
+                if(responce.sucess === true){
+                    this.setState({
+                        snackbarOpen : true,
+                        snackBarMessage : 'Book Sucessfully updated',
+                        snackbarSeverity : 'success'
+                    })
+                }
             })
             .catch(error=>{
                 console.log(error)
+                this.setState({
+                    snackbarOpen : true,
+                    snackBarMessage : error.message,
+                    snackbarSeverity : 'error'
+                })
             })
         }
         else{
-            AddBook(Book)        
+            await AddBook(Book)        
             .then(responce=>{
-                console.log(responce)
+                console.log("book added sucessfully", responce)
+                this.setState({
+                    snackbarOpen : true,
+                    snackBarMessage : 'Book Sucessfully Added',
+                    snackbarSeverity : 'success'
+                })
             })
             .catch(error=>{
-                console.log(error)
+                this.setState({
+                    snackbarOpen : true,
+                    snackBarMessage : error.message,
+                    snackbarSeverity : 'error'
+                })
             })
         }
-        this.props.closeDialog();
+        this.props.closeDialog(Book.Title);
     }
+    SnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }    
+        this.setState({
+            snackbarOpen : false,
+            snackBarMessage : '',
+            snackbarSeverity : 'success',
+        })
+      };
+
     render() {
         return (
-            <div className='BookDetailsAdmin' >                
+            <div className='BookDetailsAdmin' >    
+                {/* <Snackbar open={this.state.snackbarOpen} autoHideDuration={6000} onClose={this.SnackbarClose}>
+                    <Alert onClose={this.SnackbarClose} severity={this.state.snackbarSeverity}>
+                        {this.state.snackBarMessage}
+                    </Alert>
+                </Snackbar>             */}
                 <div className='imageContainerAdmin'>
                     {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
                         <img src={this.state.imageUrl}  
