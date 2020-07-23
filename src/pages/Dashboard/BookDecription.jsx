@@ -9,6 +9,7 @@ import {AddBook,UpdateBook} from './../../service/AdminServices'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {Alert} from '@material-ui/core'
+import {ImageBook} from './../../service/AdminServices'
 
 
 class BookDecription extends Component {
@@ -21,7 +22,7 @@ class BookDecription extends Component {
             decription :'',
             author : '',
             image:null,
-            imageUrl :null,
+            bookImage :null,
             price : '',
             quantity :'',    
             bookId: null,
@@ -42,8 +43,13 @@ class BookDecription extends Component {
     fileChangedHandler = (event) => {
         event.preventDefault();
         this.setState({ image : event.target.files[0],
-                        imageUrl : URL.createObjectURL(event.target.files[0]) });
-        console.log("imageUrl",this.state.imageUrl)
+                        bookImage : URL.createObjectURL(event.target.files[0]) });
+        console.log("imageUrl",this.state.bookImage)
+        let bookImage=this.state.image
+           
+            ImageBook(this.state.bookId,event.target.files[0]).then((json) => {  
+            console.log("responce data==>",json);
+        })  
     }
     
     componentDidMount(){
@@ -51,7 +57,7 @@ class BookDecription extends Component {
             this.setState({ title : this.props.bookData.title ,     
                             decription : this.props.bookData.description,
                             author : this.props.bookData.author,
-                            imageUrl : this.props.bookData.imageUrl,
+                            bookImage : this.props.bookData.bookImage,
                             price : this.props.bookData.price,
                             quantity :this.props.bookData.booksAvailable,
                             bookId : this.props.bookData.bookId,
@@ -130,8 +136,8 @@ class BookDecription extends Component {
                     </Alert>
                 </Snackbar>             */}
                 <div className='imageContainerAdmin'>
-                    {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
-                        <img src={this.state.imageUrl}  
+                    {(this.state.bookImage !== null && this.state.bookImage !== undefined ) ?
+                        <img src={this.state.bookImage}  
                             className='BookImageAdmin'
                             alt="BookImage"
                             onClick={() =>
