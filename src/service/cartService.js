@@ -6,7 +6,15 @@ const apiUrl = Configuration.url;
 
 class CartService {
   AddToCart(bookId, token) {
-    return axiosService.Post(`${apiUrl}Cart/${bookId}/1`, null, {
+    return axiosService.Post(`${apiUrl}Cart/${bookId}/1`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  AddToCartFromWishlist(wishlistId,token){
+    return axiosService.Post(`${apiUrl}Cart/${wishlistId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,5 +36,7 @@ class CartService {
         },
       });
   }
+
+  
 }
 export default CartService;

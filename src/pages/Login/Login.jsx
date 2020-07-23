@@ -106,7 +106,6 @@ export class Login extends React.Component {
       service
         .Login(user)
         .then((json) => {
-          console.log("loginResponce",json)
           if (json.data.success === true) {
             localStorage.setItem("Token", json.data.jsonToken);
             localStorage.setItem("FirstName", json.data.data.firstName);

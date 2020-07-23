@@ -26,4 +26,24 @@ export const PrivateRoute = ({ component,...rest }) => {
 		/>
 	);
 };
+export const AdminRoute = ({ component,...rest }) => {
+	return (
+		<Route
+			{...rest}
+			render={(props) =>{
+				 return localStorage.getItem("Token") ? (
+					renderMergedProps(component, props, rest)
+				) : (
+					<Redirect
+						to={{
+							pathname: "/dashboard",
+							state: { from: props.location },
+						}}
+					/>
+				)
+			}
+			}
+		/>
+	);
+};
 export default PrivateRoute;
