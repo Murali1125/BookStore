@@ -7,7 +7,7 @@ const axiosService = new AxiosService();
 const Token = localStorage.getItem("Token")
 const header = { headers:{
                             "Authorization" : `Bearer ${Token}`}}
-
+console.log("token",header);
 // CURD operational Functions for admin                            
 export function AddBook(data){
     return axiosService.Post(url+"Book",data,header);
@@ -24,4 +24,8 @@ export function DeleteBook(bookId){
 export function SearchList(searchWord){
     console.log("search word in adminservice", searchWord)
     return axiosService.Get(url+"Book/"+searchWord,null,false);
+}
+export function ImageBook(bookId,data){
+    console.log("Image API", bookId,data)
+    return axiosService.Put(url+"Book/ImageInsert?BookId="+bookId,data,header);
 }
