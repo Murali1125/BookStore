@@ -25,6 +25,3 @@ export function SearchList(searchWord){
     console.log("search word in adminservice", searchWord)
     return axiosService.Get(url+"Book/"+searchWord,null,false);
 }
-export function DeleteBook(bookId){
-    return axiosService.Delete(url+"Book/"+bookId,header)
-}

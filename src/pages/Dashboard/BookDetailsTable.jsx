@@ -19,13 +19,8 @@ import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import Truncate from 'react-truncate';
-<<<<<<< HEAD
 import {GetAllBooks,DeleteBook,SearchList} from './../../service/AdminServices'
 
-=======
-import {GetAllBooks} from './../../service/AdminServices'
-import {DeleteBook} from './../../service/AdminServices'
->>>>>>> 21d2df5ab0536171182cbd9f3042ff60ca41e5a0
 
 
 const StyledTableCell = withStyles((theme) => ({
