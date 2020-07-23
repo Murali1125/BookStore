@@ -19,8 +19,8 @@ import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import Truncate from 'react-truncate';
-import {GetAllBooks} from './../../service/AdminServices'
-import {DeleteBook} from './../../service/AdminServices'
+import {GetAllBooks,DeleteBook,SearchList} from './../../service/AdminServices'
+
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -116,22 +116,51 @@ const useStyles2 = makeStyles({
 
 export default function BookdDetailsTable(props) {
   const classes = useStyles2();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data,setData] = useState([]);
-  
-  useEffect(()=>{
+
+  const [snackbarOpen,setSnackbarOpen] = useState(false);
+  const [snackbarMessage,setmessage] = useState('');
+  const [snackbarSeverity,setServicity] = useState('success')
+  console.log('search word props ', props.searchWord)
+
+
+  const LoadData =()=>{
     GetAllBooks()
     .then(responce=>{
         if(responce.status === 200 ){
-            console.log("Get all books",responce.data.data)
             setData(responce.data.data);
         }
     })
     .catch(error=>{
         console.log(error);
     })
+  }
+  useEffect(()=>{
+    LoadData();
   },[])
+  useEffect(()=>{
+    console.log("updatedata",props.dataUpdated)
+    LoadData();
+    console.log(props.dataUpdated)
+  },[props.dataUpdated])
+
+  useEffect(()=>{
+    if(Boolean(props.searchWord)){
+      SearchList(props.searchWord)
+      .then(responce=>{
+        console.log("search list",responce)
+              let temp = [...responce.data.data];
+              console.log("temp ",temp)
+              setData(temp);          
+      })
+      .catch(error=>{
+          console.log(error);
+      })
+    }
+  },[props.searchWord])
+  
 
   const Delete=(bookId)=>{
     console.log("Delete ID",bookId);
@@ -156,9 +185,25 @@ export default function BookdDetailsTable(props) {
   const readBooksData = ()=>{
     setData(props.booksData)
   }
+  const onDelete = (id)=>{
+    DeleteBook(id)
+    .then(responce=>{
+      console.log("delete", responce)
+      LoadData();
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+
+  }
   let booksdata;
   return (
     <div>
+        {/* <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={SnackbarCloseHandler} severity={snackbarSeverity}>
+                {snackBarMessage}
+            </Alert>
+        </Snackbar>  */}
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="custom pagination table">
           <TableHead>
@@ -203,8 +248,8 @@ export default function BookdDetailsTable(props) {
                     </IconButton>                      
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                      <IconButton>
-                          <DeleteOutlineOutlinedIcon onClick={()=>Delete(book.bookId)}/>
+                      <IconButton onClick={()=>onDelete(book.bookId)}>
+                          <DeleteOutlineOutlinedIcon/>
                       </IconButton>
                   </StyledTableCell>
                 </StyledTableRow>
