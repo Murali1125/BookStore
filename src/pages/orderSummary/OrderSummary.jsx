@@ -7,7 +7,7 @@ import Header from "./../../component/header/Header";
 import Footer from "./../../component/Footer/Footer";
 import Container from "@material-ui/core/Container";
 
-export default function OrderSummary() {
+export default function OrderSummary(props) {
 
     return (
       <div className="orderPage">
@@ -20,16 +20,15 @@ export default function OrderSummary() {
           <div className="orderimage">
             <img
               src={CheckoutMessage}
+              className="image"
               alt="Book logo"
-              height="300px"
-              width="350px"
             />
           </div>
           <br />
           <div className="paymentComfirm">
-            <span>Hurray!!!your order is confirmed </span>
-            <span> Your order is #123456 save order id for </span>
-            <span> for further communication </span>
+            Hurray!!!your order is confirmed 
+             the order id is #123456 save order id for 
+             further communication.. 
           </div>
           <br />
           <br />
@@ -75,6 +74,7 @@ export default function OrderSummary() {
               className="button-Login"
               variant="contained"
               color="primary"
+              onClick={props.history.push("/")}
             >
               CONTINUE SHOPPING
             </Button>

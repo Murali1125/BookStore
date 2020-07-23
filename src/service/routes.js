@@ -17,7 +17,7 @@ function Routes() {
       <Route path="/login" component={Login} />
       <PrivateRoute path="/profile" component={Profile} />
       <AdminRoute path="/dashboard" component={Dashboard}/>
-      <PrivateRoute path="/orderSummary" component={OrderSummary}/>
+      <Route path="/orderSummary" component={OrderSummary}/>
       <PrivateRoute path="/checkout" component={Checkout}/>
       <Route path="/" component={Store}/>
     </Switch>
