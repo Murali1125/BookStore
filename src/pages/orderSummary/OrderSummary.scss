@@ -50,6 +50,9 @@
   .orderimage {
     margin-top: 240px;
   }
+  .orderPage{
+    padding-bottom:150px;
+  }
   .order{
     padding-bottom:330px;
   }
@@ -63,8 +66,37 @@
     padding-bottom:0px;
   }
 }
+@media only screen and (max-width: 450px) {
+  .orderimage {
+    margin-top:50px;
+  }
+  .orderPage{
+    padding-bottom:0px;
+  }
+  .table {
+     width:400px;
+  }
+  .aboutus {
+    flex-direction:column;
+  }
+  .email{
+    width:100%;
+    flex-direction:row;
+  }
+  .header{
+     padding:15px 15px 15px 15px;
+  }
+  .button-Login{
+    margin-bottom:30px !important;
+  }
+}
 @media only screen and (max-width: 414px) {
   .table {
-    min-width:400px !important;
+     width:350px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .table {
+     width:300px;
   }
 }

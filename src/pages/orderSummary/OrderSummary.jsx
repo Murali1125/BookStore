@@ -55,7 +55,7 @@ export default function OrderSummary() {
                     +91816347588
                   </div>
                 </div>
-                <div className="address">
+                <div className="email">
                   <div className="header">
                     Address
                   </div>
