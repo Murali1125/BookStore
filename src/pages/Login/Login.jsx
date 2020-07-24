@@ -47,6 +47,7 @@ export class Login extends React.Component {
   /* =====================================
     VALIDATIONS
     =======================================*/
+  //Regular Expression Validation for Email
   validateEmail = (input) => {
     const regexEmail = new RegExp(
       /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
@@ -62,6 +63,7 @@ export class Login extends React.Component {
       this.setState({ emailValid: false });
     }
   };
+   //Regular Expression Validation for Password
   validatePassword = (input) => {
     const regexPassword = new RegExp(
       /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
@@ -78,6 +80,7 @@ export class Login extends React.Component {
     }
   };
 
+  //API Integration and Required field Validation
   signIn = () => {
     let errorEmail =this.state.email ? "" : "Email is Required";
     if (errorEmail === "") {

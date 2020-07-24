@@ -1,33 +1,29 @@
+@mixin felx() {
+  display: flex;
+  justify-content: center;
+}
 .Login {
 	margin-top: 110px;
 	margin-bottom:50px;
-	display: flex;
-	justify-content: center;
+	@include felx();  
 }
-
 .LoginLogo {
 	background-color: #a03037;
 	padding: 10px 0px;
 }
-
 .logo {
 	margin-top: 20px;
 }
-
 .loginImage {
-	display: flex;
-	justify-content: center;
+	@include felx(); 
 	padding-top: 30px;
 }
-
 .Bookstore {
 	margin-top: 20px;
 	font-weight: bold;
 	padding-left: 0% !important;
-	display: flex;
-	justify-content: center;
+	@include felx(); 
 }
-
 .LoginCard {
 	max-width: 550px;
 	width: 100%;
@@ -35,71 +31,57 @@
 	padding-top: 20px;
 	padding-bottom: 70px;
 }
-
 .Bookstore {
 	padding-left: 55px;
 	font-weight: 500;
 	font-size: 28px;
 	color: #a03037;
 }
-
 .Loginform {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	& .name {
+		width: 80%;
+	}
+	& .submitbutton {
+		width: 80%;
+		padding: 7px 0px;
+		font-Size: 12px;
+	}
+	& .buttonLogin {
+		width: 80%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	& .signup {
+		color: #0423ce;
+	}
 }
-
-.name {
-	width: 80%;
-}
-
-.submitbutton {
-	width: 80%;
-	padding: 7px 0px;
-	font-Size: 12px;
-}
-
-.buttonLogin {
-	width: 80%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-.signup {
-	color: #0423ce;
-}
-
 @media only screen and (max-width: 1024px) {
 	.Login {
 		margin-top: 350px;
 		margin-bottom: 15px;
 	}
 }
-
 @media only screen and (max-width: 768px) {
 	.Login {
 		margin-top: 180px;
 		margin-bottom: 100px;
 	}
 }
-
 @media only screen and (max-width: 450px) {
 	.Login {
 		margin-top: 0px;
 		margin-bottom: 0px;
 	}
 }
-
 @media only screen and (max-width: 414px) {
-	.Login {
-		margin-top: 0px;
-		margin-bottom: 0px;
-	}
 	.LoginCard {
 		border: none !important;
-		padding-top: 60px;
-		padding-bottom: 60px !important;
+		padding-top: 50px;
+		padding-bottom: 20px !important;
 	}
 	.buttonLogin {
 		display: flex;
@@ -110,41 +92,21 @@
 		margin-top: 10px !important;
 	}
 }
-
 @media only screen and (max-width: 411px) {
-	.Login {
-		margin-top: 0px;
-	}
 	.LoginCard {
 		padding-top: 80px;
-		padding-bottom: 135px !important;
+		padding-bottom: 75px !important;
 	}
 }
-
 @media only screen and (max-width: 375px) {
-	.Login {
-		margin-top: 0px;
-	}
 	.LoginCard {
 		padding-top: 80px;
-		padding-bottom: 130px !important;
+		padding-bottom: 70px !important;
 	}
 }
-
 @media only screen and (max-width: 360px) {
-	.Login {
-		margin-top: 0px;
-		margin-bottom:0px;
-	}
 	.LoginCard {
-		padding-top: 10px;
-		padding-bottom: 20px !important;
-	}
-}
-
-@media only screen and (max-width: 320px) {
-	.LoginCard {
-		padding-top: 25px;
-		padding-bottom: 25px;
+		padding-top: 0px;
+		padding-bottom: 30px !important;
 	}
 }
