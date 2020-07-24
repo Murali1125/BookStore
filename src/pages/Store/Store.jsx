@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
 import Footer from "../../component/Footer/Footer";
-import { Grid, Container, ClickAwayListener } from "@material-ui/core";
+import { Grid, Container} from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -163,11 +163,11 @@ export default class Store extends Component {
             >
               <Grid>If you are returning Customer</Grid>
               <Grid container item direction="row" justify="space-evenly">
-                <Grid item direction="column">
+                <Grid container item direction="column">
                   <Grid>Please</Grid>
                   <Grid>else</Grid>
                 </Grid>
-                <Grid item direction="column">
+                <Grid container item direction="column">
                   <Grid>
                     <button onClick={() => this.props.history.push("/login")}>
                       Login

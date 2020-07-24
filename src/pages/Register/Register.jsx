@@ -72,6 +72,7 @@ export class Register extends React.Component {
   /* =====================================
     VALIDATIONS
     =======================================*/
+  //Regular expression Validation for First Name
   validateFirstname = (input) => {
     const regexName = new RegExp(
       /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
@@ -87,6 +88,7 @@ export class Register extends React.Component {
       this.setState({ firstNameValid: false });
     }
   };
+  //Regular expression Validation for Last Name
   validateLastname = (input) => {
     const regexName = new RegExp(
       /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
@@ -102,6 +104,7 @@ export class Register extends React.Component {
       this.setState({ lastNameValid: false });
     }
   };
+  //Regular expression Validation for Email
   validateEmail = (input) => {
     const regexEmail = new RegExp(
       /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
@@ -117,6 +120,7 @@ export class Register extends React.Component {
       this.setState({ emailValid: false });
     }
   };
+  //Regular expression Validation for Password
   validatePassword = (input) => {
     const regexPassword = new RegExp(
       /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
@@ -133,6 +137,7 @@ export class Register extends React.Component {
     }
   };
 
+  //API Integration and Required field Validation
   Register = () => {
     let errorFirstname =this.state.firstName ? "" : "First Name is Required";
     if (errorFirstname === "") {
