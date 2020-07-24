@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   AppBar,
   Toolbar,
@@ -8,6 +8,7 @@ import {
   Typography,
   Menu,
   MenuItem,
+  Button,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
@@ -118,7 +119,30 @@ class Header extends Component {
                     </div>
                     <div className={classes.grow} />
 
-                   {localStorage.getItem("Token") ? }
+                   {localStorage.getItem("Token") ?  (<Fragment>
+                     <IconButton
+                      aria-label="show 17 new notifications"
+                      color="inherit"
+                    >
+                      <Badge badgeContent={17} color="secondary">
+                        <ShoppingCartOutlinedIcon />
+                      </Badge>
+                    </IconButton>
+
+                    <IconButton
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={this.menuId}
+                      aria-haspopup="true"
+                      onClick={this.handleProfileMenuOpen}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                   </Fragment>) :( <Fragment>
+                     <Button>Login</Button>
+                     <Button>Register</Button>
+                   </Fragment>) }
                     <div className={classes.menuContainer}>
                       <Menu
                         id="simple-menu"
