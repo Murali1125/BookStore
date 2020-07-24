@@ -39,13 +39,14 @@ class BookDecription extends Component {
             [eve.target.name] : eve.target.value
         })
     }
+    //on change of image file
     fileChangedHandler = (event) => {
         event.preventDefault();
         this.setState({ image : event.target.files[0],
                         imageUrl : URL.createObjectURL(event.target.files[0]) });
-        console.log("imageUrl",this.state.imageUrl)
+        
     }
-    
+    // if the book data is present show the book data
     componentDidMount(){
         if(Boolean (this.props.bookData) ){
             this.setState({ title : this.props.bookData.title ,     
@@ -59,9 +60,10 @@ class BookDecription extends Component {
             })
         }         
     }
-        
+    // when Click save validate it is update or new add book
+    // call reltive api   
     onSave = async ()=>{
-        console.log('onsave')
+        // make book object with book details
         let Book = {
             "Title": this.state.title,
             "Description": this.state.decription,
@@ -69,7 +71,8 @@ class BookDecription extends Component {
             "BooksAvailable": this.state.quantity,
             "Price": this.state.price,            
         }
-        if(this.state.status === "updateBook") {
+        // if it is update book call update api
+        if(this.state.status === "updateBook") {            
             await UpdateBook(Book,this.state.bookId) 
             .then(responce=>{                
                 console.log("book updated sucessfully", responce)
@@ -90,7 +93,7 @@ class BookDecription extends Component {
                 })
             })
         }
-        else{
+        else{       // else call add book api
             await AddBook(Book)        
             .then(responce=>{
                 console.log("book added sucessfully", responce)
@@ -108,8 +111,10 @@ class BookDecription extends Component {
                 })
             })
         }
+        // callback function to close dialog box
         this.props.closeDialog(Book.Title);
     }
+    // snackbar method
     SnackbarClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -138,7 +143,8 @@ class BookDecription extends Component {
                             this.fileUpload.click()
                                 }                                
                         />  
-                        : <div onClick={() =>
+                        : <div  className='ImageIconText'
+                                onClick={() =>
                                 this.fileUpload.click()
                                 }>
                                 <Button style={{textTransform: 'none'}}><ImageIcon/>BookImage</Button>
@@ -155,6 +161,7 @@ class BookDecription extends Component {
                 </div>
                 <div>
                     <TextField 
+                        className='titleField'
                         value={this.state.title} 
                         variant='outlined'
                         label = 'Title'
@@ -167,6 +174,7 @@ class BookDecription extends Component {
                 </div>
                 <div>
                     <TextField 
+                        className='authorField'
                         value={this.state.author} 
                         fullWidth
                         variant='outlined'
@@ -179,6 +187,7 @@ class BookDecription extends Component {
                 </div>
                 <div>
                     <TextField 
+                        className='decriptionField'
                         value={this.state.decription} 
                         multiline
                         fullWidth
@@ -193,6 +202,7 @@ class BookDecription extends Component {
                 </div>
                 <div>
                     <TextField 
+                        className='priceField'
                         value={this.state.price} 
                         variant='outlined'
                         label = 'Price'
@@ -206,6 +216,7 @@ class BookDecription extends Component {
                 </div>
                 <div>
                     <TextField 
+                        className='quantityField'
                         value={this.state.quantity} 
                         type='number'
                         variant='outlined'

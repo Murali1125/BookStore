@@ -1,14 +1,13 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import AdminDashboard from  './DashboardAdmin'
+import AdminDashboard from  './../pages/Dashboard/DashboardAdmin'
 
 const setUp =()=>{
     const dashboardComponent = shallow(<AdminDashboard/>);
     return dashboardComponent;
 };
 
-
-describe('LogIn component',()=>{
+describe('DashBoard component',()=>{
 
     let component;
     beforeEach(()=>{

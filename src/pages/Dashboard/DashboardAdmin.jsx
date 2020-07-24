@@ -28,32 +28,35 @@ class AdminDashboard extends Component {
             anchorEl : null,
         }
     }
-
+    // profile popover open handler
     handleClick = (event) => {
         this.setState({
             anchorEl : event.currentTarget
         })
     };
-    
+    // profile popover close handler
     handleClose = () => {
         this.setState({ anchorEl : null});
     };
+    // profile logout functionality
     LogOut =()=>{
         localStorage. clear();
         this.props.history.push("/login")
 
     }
-
+    // onChange hadler for search field
     onSearchWordChange = eve =>{
         this.setState({
             searchWord :  eve.target.value,
         })
     }
+    // hanler method for open book description dialog box for add book
     OpenAddBookDialogBox = () =>{
         this.setState({
             AddBookDialogOpen : true,
         })
     }
+    // hanler method for open book description dialog box with book data for update book
     OpenBookDialogBoxWithData = (bookData)=>{
         this.setState({
             isUpdateBook : true,
@@ -61,11 +64,13 @@ class AdminDashboard extends Component {
             selectedBookData : bookData,
         })
     }
+    // handler for close the book dialog box
     CloseAddBookDialogBox = (data) =>{
         this.setState({
             AddBookDialogOpen: false,
             selectedBookData:'',
             isUpdateBook : false,
+            // variable to reload data into table
             dataUpdated : data,
         })
 
@@ -75,24 +80,25 @@ class AdminDashboard extends Component {
             updateData : false
         })
     }
+    // screen size handlers to  hide search bar
     componentWillMount() {       
         window.addEventListener("resize", this.resize.bind(this));
         this.resize();
-    }
-    
+    }    
     resize() {
         this.setState({ hideSearch: window.innerWidth >= 600,
                         isScreenBelow600 : true});
     }
-    
     componentWillUnmount() {
         window.removeEventListener("resize", this.resize.bind(this));
     }
+    // onClick handler of search icon
     onSearchIconClick = () =>{
         this.setState({hideSearch: !(this.state.hideSearch)})
         console.log(this.state.hideSearch)
         console.log("open search bar")
     }
+    
     render() { 
         return (
             <div>
