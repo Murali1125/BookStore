@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Modal } from "@material-ui/core";
-import bookCover from "./../../assets/bookCover.jpg";
+import { Grid} from "@material-ui/core";
 import Truncate from "react-truncate";
 import Tooltip from "react-tooltip-lite";
 import "./Book.scss";

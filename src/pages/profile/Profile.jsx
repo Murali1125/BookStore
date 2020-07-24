@@ -75,7 +75,7 @@ export class Profile extends React.Component {
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYF1Mjct6rfyPLrWjrjm8dAw9oZGyf-BNtaQ&usqp=CAU"
                   alt="avtar"
-                  Width="100px"
+                  width="100px"
                   height="100px"
                 />
               </div>
