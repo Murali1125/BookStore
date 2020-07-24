@@ -4,8 +4,6 @@ import {
   Grid,
   Container,
   TextField,
-  Icon,
-  IconButton,
 } from "@material-ui/core";
 import Footer from "../../component/Footer/Footer";
 import bookCover from "./../../assets/bookCover.jpg";
@@ -248,7 +246,7 @@ export default class Checkout extends Component {
                 <Grid container item direction="row" xs={12} spacing={2}>
                   <Grid item md={5} xs={12}>
                     <TextField
-                      id=""
+                      id="name"
                       size="small"
                       className="pt-small"
                       label="Name"
@@ -264,7 +262,7 @@ export default class Checkout extends Component {
                   </Grid>
                   <Grid item md={5} xs={12}>
                     <TextField
-                      id=""
+                      id="phone"
                       size="small"
                       className="pt-small"
                       label="Phone number"
@@ -282,7 +280,7 @@ export default class Checkout extends Component {
                 <Grid container item direction="row" xs={12} spacing={2}>
                   <Grid item md={5} xs={12}>
                     <TextField
-                      id=""
+                      id="pincode"
                       size="small"
                       className="pt-small"
                       label="Pincode"
@@ -298,7 +296,7 @@ export default class Checkout extends Component {
                   </Grid>
                   <Grid item md={5} xs={12}>
                     <TextField
-                      id=""
+                      id="locality"
                       size="small"
                       className="pt-small"
                       label="Locality"
@@ -316,7 +314,7 @@ export default class Checkout extends Component {
                 <Grid container item direction="row" xs={12} spacing={2}>
                   <Grid item md={10} xs={12}>
                     <TextField
-                      id=""
+                      id="address"
                       size="small"
                       className="pt-small"
                       label="Address"
@@ -335,7 +333,7 @@ export default class Checkout extends Component {
                 <Grid container item direction="row" xs={12} spacing={2}>
                   <Grid item md={5} xs={12}>
                     <TextField
-                      id=""
+                      id="city"
                       size="small"
                       className="pt-small"
                       label="City/town"
@@ -351,7 +349,7 @@ export default class Checkout extends Component {
                   </Grid>
                   <Grid item md={5} xs={12}>
                     <TextField
-                      id=""
+                      id="landmark"
                       size="small"
                       className="pt-small"
                       label="Landmark"

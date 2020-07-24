@@ -1,8 +1,11 @@
+@mixin felx() {
+  display: flex;
+  justify-content: center;
+}
 .register{
     margin-top:90px;
     margin-bottom:140px;
-    display:flex;
-    justify-content: center;
+    @include felx(); 
 }
 .registerLogo{
     background-color:#a03037;
@@ -16,8 +19,7 @@
     padding-bottom:50px;
 }
 .createAccount{
-    display:flex;
-    justify-content: center;
+    @include felx(); 
     font-weight:500;
     font-size:28px;
     color:#a03037;
@@ -26,34 +28,34 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-}
-.name{
+    & .name{
     width: 80%;
 }
-.submitbutton{
+ & .submitbutton{
     width: 80%; 
     padding: 7px 0px; 
     font-Size: 12px; 
 }
-.textline{
+ & .textline{
     word-wrap: break-word;
     width:80%;
     padding-left:10px;
     display:flex;
     justify-content:space-between;
 }
-.accountExsists{
+ &.accountExsists{
     display:flex;
     flex-direction:row;
 }
-.text{
+ &.text{
     padding-top:5px;
 }
-.signInstead{
+ &.signInstead{
     width: 150px;
     padding: 7px 0px;
     color: #0423ce;
     font-Size: 13px
+}
 }
 
 @media only screen and (max-width: 1024px) {

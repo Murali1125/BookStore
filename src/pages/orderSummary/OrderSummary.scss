@@ -16,7 +16,13 @@
   display: flex;
   justify-content: center;
 }
+.image{
+  width:350px;
+  height:300px;
+}
 .paymentComfirm {
+  max-width:300px;
+  text-align:center;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -98,5 +104,16 @@
 @media only screen and (max-width: 320px) {
   .table {
      width:300px;
+  }
+  .image{
+    width:300px;
+  }
+}
+@media only screen and (max-width: 280px) {
+  .table {
+     width:260px;
+  }
+  .image{
+    width:260px;
   }
 }
