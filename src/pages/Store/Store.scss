@@ -1,7 +1,38 @@
+@import "./../../css/utility.scss";
+
+@mixin popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    box-shadow: $shadow;
+    background-color: $color-white;
+    max-width: 300px;
+    padding: 20px 10px;
+    text-align: left;
+}
+
 .storeContainer {
+    position: relative;
     margin-top: 65px;
     padding-bottom: 100px;
 }
+
+.popup-hidden {
+    @include popup();
+
+    // display: none;
+    visibility: hidden;
+}
+
+.popup-show {
+    @include popup();
+
+    // display: block;
+    visibility: visible;
+}
+
 .booksHeader {
     padding: 50px 0 10px 45px;
     font-family: "Lato", sans-serif;
