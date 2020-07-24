@@ -120,7 +120,7 @@ export default class Book extends Component {
               className="bookImage"
             >
               <img
-                src={bookCover}
+                src={`${this.props.children.bookImage}`}
                 height="130px"
                 width="90px"
                 alt="bookCover"
@@ -144,7 +144,7 @@ export default class Book extends Component {
                 className="bookImage"
               >
                 <img
-                  src={bookCover}
+                  src={`${this.props.children.bookImage}`}
                   height="130px"
                   width="90px"
                   alt="bookCover"
