@@ -11,6 +11,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import userServices from "./../../service/userServices";
+import Header from "../../component/header/Header";
 let service = new userServices();
 
 export class Register extends React.Component {
@@ -220,11 +221,7 @@ export class Register extends React.Component {
   render() {
     return (
       <div>
-        <div className="registerLogo">
-          <Container maxWidth="xl">
-            <Logo />
-          </Container>
-        </div>
+        <Header variant="normal"></Header>
         <div className="register">
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
