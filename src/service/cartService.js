@@ -6,19 +6,27 @@ const apiUrl = Configuration.url;
 
 class CartService {
   AddToCart(bookId, token) {
-    return axiosService.Post(`${apiUrl}Cart/${bookId}/1`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return axiosService.Post(
+      `${apiUrl}Cart/${bookId}/1`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 
-  AddToCartFromWishlist(wishlistId,token){
-    return axiosService.Post(`${apiUrl}Cart/${wishlistId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  AddToCartFromWishlist(wishlistId, token) {
+    return axiosService.Post(
+      `${apiUrl}Cart/WishListToCart/${wishlistId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 
   GetCart(token) {
@@ -29,14 +37,12 @@ class CartService {
     });
   }
 
-  RemoveFromCart(cartId, token){
-      return axiosService.Delete(`${apiUrl}Cart/${cartId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  RemoveFromCart(cartId, token) {
+    return axiosService.Delete(`${apiUrl}Cart/${cartId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
-
-  
 }
 export default CartService;

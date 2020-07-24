@@ -6,11 +6,19 @@ const apiUrl = Configuration.url;
 
 class WishlistService {
   AddToWishlist(bookId, token) {
-    return axiosService.Post(`${apiUrl}WishList/${bookId}/1`, null, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return axiosService.Post(
+      `${apiUrl}WishList`,
+      {},
+      {
+        params: {
+          'BookId': `${bookId}`,
+          'Quantity': 1,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 
   GetWishlist(token) {
