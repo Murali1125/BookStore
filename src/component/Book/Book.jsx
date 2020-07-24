@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Grid } from "@material-ui/core";
-import "./Book.scss";
+import { Grid, Modal } from "@material-ui/core";
 import bookCover from "./../../assets/bookCover.jpg";
 import Truncate from "react-truncate";
 import Tooltip from "react-tooltip-lite";
+import "./Book.scss";
 
 export default class Book extends Component {
   constructor(props) {
@@ -18,12 +18,16 @@ export default class Book extends Component {
   // Click handler for add to bag button
   AddToBagHandler = (bookId) => {
     if (this.state.addToBagClicked === false) {
-      this.setState(
-        {
-          addToBagClicked: true,
-        },
-        () => this.props.addToCart(bookId)
-      );
+      if (localStorage.getItem("Token")) {
+        this.setState(
+          {
+            addToBagClicked: true,
+          },
+          () => this.props.addToCart(bookId)
+        );
+      } else {
+        this.props.openPopup();
+      }
     } else {
       this.setState({
         addToBagClicked: false,
@@ -34,12 +38,16 @@ export default class Book extends Component {
   // click handler for add to woshlist button
   AddtoWishlist = (bookId) => {
     if (this.state.wishlistClicked === false) {
-      this.setState(
-        {
-          wishlistClicked: true,
-        },
-        () => this.props.addToWishlist(bookId)
-      );
+      if (localStorage.getItem("Token")) {
+        this.setState(
+          {
+            wishlistClicked: true,
+          },
+          () => this.props.addToWishlist(bookId)
+        );
+      } else {
+        this.props.openPopup();
+      }
     } else {
       this.setState({
         wishlistClicked: false,
@@ -71,7 +79,7 @@ export default class Book extends Component {
 
   outOfStockButtons = (bookId) => (
     <div className="bookButtons">
-    <div></div>
+      <div></div>
       <div className="wishlist" onClick={() => this.AddtoWishlist(bookId)}>
         WISHLIST
       </div>
@@ -79,10 +87,12 @@ export default class Book extends Component {
     </div>
   );
 
-  afterClickOnAdd = (
+  afterClickOnAdd = localStorage.getItem("Token") ? (
     <div className="bookButtons">
       <div className="addedToBag">ADDED TO BAG</div>
     </div>
+  ) : (
+    this.normalButtons
   );
 
   afterClickOnwishlist = (
@@ -194,6 +204,7 @@ export default class Book extends Component {
               : this.normalButtons(this.props.children.bookId)}
           </Grid>
         </div>
+        {this.popup}
       </React.Fragment>
     );
   }

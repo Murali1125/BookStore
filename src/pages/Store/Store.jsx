@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
 import Footer from "../../component/Footer/Footer";
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container, ClickAwayListener } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -23,6 +23,7 @@ export default class Store extends Component {
       page: 1,
       itemsPerPage: 12,
       itemsInCart: 0,
+      popupStatus: "popup-hidden",
     };
   }
 
@@ -37,7 +38,7 @@ export default class Store extends Component {
           books: json.data.data,
         });
       }
-      console.log("All books",json);
+      console.log("All books", json);
     });
   };
 
@@ -85,7 +86,7 @@ export default class Store extends Component {
 
   // Add book to cart
   addToCart = (bookId) => {
-    console.log("Add to cart called",bookId);
+    console.log("Add to cart called", bookId);
     cartService
       .AddToCart(bookId, localStorage.getItem("Token"))
       .then((json) => {
@@ -97,11 +98,9 @@ export default class Store extends Component {
   addTowishlist = (bookId) => {
     const token = localStorage.getItem("Token");
     console.log(token);
-    wishlistService
-      .AddToWishlist(bookId,{},token)
-      .then((json) => {
-        console.log("Added to wishlist", json);
-      });
+    wishlistService.AddToWishlist(bookId, token).then((json) => {
+      console.log("Added to wishlist", json);
+    });
   };
 
   onProfileClick = () => {
@@ -128,6 +127,20 @@ export default class Store extends Component {
     this.setState({ itemsInCart: value });
   };
 
+  openPopup = () => {
+    if (!localStorage.getItem("Token")) {
+      console.log("opened popup");
+      this.setState({ popupStatus: "popup-show" });
+    }
+  };
+
+  closePopup = () => {
+    console.log("closed popup");
+    if (this.state.popupStatus === "popup-show") {
+      this.setState({ popupStatus: "popup-hidden" });
+    }
+  };
+
   componentDidMount() {
     this.getAllBooks();
   }
@@ -139,9 +152,36 @@ export default class Store extends Component {
             variant="rich"
             onSearch={(value) => this.onSearch(value)}
             onProfileClick={() => this.onProfileClick()}
-            onLogout={() => this.onLogoutClick}
+            onLogout={() => this.onLogoutClick()}
           ></Header>
           <Container maxWidth="lg" className="storeContainer">
+            <Grid
+              container
+              className={this.state.popupStatus}
+              direction="column"
+              alignItems="center"
+            >
+              <Grid>If you are returning Customer</Grid>
+              <Grid container item direction="row" justify="space-evenly">
+                <Grid item direction="column">
+                  <Grid>Please</Grid>
+                  <Grid>else</Grid>
+                </Grid>
+                <Grid item direction="column">
+                  <Grid>
+                    <button onClick={() => this.props.history.push("/login")}>
+                      Login
+                    </button>
+                  </Grid>
+                  <Grid>
+                    <button onClick={() => this.props.history.push("/register")}>
+                      Register
+                    </button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+
             <Grid
               container
               item
@@ -209,7 +249,7 @@ export default class Store extends Component {
                   className="singleBookContainer"
                   alignItems="center"
                   justify="center"
-                  style={{fontsize: 40}}
+                  style={{ fontsize: 40 }}
                 >
                   No books Found
                 </Grid>
@@ -235,7 +275,8 @@ export default class Store extends Component {
                         <Book
                           key={index}
                           addToCart={(bookId) => this.addToCart(bookId)}
-                          addToWishlist={(bookId)=>this.addTowishlist(bookId)}
+                          addToWishlist={(bookId) => this.addTowishlist(bookId)}
+                          openPopup={() => this.openPopup()}
                         >
                           {book}
                         </Book>

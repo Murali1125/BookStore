@@ -197,10 +197,15 @@ const useStyles = (theme) => ({
     color: "#000",
     marginRight: theme.spacing(2),
     marginLeft: 0,
-    width: "100%",
+    width: "35%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
-      width: "auto",
+      width: "40%",
+    },
+
+    [theme.breakpoints.up("xs")]: {
+      marginLeft: theme.spacing(1),
+      width: "50%",
     },
   },
   searchIcon: {
@@ -224,7 +229,13 @@ const useStyles = (theme) => ({
     width: "100%",
     [theme.breakpoints.up("lg")]: {
       width: "60ch",
+      "&:active &:focus": {
+        position: "absolute",
+        width: "100%",
+      },
     },
+    
+
     fontFamily: "'Lato', sans-serif",
   },
   sectionDesktop: {

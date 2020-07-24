@@ -107,6 +107,10 @@ export default class Checkout extends Component {
     console.log(this.state.name);
   };
 
+  increment=(index)=>{
+    this.setState({cartItems: [...this.state.cartItems, this.state.cartItems[index].count+1]})
+  }
+
   componentDidMount() {
     this.getCart();
   }
@@ -174,7 +178,7 @@ export default class Checkout extends Component {
                           direction="row"
                           className="myCart-itemDescription--count"
                         >
-                          <div className="myCart-itemDescription--count-minus">
+                          <div className="myCart-itemDescription--count-minus" onClick={()=>this.decrement(index)}>
                             &mdash;
                           </div>
                           <input
@@ -184,7 +188,7 @@ export default class Checkout extends Component {
                             min={1}
                             className="myCart-itemDescription--count-value"
                           ></input>
-                          <div className="myCart-itemDescription--count-plus">
+                          <div className="myCart-itemDescription--count-plus" onClick={()=>this.increment(index)}>
                             &#43;
                           </div>
                           <Grid
@@ -398,7 +402,7 @@ export default class Checkout extends Component {
               className={this.state.checkoutClass}
             >
               <Grid container item className="checkout-header">
-                My cart (
+                Order Summary (
                 {
                   this.state.cartItems.filter(
                     (item) => item.isDeleted === false
