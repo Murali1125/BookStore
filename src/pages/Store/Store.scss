@@ -90,10 +90,10 @@
     list-style: none;
     padding: 5px 24.5px 0 24.5px;
     top: 62px;
-    background-color: #fff;
+    background-color: $color-white;
     visibility: hidden;
     display: none;
-    border: 2px solid #e2e2e2;
+    border: 2px solid $color-book-border;
     z-index: 3;
 
     & li {

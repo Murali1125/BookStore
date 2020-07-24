@@ -11,11 +11,7 @@ export default function OrderSummary(props) {
 
     return (
       <div className="orderPage">
-        <div className="orderLogo">
-          <Container maxWidth="xl">
-            <Header variant="normal" />
-          </Container>
-        </div>
+       <Header variant="normal"></Header>
         <div className="order">
           <div className="orderimage">
             <img
@@ -74,7 +70,7 @@ export default function OrderSummary(props) {
               className="button-Login"
               variant="contained"
               color="primary"
-              onClick={props.history.push("/")}
+              onClick={()=>props.history.push("/")}
             >
               CONTINUE SHOPPING
             </Button>

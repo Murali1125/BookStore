@@ -2,7 +2,7 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import "./Login.scss";
 import Loginimage from "./../../assets/Loginimage.jpg";
-import Logo from "./../../component/logo/Logo";
+import Header from "./../../component/header/Header";
 import Alert from "@material-ui/lab/Alert";
 import Footer from "./../../component/Footer/Footer";
 import { TextField, Snackbar, Button } from "@material-ui/core";
@@ -169,11 +169,7 @@ export class Login extends React.Component {
             {this.state.responseMessage}
           </Alert>
         </Snackbar>
-        <div className="LoginLogo">
-          <Container maxWidth="xl">
-            <Logo />
-          </Container>
-        </div>
+       <Header variant="normal"></Header>
         <div className="Login">
           <Card className="LoginCard" variant="outlined">
             <div className="loginImage">

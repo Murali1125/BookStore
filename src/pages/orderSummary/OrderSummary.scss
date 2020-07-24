@@ -1,24 +1,22 @@
-.orderLogo {
-  background-color: #a03037;
-  padding: 10px 0px;
-}
+@import "./../../css/utility.scss";
+
 .orderPage {
-  background-color: white;
+  background-color: $color-white;
 }
 .order {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 100px;
 }
 .orderimage {
-  margin-top: 60px;
+  // margin-top: 60px;
   display: flex;
   justify-content: center;
 }
 .image{
   width:350px;
-  height:300px;
 }
 .paymentComfirm {
   max-width:300px;
@@ -54,7 +52,7 @@
 
 @media only screen and (max-width: 1024px) {
   .orderimage {
-    margin-top: 240px;
+    
   }
   .orderPage{
     padding-bottom:150px;
@@ -65,7 +63,7 @@
 }
 @media only screen and (max-width: 768px) {
   .orderimage {
-    margin-top:80px;
+  
     margin-bottom:0px;
   }
   .order{
