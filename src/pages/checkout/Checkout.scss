@@ -1,16 +1,19 @@
 @import "./../../css/utility.scss";
 
+@mixin panel {
+  border: 1px solid $color-border;
+  max-width: 900px;
+  padding: 25px 40px;
+  margin-bottom: 30px;
+  background-color: $color-white;
+  font-family: $font;
+}
 .checkoutContainer {
   margin-top: 140px;
 }
 
 .myCart {
-  border: 1px solid #dddddd;
-  max-width: 900px;
-  padding: 25px 40px;
-  margin-bottom: 30px;
-  font-family: "Lato", sans-serif;
-  background-color: #fff;
+  @include panel();
 
   &-header {
     font-size: 20px;
@@ -42,11 +45,11 @@
 
     &--count {
       &-minus {
-        border: 1px solid #c2c2c2;
-        background-color: #fafafa;
+        border: 1px solid $color-border;
+        background-color: $color-white;
         height: 25px;
         width: 25px;
-        color: #000;
+        color: $color-black;
         text-align: center;
         border-radius: 50%;
         margin-right: 10px;
@@ -54,7 +57,7 @@
       }
 
       &-value {
-        border: 1px solid #c2c2c2;
+        border: 1px solid $color-border;
 
         text-align: center;
       }
@@ -64,9 +67,9 @@
         margin: 0;
       }
       &-plus {
-        border: 1px solid #c2c2c2;
+        border: 1px solid $color-border;
 
-        background-color: #fafafa;
+        background-color: $color-white;
         height: 25px;
         width: 25px;
 
@@ -81,19 +84,11 @@
 
   &-submit {
     &--button {
-      width: 200px;
-      padding: 10px 30px;
-      font-size: 15px;
-      color: #fff;  
-      background-color: #3371b5;
-      border: 1px solid #3371b5;
-      border-radius: 2px;
-      outline: none;
+      @include button();
 
-      &-hidden{
+      &-hidden {
         height: 40px;
-         visibility: hidden;
-      
+        visibility: hidden;
       }
     }
   }
@@ -124,62 +119,41 @@
 }
 
 .customerDetails {
-  border: 1px solid #dddddd;
-  max-width: 900px;
-  padding: 25px 40px;
-  margin-bottom: 30px;
-  transition: all 2s ease;
-
-  font-family: "Lato", sans-serif;
-  background-color: #fff;
+  @include panel();
   &-header {
     font-size: 20px;
     font-weight: 500;
     padding-bottom: 25px;
   }
 
-  &-validation{
+  &-validation {
     height: 30px;
-    color: red;
+    color: $color-error;
   }
 
   &-continue {
     padding-top: 10px;
     &--button {
-      width: 200px;
-      margin: 20px 0 0 0;
-      padding: 10px 30px;
-      font-size: 15px;
-      color: #fff;
-      background-color: #3371b5;
-      border: 1px solid #3371b5;
-      border-radius: 2px;
-      outline: none;
+      @include button();
 
-      &-hidden{
+      &-hidden {
         height: 40px;
-         visibility: hidden;
-      
+        visibility: hidden;
       }
     }
   }
 }
 
-.edit{
+.edit {
   visibility: hidden;
 
-  .edit-show{
+  .edit-show {
     visibility: visible;
   }
 }
 
 .checkout {
-  border: 1px solid #dddddd;
-  max-width: 900px;
-  padding: 25px 40px;
-  margin-bottom: 200px;
-  font-family: "Lato", sans-serif;
-  background-color: #fff;
+  @include panel();
 
   &-header {
     font-size: 20px;
@@ -211,17 +185,7 @@
   }
   &-submit {
     &--button {
-      width: 200px;
-
-      padding: 10px 30px;
-      font-size: 15px;
-      color: #fff;
-      background-color: #3371b5;
-      border: 1px solid #3371b5;
-      border-radius: 2px;
-      outline: none;
+      @include button();
     }
   }
 }
-
-

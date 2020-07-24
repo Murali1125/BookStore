@@ -1,3 +1,5 @@
+@import "./../../css/utility.scss";
+
 .bookstoreLogo {
     display: inline-flex;
     align-items: center;
@@ -10,7 +12,7 @@
     &-text {
         padding: 0 0 0 5px;
         font-size: 22px;
-        color: #ffffff;
+        color: $color-white;
         letter-spacing: 0.5px;
     }
 }
