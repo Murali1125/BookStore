@@ -128,6 +128,7 @@ class BookDecription extends Component {
 
     render() {
         return (
+           
             <div className='BookDetailsAdmin' >    
                 {/* <Snackbar open={this.state.snackbarOpen} autoHideDuration={6000} onClose={this.SnackbarClose}>
                     <Alert onClose={this.SnackbarClose} severity={this.state.snackbarSeverity}>
@@ -143,7 +144,7 @@ class BookDecription extends Component {
                             this.fileUpload.click()
                                 }                                
                         />  
-                        : <div  className='ImageIconText'
+                        :   <div  className='ImageIconText'
                                 onClick={() =>
                                 this.fileUpload.click()
                                 }>

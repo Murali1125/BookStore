@@ -14,10 +14,7 @@ describe("Test cases for Admin DashBoard Services",()=>{
         })
         .catch(error=>{
             bookError = error;
-        }) 
-        // it('get data without fail', ()=>{                    
-        //     expect(Boolean(bookResponce)).toEqual(true);
-        // });
+        })
         it('get data without fail', ()=>{              
             if(Boolean(bookResponce)) {    
                 expect(bookResponce.data.message ).toEqual("successfull");
