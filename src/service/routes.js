@@ -7,18 +7,18 @@ import Checkout from "./../pages/checkout/Checkout";
 import Store from "../pages/Store/Store";
 import OrderSummary from "../pages/orderSummary/OrderSummary";
 import Profile from "./../pages/profile/Profile";
-import {PrivateRoute} from "./privateroute"
+import {CustomerRoute, AdminRoute, PublicRoute} from "./privateroute"
 
 function Routes() {
   return (
     <Switch>
-      <Route path="/register" component={Register} />
-      <Route path="/login" component={Login} />
-      <Route path="/profile" component={Profile} />
-      <PrivateRoute path="/dashboard" component={Dashboard}/>
-      <PrivateRoute path="/orderSummary" component={OrderSummary}/>
-      <PrivateRoute path="/checkout" component={Checkout}/>
-      <Route path="/" component={Store}/>
+      <PublicRoute path="/register" component={Register} />
+      <PublicRoute path="/login" component={Login} />
+      <CustomerRoute path="/profile" component={Profile} />
+      <AdminRoute path="/dashboard" component={Dashboard}/>
+      <CustomerRoute path="/orderSummary" component={OrderSummary}/>
+      <CustomerRoute path="/checkout" component={Checkout}/>
+      <PublicRoute path="/" component={Store}/>
     </Switch>
   );
 }
