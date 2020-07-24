@@ -7,9 +7,13 @@ const apiUrl = Configuration.url;
 class CartService {
   AddToCart(bookId, token) {
     return axiosService.Post(
-      `${apiUrl}Cart/${bookId}/1`,
+      `${apiUrl}Cart`,
       {},
       {
+        params: {
+          BookId: `${bookId}`,
+          Quantity: 1,
+        },
         headers: {
           Authorization: `Bearer ${token}`,
         },
