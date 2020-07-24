@@ -114,7 +114,8 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function BookdDetailsTable(props) {
+// function for display table
+export default function BookDetailsTable(props) {
   const classes = useStyles2();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -126,10 +127,12 @@ export default function BookdDetailsTable(props) {
   console.log('search word props ', props.searchWord)
 
 
+  // function for get all data from backend 
   const LoadData =()=>{
     GetAllBooks()
     .then(responce=>{
         if(responce.status === 200 ){
+            console.log(responce)
             setData(responce.data.data);
         }
     })
@@ -137,15 +140,17 @@ export default function BookdDetailsTable(props) {
         console.log(error);
     })
   }
+  // ComponentDidMount
   useEffect(()=>{
     LoadData();
   },[])
+  // update data when props updated
   useEffect(()=>{
     console.log("updatedata",props.dataUpdated)
     LoadData();
     console.log(props.dataUpdated)
   },[props.dataUpdated])
-
+  // get searched result data and store into data variable
   useEffect(()=>{
     if(Boolean(props.searchWord)){
       SearchList(props.searchWord)
@@ -159,32 +164,25 @@ export default function BookdDetailsTable(props) {
           console.log(error);
       })
     }
-  },[props.searchWord])
+  },[props.searchWord])  
   
-
-  const Delete=(bookId)=>{
-    console.log("Delete ID",bookId);
-    DeleteBook(bookId).then((json) => {  
-      console.log("responce data==>",json);
-    })  
-  }
-
-
+  // change page handlers
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
+  // Edit book handler it calls call back funtion to open Book Details Dialog box
   const EditBook = (bookdata)=>{
     props.showBook(bookdata) ;
   }
+  // function read books data
   const readBooksData = ()=>{
     setData(props.booksData)
   }
+  // method to delete the book
   const onDelete = (id)=>{
     DeleteBook(id)
     .then(responce=>{
@@ -196,6 +194,7 @@ export default function BookdDetailsTable(props) {
     })
 
   }
+  
   let booksdata;
   return (
     <div>
@@ -204,17 +203,17 @@ export default function BookdDetailsTable(props) {
                 {snackBarMessage}
             </Alert>
         </Snackbar>  */}
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className='tableContainer'>
           <Table className={classes.table} aria-label="custom pagination table">
           <TableHead>
               <TableRow>
-                <StyledTableCell align="center">S.No</StyledTableCell>
-                <StyledTableCell align="center">Title</StyledTableCell>
-                <StyledTableCell align="center">Author</StyledTableCell>
-                <StyledTableCell align="center">Price</StyledTableCell>
-                <StyledTableCell align="center">Quantity</StyledTableCell>
-                <StyledTableCell align="center">Edit</StyledTableCell>
-                <StyledTableCell align="center">Remove</StyledTableCell>
+                <StyledTableCell align="center" className='SNo'>S.No</StyledTableCell>
+                <StyledTableCell align="center" className='Title'>Title</StyledTableCell>
+                <StyledTableCell align="center" className='Author'>Author</StyledTableCell>
+                <StyledTableCell align="center" className='Price'>Price</StyledTableCell>
+                <StyledTableCell align="center" className='Quantity'>Quantity</StyledTableCell>
+                <StyledTableCell align="center" className='Edit'>Edit</StyledTableCell>
+                <StyledTableCell align="center" className='Remove'>Remove</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
