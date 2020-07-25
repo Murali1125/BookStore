@@ -9,6 +9,7 @@ import {
   Menu,
   MenuItem,
   Button,
+  Tooltip,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
@@ -16,6 +17,10 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import bookstoreLogo from "./../../assets/logo.svg";
+import "./Header.scss";
+import CartService from "./../../service/cartService";
+
+const cartService = new CartService();
 
 /*
   Two variants - simple & rich
@@ -34,6 +39,7 @@ class Header extends Component {
     this.state = {
       anchorEl: null,
       mobileMoreAnchorEl: null,
+      cartItemsNo: 0,
     };
   }
 
@@ -70,6 +76,14 @@ class Header extends Component {
     this.props.onCartClick();
   };
 
+  updateOnChange=()=>{
+    this.setState({ cartItemsNo: this.props.cartItemsNo });
+  }
+ 
+  componentDidMount(){
+    this.updateOnChange();
+  }
+
   menuId = "primary-search-account-menu";
 
   render() {
@@ -79,13 +93,20 @@ class Header extends Component {
         <div className={classes.grow}>
           <AppBar position="fixed" className={classes.appbar}>
             <Container maxWidth="lg">
-              <Toolbar>
-                <IconButton className="bookstoreLogo">
-                  <img
-                    src={bookstoreLogo}
-                    className="bookstoreLogo-icon"
-                    alt="bookstoreLogo"
-                  />
+              <Toolbar className="toolbar">
+                <IconButton
+                  className="bookstoreLogo"
+                  onClick={() => {
+                    this.props.goToStore();
+                  }}
+                >
+                  <Tooltip title="Go to store">
+                    <img
+                      src={bookstoreLogo}
+                      className="bookstoreLogo-icon"
+                      alt="bookstoreLogo"
+                    />
+                  </Tooltip>
                 </IconButton>
                 {this.props.variant === "rich" ? (
                   <Typography className={classes.titleRich} variant="h6" noWrap>
@@ -119,30 +140,52 @@ class Header extends Component {
                     </div>
                     <div className={classes.grow} />
 
-                   {localStorage.getItem("Token") ?  (<Fragment>
-                     <IconButton
-                      aria-label="show 17 new notifications"
-                      color="inherit"
-                    >
-                      <Badge badgeContent={17} color="secondary">
-                        <ShoppingCartOutlinedIcon />
-                      </Badge>
-                    </IconButton>
-
-                    <IconButton
-                      edge="end"
-                      aria-label="account of current user"
-                      aria-controls={this.menuId}
-                      aria-haspopup="true"
-                      onClick={this.handleProfileMenuOpen}
-                      color="inherit"
-                    >
-                      <AccountCircle />
-                    </IconButton>
-                   </Fragment>) :( <Fragment>
-                     <Button>Login</Button>
-                     <Button>Register</Button>
-                   </Fragment>) }
+                    {localStorage.getItem("Token") ? (
+                      <Fragment>
+                        <Tooltip title="Go to Cart">
+                          <IconButton
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                            onClick={()=>this.props.goToCart()}
+                          >
+                            <Badge badgeContent={this.state.cartItemsNo} color="secondary">
+                              <ShoppingCartOutlinedIcon />
+                            </Badge>
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Open menu">
+                          <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={this.menuId}
+                            aria-haspopup="true"
+                            onClick={this.handleProfileMenuOpen}
+                            color="inherit"
+                          >
+                            <AccountCircle />
+                          </IconButton>
+                        </Tooltip>
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <Tooltip title="Login">
+                          <div
+                            className="appBarButton"
+                            onClick={() => this.props.goToLogin()}
+                          >
+                            Login
+                          </div>
+                        </Tooltip>
+                        <Tooltip title="Register">
+                          <div
+                            className="appBarButton"
+                            onClick={() => this.props.goToRegister()}
+                          >
+                            Register
+                          </div>
+                        </Tooltip>
+                      </Fragment>
+                    )}
                     <div className={classes.menuContainer}>
                       <Menu
                         id="simple-menu"
@@ -190,7 +233,6 @@ class Header extends Component {
 const useStyles = (theme) => ({
   appbar: {
     backgroundColor: "#a03037",
-    // position:"relative"
   },
   grow: {
     flexGrow: 1,
