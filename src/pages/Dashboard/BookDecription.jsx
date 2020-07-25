@@ -8,7 +8,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import {AddBook,UpdateBook} from './../../service/AdminServices'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import {Alert} from '@material-ui/core'
+import {Alert} from '@material-ui/lab'
 
 
 class BookDecription extends Component {
@@ -27,7 +27,7 @@ class BookDecription extends Component {
             bookId: null,
             status : 'addBook',
             snackbarOpen : false,
-            snackBarMessage : '',
+            snackBarMessage : 'hello',
             snackbarSeverity : 'success',
         }
     }
@@ -96,12 +96,13 @@ class BookDecription extends Component {
         else{       // else call add book api
             await AddBook(Book)        
             .then(responce=>{
-                console.log("book added sucessfully", responce)
+                console.log("book added sucessfully", responce)                
                 this.setState({
                     snackbarOpen : true,
                     snackBarMessage : 'Book Sucessfully Added',
                     snackbarSeverity : 'success'
                 })
+                
             })
             .catch(error=>{
                 this.setState({
@@ -130,11 +131,11 @@ class BookDecription extends Component {
         return (
            
             <div className='BookDetailsAdmin' >    
-                {/* <Snackbar open={this.state.snackbarOpen} autoHideDuration={6000} onClose={this.SnackbarClose}>
+                <Snackbar open={this.state.snackbarOpen} autoHideDuration={6000} onClose={this.SnackbarClose}>
                     <Alert onClose={this.SnackbarClose} severity={this.state.snackbarSeverity}>
                         {this.state.snackBarMessage}
                     </Alert>
-                </Snackbar>             */}
+                </Snackbar>            
                 <div className='imageContainerAdmin'>
                     {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
                         <img src={this.state.imageUrl}  

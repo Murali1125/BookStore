@@ -10,18 +10,18 @@ const header = { headers:{
 
 // CURD operational Functions for admin                            
 export function AddBook(data){
-    return axiosService.Post(url+"Book",data,true,header);
+    return axiosService.Post(url+"Book",data,header);
 }
 export function GetAllBooks(){
-    return axiosService.Get(url+"Book",null,true,header);
+    return axiosService.Get(url+"Book",null,header);
 }
 export  function UpdateBook(data,id){
-    return   axiosService.Put(url+"Book/"+id,data,true,header);
+    return   axiosService.Put(url+"Book/"+id,data,header);
 };
 export function DeleteBook(bookId){
-    return axiosService.Delete(url+"Book/"+bookId,true,header);
+    return axiosService.Delete(url+"Book/"+bookId,header);
 }
 export function SearchList(searchWord){
     console.log("search word in adminservice", searchWord)
-    return axiosService.Get(url+"Book/"+searchWord,null,false,header);
+    return axiosService.Get(url+"Book/"+searchWord,null,header);
 }

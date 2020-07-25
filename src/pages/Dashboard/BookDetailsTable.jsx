@@ -1,6 +1,7 @@
 import React, { useState }  from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
+import {Button} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,8 +21,11 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import Truncate from 'react-truncate';
 import {GetAllBooks,DeleteBook,SearchList} from './../../service/AdminServices'
+import {Snackbar} from '@material-ui/core'
+import {Alert} from '@material-ui/lab'
 
-
+import { getBooks } from './../../redux/actions/DashBoardActions'
+import { connect } from 'react-redux'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -115,7 +119,7 @@ const useStyles2 = makeStyles({
 });
 
 // function for display table
-export default function BookDetailsTable(props) {
+function BookDetailsTable(props) {
   const classes = useStyles2();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -124,7 +128,8 @@ export default function BookDetailsTable(props) {
   const [snackbarOpen,setSnackbarOpen] = useState(false);
   const [snackbarMessage,setmessage] = useState('');
   const [snackbarSeverity,setServicity] = useState('success')
-  console.log('search word props ', props.searchWord)
+
+  
 
 
   // function for get all data from backend 
@@ -133,7 +138,7 @@ export default function BookDetailsTable(props) {
     .then(responce=>{
         if(responce.status === 200 ){
             console.log(responce)
-            setData(responce.data.data);
+            setData(responce.data.data.reverse());
         }
     })
     .catch(error=>{
@@ -187,22 +192,32 @@ export default function BookDetailsTable(props) {
     DeleteBook(id)
     .then(responce=>{
       console.log("delete", responce)
+      setSnackbarOpen(true)
+      setmessage(responce.data.message)
+      setServicity('success')
       LoadData();
     })
     .catch(error=>{
       console.log(error)
+      setSnackbarOpen(true)
+      setmessage(error.message)
+      setServicity('error')
     })
 
   }
   
+  const handleClose =()=>{
+    setSnackbarOpen(false)
+  }
+
   let booksdata;
   return (
     <div>
-        {/* <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={SnackbarCloseHandler} severity={snackbarSeverity}>
-                {snackBarMessage}
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity={snackbarSeverity}>
+                {snackbarMessage}
             </Alert>
-        </Snackbar>  */}
+        </Snackbar> 
         <TableContainer component={Paper} className='tableContainer'>
           <Table className={classes.table} aria-label="custom pagination table">
           <TableHead>
@@ -218,8 +233,8 @@ export default function BookDetailsTable(props) {
             </TableHead>
             <TableBody>
               {  (rowsPerPage > 0
-                ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : data
+                ? data.reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : data.reverse
               ).map((book,index) => (                                  
                 <StyledTableRow key={index }>
                     <StyledTableCell  align="center">
@@ -273,8 +288,53 @@ export default function BookDetailsTable(props) {
               </TableRow>
             </TableFooter>
           </Table>
-        </TableContainer>
+        </TableContainer>        
+        
+        {Boolean(props.reduxBookData) ? 
+        <div>
+          {console.log("data from redux", props.reduxBookData)}
+          <div>
+            {
+              booksdata =  props.reduxBookData.map(book=>{
+                          return(
+                            <div>
+                            "title" : {book.title }
+                            "decription" : {book.description}
+                            "author" : {book.author}
+                            "imageUrl" : {book.imageUrl}
+                            "price" : {book.price}
+                            "quantity" : {book.booksAvailable}
+                            "bookId" : {book.bookId}
+                            </div>
+                          )
+              })
+            }
+            {booksdata}
+          </div>       
+          <div>
+            <Button onClick={()=>props.reduxgetData()}>reduxgetBooks</Button>
+          </div>
+        </div>
+        : null 
+        }
+        <div>
+            <Button onClick={()=>props.reduxgetData()}>reduxgetBooks</Button>
+        </div>
   </div>
   );
 }
 
+const mapStateToProps = state =>{
+  console.log("state in table", state)
+  return {
+    reduxBookData : state.bookData,
+    number : state.number
+  }
+}
+const mapDispatchToProps = dispatch =>{
+  return {
+    reduxgetData : ()=> dispatch(getBooks())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (BookDetailsTable)

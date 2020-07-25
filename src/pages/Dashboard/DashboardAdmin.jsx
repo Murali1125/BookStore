@@ -11,6 +11,9 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import Popover from '@material-ui/core/Popover';
 import Footer from './../../component/Footer/Footer'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import {Alert} from '@material-ui/lab'
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -28,6 +31,12 @@ class AdminDashboard extends Component {
             updateData:false,
             dataUpdated:'',
             anchorEl : null,
+            // snackbarProperties
+            // snackbar : {
+            //     Open : false,
+            //     Message : '',
+            //     Severity : 'success',
+            // }
         }
     }
     // profile popover open handler
@@ -102,10 +111,26 @@ class AdminDashboard extends Component {
                 hedderDataVisable: !(this.state.hedderDataVisable)})
         }
     }
-    
+    SnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }    
+        // this.setState({
+        //     snackbar :{
+        //     Open : false,
+        //     Message : '',
+        //     Severity : 'success',
+        // })
+      };
+
     render() { 
         return (
             <div>
+                {/* <Snackbar open={this.state.snackbar.Open} autoHideDuration={6000} onClose={this.SnackbarClose}>
+                    <Alert onClose={this.SnackbarClose} severity={this.state.snackbar.Severity}>
+                        {this.state.snackBar.Message}
+                    </Alert>
+                </Snackbar>   */}
                 <div>
                     <div className="headderAdmin">
                         {(this.state.hedderDataVisable) ?
