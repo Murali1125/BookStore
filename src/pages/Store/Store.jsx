@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
 import Footer from "../../component/Footer/Footer";
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container, ClickAwayListener, IconButton } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -9,6 +9,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import BookStoreService from "./../../service/bookStoreService";
 import CartService from "./../../service/cartService";
 import WishlistService from "./../../service/wishlistService";
+import CancelIcon from "@material-ui/icons/Cancel";
 import "./Store.scss";
 
 const bookStoreService = new BookStoreService();
@@ -64,7 +65,7 @@ export default class Store extends Component {
     bookStoreService
       .SortBooks("price", "ascending")
       .then((json) => {
-        console.log("sorted");
+        console.log("sorted", json);
         if (json.data.success === true) {
           console.log(json.data.data);
           this.setState({ books: json.data.data });
@@ -167,34 +168,35 @@ export default class Store extends Component {
   render() {
     return (
       <React.Fragment>
-        <Grid
-          container
+        <div
           className={this.state.popupStatus}
-          direction="row"
-          alignItems="center"
+          onClick={(event) => this.closePopup(event)}
         >
-          <Grid>If you are returning Customer</Grid>
-          <Grid
-            container
-            item
-            direction="row"
-            justify="space-evenly"
-            alignItems="center"
-          >
-            <Grid container item direction="column">
-              <Grid>Please</Grid>
-              <Grid>else</Grid>
-            </Grid>
-            <Grid container item direction="column">
-              <Grid>
-                <button onClick={() => this.goToLogin()}>Login</button>
-              </Grid>
-              <Grid>
-                <button onClick={() => this.goToRegister()}>Register</button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+          <div className="popupDialog">
+            <div className="popupHeader">
+              <div>You are not logged in.</div>{" "}
+            </div>
+            <div className="popupDeclaration">
+              If you are returning Customer
+            </div>
+            <div className="popupInfo">
+              <div className="popupKey">
+                <div>Please</div>
+                <div>else</div>
+              </div>
+              <div className="popupButtons">
+                <div className="button" onClick={() => this.goToLogin()}>
+                  Login
+                </div>
+
+                <div></div>
+                <div className="button"  onClick={() => this.goToRegister()}>
+                  Register
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <Grid container direction="column">
           <Header

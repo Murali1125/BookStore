@@ -14,16 +14,12 @@ class BookStoreService {
   }
 
   SortBooks(parameter, order) {
-    return axiosService.Get(
-      `${apiUrl}Book/Sotring`,
-      null,
-      true,{
-        params:{
-          'columnName': `${parameter}`,
-          'order': `${order}`
-        }
+    return axiosService.Get(`${apiUrl}Book/Sorting`,  {
+      params: {
+        columnName: `${parameter}`,
+        order: `${order}`,
       }
-    );
+    });
   }
 
   

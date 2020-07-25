@@ -2,14 +2,12 @@
 
 @mixin popup {
   position: fixed;
-  top: 50vh;
-  left: 50vw;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  box-shadow: $shadow;
-  background-color: $color-white;
-  max-width: 500px;
-  padding: 20px 10px;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
   // text-align: left;
 }
 
@@ -18,21 +16,95 @@
   margin-top: 65px;
   padding-bottom: 100px;
 }
-
 .popup-hidden {
   @include popup();
-
-  // display: none;
   visibility: hidden;
+
+  & .popupDialog {
+    visibility: hidden;
+  }
 }
 
 .popup-show {
   @include popup();
-
-  // display: block;
   visibility: visible;
+
+  & .popupDialog {
+    visibility: visible;
+  }
 }
 
+.popupDialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  box-shadow: $shadow;
+  background-color: $color-white;
+  max-width: 500px;
+  // display: none;
+}
+
+.popupHeader {
+  display: flex;
+  background-color: $color-primary;
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-around;
+  color: $color-white;
+  padding: 10px 10px;
+}
+
+.popupDeclaration {
+  display: flex;
+  align-self: stretch;
+  padding: 10px 10px;
+}
+
+.popupInfo {
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  background-color: $color-white;
+}
+
+.popupKey {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+.popupButtons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.popupButtons .button {
+  padding: 3px 10px;
+  margin: 2px 5px;
+  background-color: $color-secondary;
+  width: 100px;
+  font-family: $font;
+  font-size: 16px;
+  text-align: center;
+
+  border-radius: 3px;
+  cursor: pointer;
+  color: $color-white;
+  font-weight: 500;
+  text-transform: uppercase;
+  outline: none;
+  border: none;
+}
 .booksHeader {
   padding: 50px 0 10px 45px;
   font-family: "Lato", sans-serif;
@@ -115,7 +187,4 @@
 
 .pagination {
   padding-bottom: 30px;
-  
 }
-
-
