@@ -7,11 +7,14 @@ import Header from "./../../component/header/Header";
 import Footer from "./../../component/Footer/Footer";
 import Container from "@material-ui/core/Container";
 
-export default function OrderSummary(props) {
 
+export default function OrderSummary(props) {
+const goToStore = () => {
+  this.props.history.push("/");
+};
     return (
       <div className="orderPage">
-       <Header variant="normal"></Header>
+       <Header variant="normal" goToStore={()=>goToStore()}></Header>
         <div className="order">
           <div className="orderimage">
             <img

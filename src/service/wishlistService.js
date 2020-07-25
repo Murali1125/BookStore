@@ -8,7 +8,7 @@ class WishlistService {
   AddToWishlist(bookId, token) {
     return axiosService.Post(
       `${apiUrl}WishList`,
-      {},
+      {},true,
       {
         params: {
           'BookId': `${bookId}`,
@@ -30,7 +30,7 @@ class WishlistService {
   }
 
   RemoveFromWishlist(wishlistId, token) {
-    return axiosService.Delete(`${apiUrl}WishList/${wishlistId}`, {
+    return axiosService.Delete(`${apiUrl}WishList/${wishlistId}`,true, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
