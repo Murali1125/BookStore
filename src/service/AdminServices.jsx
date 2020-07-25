@@ -1,6 +1,5 @@
 import Configuration from './../Configuration/configuration'
 import AxiosService from './axiosServices'
-import axios from 'axios'
 
 const url = Configuration.url;
 const axiosService = new AxiosService();

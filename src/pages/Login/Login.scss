@@ -6,7 +6,7 @@
 	
 }
 .Login {
-	margin-top: 200px;
+	margin-top: 180px;
 	margin-bottom: 50px;
 	@include felx();
 }
@@ -80,28 +80,26 @@
 }
 @media only screen and (max-width: 450px) {
 	.Login {
-		margin-top: 110px;
-		margin-bottom: 0px;
+		margin-top: 50px;
+		margin-bottom: -40px;
 	}
 	.LoginCard {
 		border: none !important;
-
-		padding-bottom: 20px !important;
+		padding-bottom: 20px ;
 	}
 }
 @media only screen and (max-width: 414px) {
 	.Login {
-		margin-top: 110px;
-		margin-bottom: 0px;
+		margin-top: 70px;
+		margin-bottom: -40px;
 	}
 	.LoginCard {
-		border: none !important;
-
-		padding-bottom: 20px !important;
+		padding-top: 50px ;
+		padding-bottom: 50px ;
 	}
 	.buttonLogin {
 		display: flex;
-		flex-direction: column;
+		flex-direction: column !important;
 		align-items: center;
 	}
 	.button-Login {
@@ -109,29 +107,14 @@
 	}
 }
 @media only screen and (max-width: 411px) {
-	.Login {
-		margin-top: 110px;
-		margin-bottom: 0px;
-	}
 	.LoginCard {
-		border: none !important;
-		
-		padding-bottom: 75px !important;
-	}
-}
-@media only screen and (max-width: 375px) {
-	.Login {
-		margin-top: 110px;
-		margin-bottom: 0px;
-	}
-	.LoginCard {
-	
-		padding-bottom: 70px !important;
+		padding-top:80px;
+		padding-bottom: 100px ;
 	}
 }
 @media only screen and (max-width: 360px) {
 	.LoginCard {
-		
-		padding-bottom: 30px !important;
+		padding-top:0px ;
+		padding-bottom: 10px ;
 	}
 }

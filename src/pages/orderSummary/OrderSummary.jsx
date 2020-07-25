@@ -5,7 +5,6 @@ import CheckoutMessage from "./../../assets/CheckoutMessage.jpg";
 import { Button } from "@material-ui/core";
 import Header from "./../../component/header/Header";
 import Footer from "./../../component/Footer/Footer";
-import Container from "@material-ui/core/Container";
 
 
 export default function OrderSummary(props) {
