@@ -46,16 +46,41 @@ export class Profile extends React.Component {
         console.log("Added to cart", json);
       });
   };
+  onLogoutClick = () => {
+    localStorage.removeItem("Token");
+    localStorage.removeItem("FirstName");
+    localStorage.removeItem("LastName");
+    localStorage.removeItem("Email");
+    localStorage.removeItem("User Role");
+    localStorage.removeItem("Address");
+    localStorage.removeItem("City");
+    localStorage.removeItem("Phone Number");
+    this.props.history.push("/login");
+  };
+  onSearch = (value) => {
+    
+  };
 
   removeFromwishlist = (wishlistId) => {
     wishlistService
       .RemoveFromWishlist(wishlistId, localStorage.getItem("Token"))
       .then((json) => {
-         this.getAllWishlist();
+        this.getAllWishlist();
       });
-     
   };
-
+  onProfileClick = () => {
+    if (localStorage.getItem("Token")) {
+      this.props.history.push("/profile");
+    } else {
+      this.props.history.push("/login");
+    }
+  };
+  goToStore = () => {
+    this.props.history.push("/");
+  };
+  goToCart = () => {
+    this.props.history.push("/checkout");
+  };
   componentDidMount() {
     this.getAllWishlist();
   }
@@ -65,7 +90,14 @@ export class Profile extends React.Component {
       <div className="profilePage">
         <div className="profileLogo">
           <Container maxWidth="xl">
-            <Header variant="rich" />
+            <Header
+              variant="rich"
+              goToStore={() => this.goToStore()}
+              goToCart={() => this.goToCart()}
+              onProfileClick={() => this.onProfileClick()}
+              onLogout={() => this.onLogoutClick()}
+              onSearch={(value) => this.onSearch(value)}
+            />
           </Container>
         </div>
         <div className="profile">
@@ -119,7 +151,7 @@ export class Profile extends React.Component {
             </div>
           </Card>
         </div>
-        <Container maxWidth="lg" className="storeContainer">
+        <Container maxWidth="lg" className="wishlistContainer">
           <Grid
             container
             item
@@ -137,7 +169,13 @@ export class Profile extends React.Component {
             >
               Wishlist
               <span className="bookCount">
-                &nbsp;({this.state.wishlist.filter(book => book.isDeleted ===false).length} items)
+                &nbsp;(
+                {
+                  this.state.wishlist.filter(
+                    (book) => book.isDeleted === false && book.isMoved === false
+                  ).length
+                }{" "}
+                items)
               </span>
             </Grid>
           </Grid>
@@ -149,7 +187,9 @@ export class Profile extends React.Component {
             justify="flex-start"
             className="booksContainer"
           >
-            {this.state.wishlist.length === 0 ? (
+            {this.state.wishlist.filter(
+              (book) => book.isDeleted === false && book.isMoved === false
+            ).length === 0 ? (
               <Grid
                 container
                 item
@@ -161,16 +201,19 @@ export class Profile extends React.Component {
                 justify="center"
                 style={{ fontsize: 40 }}
               >
-                No books Found
+                Wishlist empty
               </Grid>
             ) : (
-              this.state.wishlist.filter(book => book.isDeleted ===false)
+              this.state.wishlist
+                .filter(
+                  (book) => book.isDeleted === false && book.isMoved === false
+                )
                 .slice(
                   (this.state.page - 1) * this.state.itemsPerPage,
                   this.state.page * this.state.itemsPerPage
                 )
                 .map((book, index) => {
-                  console.log(book)
+                  console.log(book);
                   return (
                     <Grid
                       container
@@ -186,8 +229,9 @@ export class Profile extends React.Component {
                       <Book
                         key={index}
                         addToCart={() => this.addToCart(book.wishListId)}
-                        removeFromWishlist={() => this.removeFromwishlist(book.wishListId)}
-                       
+                        removeFromWishlist={() =>
+                          this.removeFromwishlist(book.wishListId)
+                        }
                         variant="wishlist"
                       >
                         {book}
@@ -206,10 +250,13 @@ export class Profile extends React.Component {
           >
             <Pagination
               count={Math.ceil(
-                this.state.wishlist.length / this.state.itemsPerPage
+                this.state.wishlist.filter(
+                  (book) => book.isDeleted === false && book.isMoved === false
+                ).length / this.state.itemsPerPage
               )}
               page={this.state.page}
               onChange={(event, value) => this.changePage(event, value)}
+              color="secondary"
               defaultPage={1}
             />
           </Grid>

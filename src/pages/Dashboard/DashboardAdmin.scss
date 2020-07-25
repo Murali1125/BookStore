@@ -8,7 +8,7 @@ $borderColourLight: #fbfbfb;
   align-items: center;
 }
 // headder admin dash board
-.headderAdmin { 
+.headderAdmin {
   width: 100%;
   height: 60px;
   min-width: 320px;
@@ -23,7 +23,7 @@ $borderColourLight: #fbfbfb;
   position: relative;
   left: -6%;
 }
- @mixin searchBar{
+@mixin searchBar {
   display: flex;
   height: 40px;
   max-width: 500px;
@@ -34,35 +34,34 @@ $borderColourLight: #fbfbfb;
   position: relative;
   left: -10%;
 }
-.searchBarAdmin{
+.searchBarAdmin {
   width: 50%;
-  @include searchBar();  
-}
-.searchBarOffAdmin{
   @include searchBar();
-  background: none ;
 }
-.searchField{
+.searchBarOffAdmin {
+  @include searchBar();
+  background: none;
+}
+.searchField {
   width: 100% !important;
 }
-.AddBookDialogAdmin{
+.AddBookDialogAdmin {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
 }
-.AddBookDilogheadderAdmin{
+.AddBookDilogheadderAdmin {
   @include felxCenter(row);
   justify-content: flex-start;
   white-space: pre-wrap;
-
 }
 .BooksDisplayContainerAdmin {
   position: relative;
   top: 50px;
 }
-.MuiDialog-paperWidthSm{
+.MuiDialog-paperWidthSm {
   max-width: 400px !important;
 }
 
@@ -192,8 +191,8 @@ $borderColourLight: #fbfbfb;
 }
 
 // BookDecription Jsx file CSS
-.BookDetailsAdmin{
-  display: flex;  
+.BookDetailsAdmin {
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -203,33 +202,33 @@ $borderColourLight: #fbfbfb;
   border: 2px;
   border-radius: 15px;
   padding: 10px;
-  border-style : solid;
-  border-color: #F5F5F5;
+  border-style: solid;
+  border-color: #f5f5f5;
   & > div {
-      width: 100%;
-      margin: 10px;
-  } 
+    width: 100%;
+    margin: 10px;
+  }
 }
-.imageContainerAdmin{
+.imageContainerAdmin {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   white-space: pre-wrap;
-  & >div{
+  & > div {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 }
-.BookImageAdmin{
+.BookImageAdmin {
   max-width: 200px;
   max-height: 200px;
   border: 1px;
   border-style: outset;
   border-radius: 5px;
 }
-.ButtonsBookDetailsAdmin{
+.ButtonsBookDetailsAdmin {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -240,7 +239,7 @@ $borderColourLight: #fbfbfb;
 }
 
 // footer
-.globalFooter{
+.globalFooter {
   position: fixed;
   bottom: 0;
 }
@@ -257,12 +256,12 @@ $borderColourLight: #fbfbfb;
     position: static;
     left: 0;
   }
-  .searchBarAdmin{
+  .searchBarAdmin {
     position: static;
     left: 0;
     width: 90%;
   }
-  .AcoountIconAdmin{
+  .AcoountIconAdmin {
     margin-left: 2px !important;
   }
   .BookDetails {
@@ -293,101 +292,98 @@ $borderColourLight: #fbfbfb;
   }
 }
 
-
 // BookDecription Jsx file CSS
-.BookDetailsAdmin{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    justify-self: center;
-    align-self: center;
-    max-width: 400px;
-    border: 2px;
-    border-radius: 10px;
-    padding: 10px;
-    border-style: groove;  
-    & > div {
-        width: 100%;
-        margin: 10px;
-    } 
+.BookDetailsAdmin {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+  max-width: 400px;
+  border: 2px;
+  border-radius: 10px;
+  padding: 10px;
+  border-style: groove;
+  & > div {
+    width: 100%;
+    margin: 10px;
+  }
 }
-.imageContainerAdmin{
+.imageContainerAdmin {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.BookImageAdmin {
+  max-width: 200px;
+  max-height: 200px;
+  border: 1px;
+  border-style: outset;
+  border-radius: 5px;
+}
+
+@media all and (min-width: 751) and (max-width: 1100px) {
+  .headderAdmin {
+    max-width: 100%;
+    padding-left: 1px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+  }
+  .SearchfieldAdmin {
+    display: none;
+  }
+  .searchBarAdmin {
+    position: static;
+    left: 0;
+  }
+  .AddButtonAdmin {
+    position: static;
+    left: -10px;
+  }
+  .LogoAdmin {
+    position: static;
+    left: 0;
+  }
+  .BookDetails {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+  }
+  .authortitleDecription {
+    width: 100%;
+    max-width: 100%;
+  }
+  .buttonsAdmin {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+  }
+  .PriceQuantityButtonsAdmin {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .priceQuantityContainerAdmin {
+    justify-content: flex-start;
+  }
+  .decriptionTextFieldAdmin {
+    width: 65%;
+  }
 }
-.BookImageAdmin{
-    max-width: 200px;
-    max-height: 200px;
-    border: 1px;
-    border-style: outset;
-    border-radius: 5px;
-}
-
-@media all and (min-width : 751) and (max-width : 1100px){
-    .headderAdmin{
-        max-width: 100%;
-        padding-left: 1px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    .SearchfieldAdmin{
-      display: none;
-    }
-    .searchBarAdmin{
-      position: static;
-      left: 0;
-    }
-    .AddButtonAdmin{
-        position: static;
-        left: -10px;
-
-    }
-    .LogoAdmin{
-        position: static;
-        left: 0;
-    }
-    .BookDetails{
-        display: flex;
-        flex-direction: column;   
-        padding-top: 15px;     
-    }
-    .authortitleDecription{
-        width: 100%;
-        max-width: 100%;
-    }
-    .buttonsAdmin{
-        width: 95%;
-        display: flex;
-        justify-content: space-between;
-        padding: 4px;
-    }
-    .PriceQuantityButtonsAdmin{
-        display: flex;
-        flex-direction: column; 
-        align-items: flex-start;       
-    }
-    .priceQuantityContainerAdmin{
-        justify-content: flex-start;
-    }
-    .decriptionTextFieldAdmin{
-        width: 65%;
-    }
-}
-@media all and (max-width:450px){
-  .MuiDialog-paperFullWidth{
+@media all and (max-width: 450px) {
+  .MuiDialog-paperFullWidth {
     width: calc(100% - 20px) !important;
   }
-  .MuiDialog-paper{
-    margin : 10px !important;
+  .MuiDialog-paper {
+    margin: 10px !important;
   }
 }
-@media all and (max-width: 350px){
-  .bookstoreLogo-text{
+@media all and (max-width: 350px) {
+  .bookstoreLogo-text {
     display: none;
   }
 }
-
