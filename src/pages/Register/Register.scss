@@ -5,8 +5,8 @@
     justify-content: center;
 }
 .register {
-    margin-top: 90px;
-    margin-bottom: 140px;
+    margin-top: 100px;
+    margin-bottom: 100px;
     @include felx();
 }
 .registerLogo {
@@ -63,7 +63,7 @@
 
 @media only screen and (max-width: 1024px) {
     .register {
-        margin-top: 90px;
+        margin-top: 250px;
         margin-bottom: 20px;
     }
 }
@@ -74,7 +74,7 @@
 }
 @media only screen and (max-width: 450px) {
     .register {
-        margin-top: 90px;
+        margin-top: 60px;
     }
     .registerCard {
         border: none !important;
@@ -82,12 +82,8 @@
     }
 }
 @media only screen and (max-width: 414px) {
-    .register {
-        margin-top: 90px;
-    }
     .registerCard {
-        border: none !important;
-        padding-top: 10px;
+        padding-top: 30px;
         padding-bottom: 100px;
     }
     .accountExsists {
