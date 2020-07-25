@@ -24,3 +24,7 @@ export function SearchList(searchWord){
     console.log("search word in adminservice", searchWord)
     return axiosService.Get(url+"Book/"+searchWord,null,header);
 }
+export function ImageBook(bookId,data){
+    console.log("Image API", bookId,data)
+    return axiosService.Put(url+"Book/ImageInsert?BookId="+bookId,data,header);
+}

@@ -129,35 +129,12 @@ describe('Login Component', () => {
     })
   })
 
-it('Dispatches authorization', () => {
-    let mock = new MockAdapter(axios);
-    mock.onPost(`https://localhost:44387/api/User/Login`, { 
-        email: 'Diksha.Rane@gmail.com', 
-        password: 'Diksha@123'
-    }).reply(200, {success: 'true' });
-});
 
 it('Dispatches authorization', () => {
     let mock = new MockAdapter(axios);
     mock.onPost(`https://localhost:44387/api/User/Login`, { 
         email: 'admin@gmail.com', 
         password: 'Admin@123'
-    }).reply(200, {success: 'true' });
-});
-
-it('Dispatches authorization', () => {
-    let mock = new MockAdapter(axios);
-    mock.onPost(`https://localhost:44387/api/User/Login`, { 
-        email: 'Diksha.Rane@gmail.com', 
-        password: 'diksha@1234'
-    }).reply(200, {success: 'false' });
-});
-
-it('Dispatches authorization', () => {
-    let mock = new MockAdapter(axios);
-    mock.onPost(`https://localhost:44387/api/User/Login`, { 
-        email: 'admin@gmail.com', 
-        password: 'Admin@1234'
     }).reply((config) => {
     console.log("data",config);
   const data = JSON.parse(config.data)});
