@@ -9,7 +9,7 @@ import Footer from "./../../component/Footer/Footer";
 
 export default function OrderSummary(props) {
 const goToStore = () => {
-  this.props.history.push("/");
+  props.history.push("/");
 };
     return (
       <div className="orderPage">

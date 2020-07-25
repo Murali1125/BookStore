@@ -486,9 +486,9 @@ export default class Checkout extends Component {
               <Grid container item className="checkout-header">
                 Order Summary (
                 {
-                  this.state.cartItems.filter(
-                    (item) => item.isDeleted === false
-                  ).length
+                  this.state.cartItems
+                    .filter((item) => item.isUsed === false)
+                    .filter((item) => item.isDeleted === false).length
                 }
                 )
               </Grid>

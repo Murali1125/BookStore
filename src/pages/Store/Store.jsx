@@ -190,7 +190,7 @@ export default class Store extends Component {
                 </div>
 
                 <div></div>
-                <div className="button"  onClick={() => this.goToRegister()}>
+                <div className="button" onClick={() => this.goToRegister()}>
                   Register
                 </div>
               </div>
@@ -333,8 +333,8 @@ export default class Store extends Component {
               />
             </Grid>
           </Container>
-          <Footer />
         </Grid>
+        <Footer />
       </React.Fragment>
     );
   }
