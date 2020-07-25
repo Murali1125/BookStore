@@ -1,3 +1,55 @@
+<<<<<<< HEAD
+import './DashboardAdmin.scss'
+import React, { Component } from 'react';
+import {Container,Button,Dialog,DialogTitle,DialogContent,TextField,IconButton,Typography} from '@material-ui/core'
+import Logo from './../../component/logo/Logo'
+import BookDetailsTable from './BookDetailsTable'
+import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
+import BookDecription from './BookDecription'
+import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import Popover from '@material-ui/core/Popover';
+import Footer from './../../component/Footer/Footer'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import {Alert} from '@material-ui/lab'
+
+class AdminDashboard extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            booksData:'',
+            AddBookDialogOpen:false,
+            selectedBookData:'',
+            isUpdateBook : false,
+            hideSearch : false,
+            isScreenBelow600 : false,
+            hedderDataVisable: true,
+            data : [],
+            searchWord:'',
+            updateData:false,
+            dataUpdated:'',
+            anchorEl : null,
+            // snackbarProperties
+            // snackbar : {
+            //     Open : false,
+            //     Message : '',
+            //     Severity : 'success',
+            // }
+        }
+    }
+    // profile popover open handler
+    handleClick = (event) => {
+        this.setState({
+            anchorEl : event.currentTarget
+        })
+    };
+    // profile popover close handler
+    handleClose = () => {
+        this.setState({ anchorEl : null});
+=======
 import "./DashboardAdmin.scss";
 import React, { Component } from "react";
 import {
@@ -37,6 +89,7 @@ class AdminDashboard extends Component {
       updateData: false,
       dataUpdated: "",
       anchorEl: null,
+>>>>>>> 43e8d1c02ecc09014eca4124f6a7fe928c5dce8f
     };
   }
   // profile popover open handler
@@ -113,6 +166,54 @@ class AdminDashboard extends Component {
     }
   };
 
+<<<<<<< HEAD
+    }
+    setRefreshFalse = ()=>{
+        this.setState({
+            updateData : false
+        })
+    }
+    // screen size handlers to  hide search bar
+    componentWillMount() {       
+        window.addEventListener("resize", this.resize.bind(this));
+        this.resize();
+    }    
+    resize() {
+        this.setState({ hideSearch: window.innerWidth >= 600,
+                        isScreenBelow600 : !(window.innerWidth >= 600) });
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.resize.bind(this));
+    }
+    // onClick handler of search icon
+    onSearchIconClick = () =>{
+        if(this.state.isScreenBelow600){
+            this.setState({
+                hideSearch : !(this.state.hideSearch),
+                hedderDataVisable: !(this.state.hedderDataVisable)})
+        }
+    }
+    SnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }    
+        // this.setState({
+        //     snackbar :{
+        //     Open : false,
+        //     Message : '',
+        //     Severity : 'success',
+        // })
+      };
+
+    render() { 
+        return (
+            <div>
+                {/* <Snackbar open={this.state.snackbar.Open} autoHideDuration={6000} onClose={this.SnackbarClose}>
+                    <Alert onClose={this.SnackbarClose} severity={this.state.snackbar.Severity}>
+                        {this.state.snackBar.Message}
+                    </Alert>
+                </Snackbar>   */}
+=======
   render() {
     return (
       <div>
@@ -141,6 +242,7 @@ class AdminDashboard extends Component {
                 </IconButton>
               </div>
               {this.state.hideSearch ? (
+>>>>>>> 43e8d1c02ecc09014eca4124f6a7fe928c5dce8f
                 <div>
                   <TextField
                     className="searchField"
