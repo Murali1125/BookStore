@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
 import Footer from "../../component/Footer/Footer";
-import { Grid, Container} from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -24,6 +24,7 @@ export default class Store extends Component {
       itemsPerPage: 12,
       itemsInCart: 0,
       popupStatus: "popup-hidden",
+      cartItemsNo: 0,
     };
   }
 
@@ -77,7 +78,7 @@ export default class Store extends Component {
   // Sort books PRICE High to Low
   sortPriceHighToLow = () => {
     bookStoreService.SortBooks("price", "descending").then((json) => {
-      console.log("sorted");
+      console.log(json);
       if (json.data.success === true) {
         this.setState({ books: json.data.data });
       }
@@ -89,9 +90,8 @@ export default class Store extends Component {
     console.log("Add to cart called", bookId);
     cartService
       .AddToCart(bookId, localStorage.getItem("Token"))
-      .then((json) => {
-        console.log("Added to cart", json);
-      });
+      .then((json) => {});
+    this.getAllBooks();
   };
 
   // Add book to wishlist
@@ -141,47 +141,74 @@ export default class Store extends Component {
     }
   };
 
+  goToStore = () => {
+    this.props.history.push("/");
+  };
+
+  goToLogin = () => {
+    this.props.history.push("/login");
+  };
+  goToRegister = () => {
+    this.props.history.push("/register");
+  };
+  goToCart = () => {
+    this.props.history.push("/checkout");
+  };
+  getCart = () => {
+    cartService.GetCart(localStorage.getItem("Token")).then((json) => {
+      this.setState({
+        cartItemsNo: json.data.data.length,
+      });
+    });
+  };
   componentDidMount() {
     this.getAllBooks();
   }
   render() {
     return (
       <React.Fragment>
+        <Grid
+          container
+          className={this.state.popupStatus}
+          direction="row"
+          alignItems="center"
+        >
+          <Grid>If you are returning Customer</Grid>
+          <Grid
+            container
+            item
+            direction="row"
+            justify="space-evenly"
+            alignItems="center"
+          >
+            <Grid container item direction="column">
+              <Grid>Please</Grid>
+              <Grid>else</Grid>
+            </Grid>
+            <Grid container item direction="column">
+              <Grid>
+                <button onClick={() => this.goToLogin()}>Login</button>
+              </Grid>
+              <Grid>
+                <button onClick={() => this.goToRegister()}>Register</button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+
         <Grid container direction="column">
           <Header
             variant="rich"
             onSearch={(value) => this.onSearch(value)}
             onProfileClick={() => this.onProfileClick()}
             onLogout={() => this.onLogoutClick()}
+            goToStore={() => this.goToStore()}
+            goToLogin={() => this.goToLogin()}
+            goToRegister={() => this.goToRegister()}
+            goToCart={() => this.goToCart()}
+            cartItemsNo={this.state.cartItemsNo}
           ></Header>
           <Container maxWidth="lg" className="storeContainer">
-            <Grid
-              container
-              className={this.state.popupStatus}
-              direction="column"
-              alignItems="center"
-            >
-              <Grid>If you are returning Customer</Grid>
-              <Grid container item direction="row" justify="space-evenly">
-                <Grid container item direction="column">
-                  <Grid>Please</Grid>
-                  <Grid>else</Grid>
-                </Grid>
-                <Grid container item direction="column">
-                  <Grid>
-                    <button onClick={() => this.props.history.push("/login")}>
-                      Login
-                    </button>
-                  </Grid>
-                  <Grid>
-                    <button onClick={() => this.props.history.push("/register")}>
-                      Register
-                    </button>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-
             <Grid
               container
               item
@@ -216,6 +243,7 @@ export default class Store extends Component {
                   alignItems="baseline"
                   className="dropdown"
                   justify="flex-end"
+                  style={{ backgroundColor: "#fff" }}
                 >
                   <span>Sort by relevance</span>
                   <ExpandMoreIcon className="opendropdown" />
@@ -299,6 +327,7 @@ export default class Store extends Component {
                 page={this.state.page}
                 onChange={(event, value) => this.changePage(event, value)}
                 defaultPage={1}
+                color="secondary"
               />
             </Grid>
           </Container>

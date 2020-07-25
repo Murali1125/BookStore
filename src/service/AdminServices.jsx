@@ -7,7 +7,7 @@ const axiosService = new AxiosService();
 const Token = localStorage.getItem("Token")
 const header = { headers:{
                             "Authorization" : `Bearer ${Token}`}}
-
+console.log("token",header);
 // CURD operational Functions for admin                            
 export function AddBook(data){
     return axiosService.Post(url+"Book",data,header);

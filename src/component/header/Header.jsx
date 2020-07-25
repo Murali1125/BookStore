@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   AppBar,
   Toolbar,
@@ -8,6 +8,8 @@ import {
   Typography,
   Menu,
   MenuItem,
+  Button,
+  Tooltip,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
@@ -15,6 +17,10 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import bookstoreLogo from "./../../assets/logo.svg";
+import "./Header.scss";
+import CartService from "./../../service/cartService";
+
+const cartService = new CartService();
 
 /*
   Two variants - simple & rich
@@ -33,12 +39,12 @@ class Header extends Component {
     this.state = {
       anchorEl: null,
       mobileMoreAnchorEl: null,
+      cartItemsNo: 0,
     };
   }
 
   search = (event) => {
     this.props.onSearch(event.target.value);
-   
   };
 
   handleProfileMenuOpen = (event) => {
@@ -63,12 +69,20 @@ class Header extends Component {
 
   logout = () => {
     console.log(this.props);
-    this.props.onLogout(); 
+    this.props.onLogout();
   };
 
   cart = () => {
     this.props.onCartClick();
   };
+
+  updateOnChange=()=>{
+    this.setState({ cartItemsNo: this.props.cartItemsNo });
+  }
+ 
+  componentDidMount(){
+    this.updateOnChange();
+  }
 
   menuId = "primary-search-account-menu";
 
@@ -79,17 +93,35 @@ class Header extends Component {
         <div className={classes.grow}>
           <AppBar position="fixed" className={classes.appbar}>
             <Container maxWidth="lg">
-              <Toolbar>
-                <IconButton className="bookstoreLogo">
-                  <img
-                    src={bookstoreLogo}
-                    className="bookstoreLogo-icon"
-                    alt="bookstoreLogo"
-                  />
+              <Toolbar className="toolbar">
+                <IconButton
+                  className="bookstoreLogo"
+                  onClick={() => {
+                    this.props.goToStore();
+                  }}
+                >
+                  <Tooltip title="Go to store">
+                    <img
+                      src={bookstoreLogo}
+                      className="bookstoreLogo-icon"
+                      alt="bookstoreLogo"
+                    />
+                  </Tooltip>
                 </IconButton>
-                <Typography className={classes.title} variant="h6" noWrap>
-                  Bookstore
-                </Typography>
+                {this.props.variant === "rich" ? (
+                  <Typography className={classes.titleRich} variant="h6" noWrap>
+                    Bookstore
+                  </Typography>
+                ) : (
+                  <Typography
+                    className={classes.titleNormal}
+                    variant="h6"
+                    noWrap
+                  >
+                    Bookstore
+                  </Typography>
+                )}
+
                 {this.props.variant === "rich" ? (
                   <React.Fragment>
                     <div className={classes.search}>
@@ -108,56 +140,85 @@ class Header extends Component {
                     </div>
                     <div className={classes.grow} />
 
-                    <IconButton
-                      aria-label="show 17 new notifications"
-                      color="inherit"
-                    >
-                      <Badge badgeContent={17} color="secondary">
-                        <ShoppingCartOutlinedIcon />
-                      </Badge>
-                    </IconButton>
-
-                    <IconButton
-                      edge="end"
-                      aria-label="account of current user"
-                      aria-controls={this.menuId}
-                      aria-haspopup="true"
-                      onClick={this.handleProfileMenuOpen}
-                      color="inherit"
-                    >
-                      <AccountCircle />
-                    </IconButton>
-                    <Menu
-                      id="simple-menu"
-                      anchorEl={this.state.anchorEl}
-                      // keepMounted
-                      open={Boolean(this.state.anchorEl)}
-                      onClose={() => this.handleMenuClose()}
-                      className={classes.userAccountMenu}
-                    >
-                      <MenuItem
-                        onClick={() => this.profile()}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
+                    {localStorage.getItem("Token") ? (
+                      <Fragment>
+                        <Tooltip title="Go to Cart">
+                          <IconButton
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                            onClick={()=>this.props.goToCart()}
+                          >
+                            <Badge badgeContent={this.state.cartItemsNo} color="secondary">
+                              <ShoppingCartOutlinedIcon />
+                            </Badge>
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Open menu">
+                          <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={this.menuId}
+                            aria-haspopup="true"
+                            onClick={this.handleProfileMenuOpen}
+                            color="inherit"
+                          >
+                            <AccountCircle />
+                          </IconButton>
+                        </Tooltip>
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <Tooltip title="Login">
+                          <div
+                            className="appBarButton"
+                            onClick={() => this.props.goToLogin()}
+                          >
+                            Login
+                          </div>
+                        </Tooltip>
+                        <Tooltip title="Register">
+                          <div
+                            className="appBarButton"
+                            onClick={() => this.props.goToRegister()}
+                          >
+                            Register
+                          </div>
+                        </Tooltip>
+                      </Fragment>
+                    )}
+                    <div className={classes.menuContainer}>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.anchorEl}
+                        // keepMounted
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
+                        className={classes.userAccountMenu}
                       >
-                        <label htmlFor="contained-button-file">Profile</label>
-                      </MenuItem>
+                        <MenuItem
+                          onClick={() => this.profile()}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <label htmlFor="contained-button-file">Profile</label>
+                        </MenuItem>
 
-                      <MenuItem
-                        onClick={() => this.logout()}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {" "}
-                        <label htmlFor="contained-button-file">Logout</label>
-                      </MenuItem>
-                    </Menu>
+                        <MenuItem
+                          onClick={() => this.logout()}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {" "}
+                          <label htmlFor="contained-button-file">Logout</label>
+                        </MenuItem>
+                      </Menu>
+                    </div>
                   </React.Fragment>
                 ) : null}
               </Toolbar>
@@ -179,13 +240,16 @@ const useStyles = (theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
+  titleRich: {
     fontFamily: "'Lato', sans-serif",
 
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
+  },
+  titleNormal: {
+    fontFamily: "'Lato', sans-serif",
   },
   search: {
     position: "relative",
@@ -203,9 +267,10 @@ const useStyles = (theme) => ({
       width: "40%",
     },
 
-    [theme.breakpoints.up("xs")]: {
-      marginLeft: theme.spacing(1),
-      width: "50%",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+      padding: 0,
+      width: "100%",
     },
   },
   searchIcon: {
@@ -217,6 +282,12 @@ const useStyles = (theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+
+    [theme.breakpoints.down("xs")]: {
+      padding: 0,
+      display: "none",
+      visibility: "hidden",
+    },
   },
   inputRoot: {
     color: "inherit",
@@ -229,12 +300,12 @@ const useStyles = (theme) => ({
     width: "100%",
     [theme.breakpoints.up("lg")]: {
       width: "60ch",
-      "&:active &:focus": {
-        position: "absolute",
-        width: "100%",
-      },
     },
-    
+
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: 5,
+      fontSize: 12,
+    },
 
     fontFamily: "'Lato', sans-serif",
   },
@@ -250,23 +321,17 @@ const useStyles = (theme) => ({
       display: "none",
     },
   },
-  accountMenu: {
-    position: "absolute",
-    display: "inline-flex",
-    width: "100px",
-    top: 70,
-    right: 30,
-    padding: "10px 0px 0px 0px",
-    backgroundColor: "green",
+  menuContainer: {
+    position: "relative",
   },
-  accountMenuItem: {
+
+  "MuiMenu-list": {
     textAlign: "center",
-    padding: "0px 0px 10px 0px",
     display: "inline",
     color: "black",
 
     "&:hover": {
-      backgroundColor: "rgba(0,0,0,0.4)",
+      backgroundColor: "rgba(0,0,0,0.5)",
     },
   },
 });

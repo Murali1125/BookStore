@@ -7,15 +7,14 @@ import Header from "./../../component/header/Header";
 import Footer from "./../../component/Footer/Footer";
 import Container from "@material-ui/core/Container";
 
-export default function OrderSummary(props) {
 
+export default function OrderSummary(props) {
+const goToStore = () => {
+  this.props.history.push("/");
+};
     return (
       <div className="orderPage">
-        <div className="orderLogo">
-          <Container maxWidth="xl">
-            <Header variant="normal" />
-          </Container>
-        </div>
+       <Header variant="normal" goToStore={()=>goToStore()}></Header>
         <div className="order">
           <div className="orderimage">
             <img
@@ -74,7 +73,7 @@ export default function OrderSummary(props) {
               className="button-Login"
               variant="contained"
               color="primary"
-              onClick={props.history.push("/")}
+              onClick={()=>props.history.push("/")}
             >
               CONTINUE SHOPPING
             </Button>
