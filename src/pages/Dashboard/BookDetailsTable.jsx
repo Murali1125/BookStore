@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState }  from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
@@ -27,34 +26,6 @@ import {Alert} from '@material-ui/lab'
 
 import { getBooks } from './../../redux/actions/DashBoardActions'
 import { connect } from 'react-redux'
-=======
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import FirstPageIcon from "@material-ui/icons/FirstPage";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import LastPageIcon from "@material-ui/icons/LastPage";
-import TableHead from "@material-ui/core/TableHead";
-import { useEffect } from "react";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
-import Truncate from "react-truncate";
-import {
-  GetAllBooks,
-  DeleteBook,
-  SearchList,
-} from "./../../service/AdminServices";
->>>>>>> 43e8d1c02ecc09014eca4124f6a7fe928c5dce8f
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -163,7 +134,6 @@ function BookDetailsTable(props) {
   const classes = useStyles2();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-<<<<<<< HEAD
   const [data,setData] = useState([]);
 
   const [snackbarOpen,setSnackbarOpen] = useState(false);
@@ -171,29 +141,19 @@ function BookDetailsTable(props) {
   const [snackbarSeverity,setServicity] = useState('success')
 
   
-=======
-  const [data, setData] = useState([]);
->>>>>>> 43e8d1c02ecc09014eca4124f6a7fe928c5dce8f
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setmessage] = useState("");
-  const [snackbarSeverity, setServicity] = useState("success");
+  // const [snackbarOpen, setSnackbarOpen] = useState(false);
+  // const [snackbarMessage, setmessage] = useState("");
+  // const [snackbarSeverity, setServicity] = useState("success");
   console.log("search word props ", props.searchWord);
 
   // function for get all data from backend
   const LoadData = () => {
     GetAllBooks()
-<<<<<<< HEAD
     .then(responce=>{
         if(responce.status === 200 ){
             console.log(responce)
             setData(responce.data.data.reverse());
-=======
-      .then((responce) => {
-        if (responce.status === 200) {
-          console.log(responce);
-          setData(responce.data.data);
->>>>>>> 43e8d1c02ecc09014eca4124f6a7fe928c5dce8f
         }
       })
       .catch((error) => {
@@ -202,14 +162,29 @@ function BookDetailsTable(props) {
   };
   // ComponentDidMount
   useEffect(() => {
-    LoadData();
+    // LoadData();
+    if(Boolean(props.reduxgetData)){
+      console.log("component did mount")
+      props.reduxgetData()
+    }
+    if(Boolean(props.reduxBookData)){
+      setData(props.reduxBookData)
+    }
   }, []);
+
+  useEffect(()=>{
+    if(Boolean(props.reduxBookData)){
+      console.log("if condition",props.reduxBookData)
+      setData(props.reduxBookData)
+    }
+  },[props.reduxBookData,data])
+
   // update data when props updated
-  useEffect(() => {
-    console.log("updatedata", props.dataUpdated);
-    LoadData();
-    console.log(props.dataUpdated);
-  }, [props.dataUpdated]);
+  // useEffect(() => {
+  //   console.log("updatedata", props.dataUpdated);
+  //   LoadData();
+  //   console.log(props.dataUpdated);
+  // }, [props.dataUpdated]);
   // get searched result data and store into data variable
   useEffect(() => {
     if (Boolean(props.searchWord)) {
@@ -245,13 +220,12 @@ function BookDetailsTable(props) {
   // method to delete the book
   const onDelete = (id) => {
     DeleteBook(id)
-<<<<<<< HEAD
     .then(responce=>{
       console.log("delete", responce)
       setSnackbarOpen(true)
       setmessage(responce.data.message)
       setServicity('success')
-      LoadData();
+      //LoadData();
     })
     .catch(error=>{
       console.log(error)
@@ -344,37 +318,9 @@ function BookDetailsTable(props) {
               </TableRow>
             </TableFooter>
           </Table>
-        </TableContainer>        
-        
-        {Boolean(props.reduxBookData) ? 
+        </TableContainer>     
         <div>
-          {console.log("data from redux", props.reduxBookData)}
-          <div>
-            {
-              booksdata =  props.reduxBookData.map(book=>{
-                          return(
-                            <div>
-                            "title" : {book.title }
-                            "decription" : {book.description}
-                            "author" : {book.author}
-                            "imageUrl" : {book.imageUrl}
-                            "price" : {book.price}
-                            "quantity" : {book.booksAvailable}
-                            "bookId" : {book.bookId}
-                            </div>
-                          )
-              })
-            }
-            {booksdata}
-          </div>       
-          <div>
-            <Button onClick={()=>props.reduxgetData()}>reduxgetBooks</Button>
-          </div>
-        </div>
-        : null 
-        }
-        <div>
-            <Button onClick={()=>props.reduxgetData()}>reduxgetBooks</Button>
+            <Button onClick={()=>props.reduxgetData()}>sangeetha</Button>
         </div>
   </div>
   );
@@ -383,8 +329,7 @@ function BookDetailsTable(props) {
 const mapStateToProps = state =>{
   console.log("state in table", state)
   return {
-    reduxBookData : state.bookData,
-    number : state.number
+    reduxBookData : state.bookData
   }
 }
 const mapDispatchToProps = dispatch =>{
@@ -394,106 +339,3 @@ const mapDispatchToProps = dispatch =>{
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (BookDetailsTable)
-=======
-      .then((responce) => {
-        console.log("delete", responce);
-        LoadData();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  let booksdata;
-  return (
-    <div>
-      {/* <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={SnackbarCloseHandler} severity={snackbarSeverity}>
-                {snackBarMessage}
-            </Alert>
-        </Snackbar>  */}
-      <TableContainer component={Paper} className="tableContainer">
-        <Table className={classes.table} aria-label="custom pagination table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="center" className="SNo">
-                S.No
-              </StyledTableCell>
-              <StyledTableCell align="center" className="Title">
-                Title
-              </StyledTableCell>
-              <StyledTableCell align="center" className="Author">
-                Author
-              </StyledTableCell>
-              <StyledTableCell align="center" className="Price">
-                Price
-              </StyledTableCell>
-              <StyledTableCell align="center" className="Quantity">
-                Quantity
-              </StyledTableCell>
-              <StyledTableCell align="center" className="Edit">
-                Edit
-              </StyledTableCell>
-              <StyledTableCell align="center" className="Remove">
-                Remove
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(rowsPerPage > 0
-              ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : data
-            ).map((book, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell align="center">{index + 1}</StyledTableCell>
-                <StyledTableCell align="center" width="200px">
-                  <Truncate lines={1}>{book.title}</Truncate>
-                </StyledTableCell>
-                <StyledTableCell align="center" width="200px">
-                  <Truncate lines={1} ellipsis={<span>...</span>}>
-                    {book.author}
-                  </Truncate>
-                </StyledTableCell>
-                <StyledTableCell align="center" width="100px">
-                  {book.price}
-                </StyledTableCell>
-                <StyledTableCell align="center" width="100px">
-                  {book.booksAvailable}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <IconButton onClick={() => EditBook(book)}>
-                    <EditOutlinedIcon />
-                  </IconButton>
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <IconButton onClick={() => onDelete(book.bookId)}>
-                    <DeleteOutlineOutlinedIcon />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
-                count={data.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: { "aria-label": "rows per page" },
-                  native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
-    </div>
-  );
-}
->>>>>>> 43e8d1c02ecc09014eca4124f6a7fe928c5dce8f
