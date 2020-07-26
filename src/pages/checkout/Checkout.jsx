@@ -91,7 +91,7 @@ export default class Checkout extends Component {
       this.state.landmark === "" ||
       this.state.locality === "" ||
       this.state.phone === "" ||
-      this.state.pincode === ""
+      this.state.pincode === "" 
     ) {
       this.setState({
         validationMessage: "Please fill all the details*",
@@ -356,6 +356,7 @@ export default class Checkout extends Component {
                   <Grid item md={5} xs={12}>
                     <TextField
                       id="pincode"
+                      type="number"
                       size="small"
                       className="pt-small"
                       label="Pincode"

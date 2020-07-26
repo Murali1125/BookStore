@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
 import Footer from "../../component/Footer/Footer";
-import { Grid, Container, ClickAwayListener, IconButton } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -9,13 +9,15 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import BookStoreService from "./../../service/bookStoreService";
 import CartService from "./../../service/cartService";
 import WishlistService from "./../../service/wishlistService";
-import CancelIcon from "@material-ui/icons/Cancel";
+import {connect} from "react-redux"
+import {getStoreBooks, searchStoreBooks, sortPriceLowToHigh, sortPriceHighToLow} from "./../../redux/actions/StoreActions.js"
 import "./Store.scss";
 
 const bookStoreService = new BookStoreService();
 const cartService = new CartService();
 const wishlistService = new WishlistService();
-export default class Store extends Component {
+
+class Store extends Component {
   constructor(props) {
     super(props);
 
@@ -32,33 +34,9 @@ export default class Store extends Component {
   changePage = (event, value) => {
     this.setState({ page: value });
   };
-  // Get all books api call
-  getAllBooks = () => {
-    bookStoreService.GetAllBooks().then((json) => {
-      if (json.status === 200) {
-        this.setState({
-          books: json.data.data,
-        });
-      }
-      console.log("All books", json);
-    });
-  };
 
-  // Get book by keyword
-  onSearch = (value) => {
-    if (value === "") {
-      this.getAllBooks();
-    } else {
-      bookStoreService.GetAllBooksByKeyword(value).then((json) => {
-        console.log(json);
-        if (json.data.success === true) {
-          this.setState({ books: [...json.data.data] });
-        } else {
-          this.setState({ books: [] });
-        }
-      });
-    }
-  };
+
+
 
   // Sort books PRICE Low to High
   sortPriceLowToHigh = () => {
@@ -92,7 +70,6 @@ export default class Store extends Component {
     cartService
       .AddToCart(bookId, localStorage.getItem("Token"))
       .then((json) => {});
-    this.getAllBooks();
   };
 
   // Add book to wishlist
@@ -162,10 +139,14 @@ export default class Store extends Component {
       });
     });
   };
+  
   componentDidMount() {
-    this.getAllBooks();
+     this.props.showBooks();
   }
+
+ 
   render() {
+    
     return (
       <React.Fragment>
         <div
@@ -201,7 +182,7 @@ export default class Store extends Component {
         <Grid container direction="column">
           <Header
             variant="rich"
-            onSearch={(value) => this.onSearch(value)}
+            onSearch={(value) => this.props.onSearch(value)}
             onProfileClick={() => this.onProfileClick()}
             onLogout={() => this.onLogoutClick()}
             goToStore={() => this.goToStore()}
@@ -228,7 +209,7 @@ export default class Store extends Component {
               >
                 Books
                 <span className="bookCount">
-                  &nbsp;({this.state.books.length} items)
+                  &nbsp;({this.props.books.length} items)
                 </span>
               </Grid>
               <Grid
@@ -252,10 +233,10 @@ export default class Store extends Component {
                   <ExpandLessIcon className="closedropdown" />
                 </Grid>
                 <ul className="dropmenu">
-                  <li onClick={() => this.sortPriceLowToHigh()}>
+                  <li onClick={() => this.props.sortPriceLowToHigh()}>
                     Price : Low to High
                   </li>
-                  <li onClick={() => this.sortPriceHighToLow()}>
+                  <li onClick={() => this.props.sortPriceHighToLow()}>
                     Price : High to Low
                   </li>
                 </ul>
@@ -269,7 +250,7 @@ export default class Store extends Component {
               justify="flex-start"
               className="booksContainer"
             >
-              {this.state.books.length === 0 ? (
+              {this.props.books.length === 0 ? (
                 <Grid
                   container
                   item
@@ -284,7 +265,7 @@ export default class Store extends Component {
                   No books Found
                 </Grid>
               ) : (
-                this.state.books
+                this.props.books
                   .slice(
                     (this.state.page - 1) * this.state.itemsPerPage,
                     this.state.page * this.state.itemsPerPage
@@ -324,7 +305,7 @@ export default class Store extends Component {
             >
               <Pagination
                 count={Math.ceil(
-                  this.state.books.length / this.state.itemsPerPage
+                  this.props.books.length / this.state.itemsPerPage
                 )}
                 page={this.state.page}
                 onChange={(event, value) => this.changePage(event, value)}
@@ -339,3 +320,20 @@ export default class Store extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) =>{
+  return {
+    books : state.store.books
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    showBooks: () => dispatch(getStoreBooks()),
+    onSearch: (value) => dispatch(searchStoreBooks(value)),
+    sortPriceLowToHigh: () => dispatch(sortPriceLowToHigh()),
+    sortPriceHighToLow: () => dispatch(sortPriceHighToLow())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Store);
