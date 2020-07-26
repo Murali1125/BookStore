@@ -262,7 +262,7 @@ function BookDetailsTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {  (rowsPerPage > 0
+              { (rowsPerPage > 0 
                 ? data.reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : data.reverse
               ).map((book,index) => (                                  

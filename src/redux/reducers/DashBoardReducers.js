@@ -3,15 +3,16 @@ import {GetAllBooks} from './../../service/AdminServices'
 // Reducers file of Admin  Dashbord 
 
 const initialState = {
-    bookData : [],
+    bookData :[],
 }
+
 let tempData;
- export const BookdataReducer = (state=initialState,action)=>{
+ export const BookdataReducer = async (state=initialState,action)=>{
      console.log("actions in reducer", action)
      console.log("state in reducer", state)
     switch(action.type){
         case Getdata:
-            GetAllBooks()
+            await GetAllBooks()
             .then(responce=>{
                 tempData = responce.data.data   
             })
