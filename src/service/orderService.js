@@ -6,7 +6,7 @@ const apiUrl = Configuration.url;
 
 class OrderService {
   PlaceOrder(cartId, address, city, pincode, token) {
-    return axiosService.Post(`${apiUrl}Order/OrderPlace`, {}, true, {
+    return axiosService.Post(`${apiUrl}Order/OrderPlace`,{}, true, {
       params: {
         CartId: cartId,
         Address: `${address}`,

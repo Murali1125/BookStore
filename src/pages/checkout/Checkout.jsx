@@ -161,9 +161,10 @@ export default class Checkout extends Component {
             localStorage.getItem("Token")
           )
           .then((json) => {
-            console.log(json);
+            this.getCart();
           });
       });
+      
   };
 
   componentDidMount() {
@@ -547,7 +548,7 @@ export default class Checkout extends Component {
               >
                 <button
                   className="checkout-submit--button"
-                  onClick={this.purchaseOrder}
+                  onClick={()=>this.purchaseOrder()}
                 >
                   CHECKOUT
                 </button>
