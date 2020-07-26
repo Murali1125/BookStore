@@ -8,7 +8,7 @@ class CartService {
   AddToCart(bookId, token) {
     return axiosService.Post(`${apiUrl}Cart`, {}, true, {
       params: {
-        BookId: `${bookId}`,
+        BookId: bookId,
         Quantity: 1,
       },
       headers: {

@@ -23,9 +23,8 @@ import Truncate from 'react-truncate';
 import {GetAllBooks,DeleteBook,SearchList} from './../../service/AdminServices'
 import {Snackbar} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
-
-import { getBooks } from './../../redux/actions/DashBoardActions'
 import { connect } from 'react-redux'
+import {getStoreBooks} from "./../../redux/actions/StoreActions.js"
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -130,7 +129,7 @@ const useStyles2 = makeStyles({
 });
 
 // function for display table
-function BookDetailsTable(props) {
+export function BookDetailsTable(props) {
   const classes = useStyles2();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -163,21 +162,8 @@ function BookDetailsTable(props) {
   // ComponentDidMount
   useEffect(() => {
     // LoadData();
-    if(Boolean(props.reduxgetData)){
-      console.log("component did mount")
-      props.reduxgetData()
-    }
-    if(Boolean(props.reduxBookData)){
-      setData(props.reduxBookData)
-    }
+    props.GetallBooks();
   }, []);
-
-  useEffect(()=>{
-    if(Boolean(props.reduxBookData)){
-      console.log("if condition",props.reduxBookData)
-      setData(props.reduxBookData)
-    }
-  },[props.reduxBookData,data])
 
   // update data when props updated
   // useEffect(() => {
@@ -233,9 +219,7 @@ function BookDetailsTable(props) {
       setmessage(error.message)
       setServicity('error')
     })
-
   }
-  
   const handleClose =()=>{
     setSnackbarOpen(false)
   }
@@ -263,8 +247,8 @@ function BookDetailsTable(props) {
             </TableHead>
             <TableBody>
               { (rowsPerPage > 0 
-                ? data.reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : data.reverse
+                ? props.BooksData.reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : props.BooksData.reverse()
               ).map((book,index) => (                                  
                 <StyledTableRow key={index }>
                     <StyledTableCell  align="center">
@@ -329,12 +313,12 @@ function BookDetailsTable(props) {
 const mapStateToProps = state =>{
   console.log("state in table", state)
   return {
-    reduxBookData : state.bookData
+    BooksData : state.store.books
   }
 }
 const mapDispatchToProps = dispatch =>{
   return {
-    reduxgetData : ()=> dispatch(getBooks())
+    GetallBooks: () => dispatch(getStoreBooks()),
   }
 }
 
