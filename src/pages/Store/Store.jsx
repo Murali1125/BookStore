@@ -323,7 +323,7 @@ class Store extends Component {
 
 const mapStateToProps = (state) =>{
   return {
-    books : state.books
+    books : state.store.books
   }
 }
 
