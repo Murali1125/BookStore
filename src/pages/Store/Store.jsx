@@ -253,7 +253,7 @@ class Store extends Component {
                   No books Found
                 </Grid>
               ) : (
-                this.props.books
+                this.props.books.filter(book => book.isDeleted === false)
                   .slice(
                     (this.state.page - 1) * this.state.itemsPerPage,
                     this.state.page * this.state.itemsPerPage
