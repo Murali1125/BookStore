@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
+import { withRouter } from "react-router-dom";
 import { Grid, Container, TextField } from "@material-ui/core";
 import Footer from "../../component/Footer/Footer";
 import bookCover from "./../../assets/bookCover.jpg";
@@ -7,8 +8,6 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import "./Checkout.scss";
 import CartService from "./../../service/cartService";
 import OrderService from "./../../service/orderService";
-import {connect} from "react-redux"
-import {getCheckout} from "./../../redux/actions/CheckoutActions.js"
 
 const cartService = new CartService();
 const orderService = new OrderService();
@@ -165,6 +164,11 @@ export class Checkout extends Component {
           .then((json) => {
             console.log("order details",json);
             this.getCart();
+          //   this.props.history.push({
+          //  pathname: '/orderSummary'
+          //  state: {
+          //   }
+          //   })
           });
       });
       
@@ -172,7 +176,6 @@ export class Checkout extends Component {
 
   componentDidMount() {
     this.getCart();
-    //this.props.BooksCheckout();
   }
 
   render() {
@@ -566,16 +569,5 @@ export class Checkout extends Component {
     );
   }
 }
-const mapStateToProps = (state) =>{
-  console.log("Mapt state checkout",state);
-  return {
-   checkout : state.checkout.checkout
-  }
-}
 
-const mapDispatchToProps = (dispatch)=>{
-  return {
-    BooksCheckout: () => dispatch(getCheckout())
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Checkout);
+export default  withRouter(Checkout);

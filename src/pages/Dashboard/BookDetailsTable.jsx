@@ -1,7 +1,6 @@
 import React, { useState }  from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
-import {Button} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,7 +19,7 @@ import { useEffect } from 'react';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import Truncate from 'react-truncate';
-import {GetAllBooks,DeleteBook,SearchList} from './../../service/AdminServices'
+import {DeleteBook} from './../../service/AdminServices'
 import {Snackbar} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
 import { connect } from 'react-redux'
@@ -57,6 +56,7 @@ function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onChangePage } = props;
 
+  // page change handlers
   const handleFirstPageButtonClick = (event) => {
     onChangePage(event, 0);
   };
@@ -138,52 +138,17 @@ export function BookDetailsTable(props) {
   const [snackbarOpen,setSnackbarOpen] = useState(false);
   const [snackbarMessage,setmessage] = useState('');
   const [snackbarSeverity,setServicity] = useState('success')
-
   
-
-  // const [snackbarOpen, setSnackbarOpen] = useState(false);
-  // const [snackbarMessage, setmessage] = useState("");
-  // const [snackbarSeverity, setServicity] = useState("success");
-  console.log("search word props ", props.searchWord);
-
-  // function for get all data from backend
-  // const LoadData = () => {
-  //   GetAllBooks()
-  //   .then(responce=>{
-  //       if(responce.status === 200 ){
-  //           console.log(responce)
-  //           setData(responce.data.data.reverse());
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
   // ComponentDidMount
   useEffect(() => {
-    // LoadData();
     props.GetallBooks();
   }, []);
 
   // update data when props updated
   useEffect(() => {
-    setData(props.BooksData)
+    setData(props.BooksData.filter( data => data.isDeleted === false).reverse())
   }, [props.BooksData]);
-  // get searched result data and store into data variable
-  // useEffect(() => {
-  //   if (Boolean(props.searchWord)) {
-  //     SearchList(props.searchWord)
-  //       .then((responce) => {
-  //         console.log("search list", responce);
-  //         let temp = [...responce.data.data];
-  //         console.log("temp ", temp);
-  //         setData(temp);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // }, [props.searchWord]);
+ 
 
   // change page handlers
   const handleChangePage = (event, newPage) => {
@@ -202,23 +167,21 @@ export function BookDetailsTable(props) {
     setData(props.booksData);
   };
   // method to delete the book
-  const onDelete = (id) => {
-    DeleteBook(id)
-    .then(responce=>{
-      console.log("delete", responce)
+  const onDelete = async (id) => {
+    await DeleteBook(id)
+    .then(responce=>{      
       setSnackbarOpen(true)
       setmessage(responce.data.message)
       setServicity('success')
-      //LoadData();
+      props.GetallBooks();
     })
     .catch(error=>{
-      console.log(error)
       setSnackbarOpen(true)
       setmessage(error.message)
       setServicity('error')
     })
-    props.GetallBooks()
   }
+  // snackbar close
   const handleClose =()=>{
     setSnackbarOpen(false)
   }
@@ -246,8 +209,8 @@ export function BookDetailsTable(props) {
             </TableHead>
             <TableBody>
               { (rowsPerPage > 0 
-                ? data.reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : data.reverse()
+                ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : data
               ).map((book,index) => (                                  
                 <StyledTableRow key={index }>
                     <StyledTableCell  align="center">
@@ -306,8 +269,8 @@ export function BookDetailsTable(props) {
   );
 }
 
+// redux access methods
 const mapStateToProps = state =>{
-  console.log("state in table", state)
   return {
     BooksData : state.store.books
   }
@@ -317,5 +280,4 @@ const mapDispatchToProps = dispatch =>{
     GetallBooks: () => dispatch(getStoreBooks()),
   }
 }
-
 export default connect(mapStateToProps,mapDispatchToProps) (BookDetailsTable)

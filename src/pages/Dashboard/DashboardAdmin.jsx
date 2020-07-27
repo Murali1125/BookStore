@@ -12,7 +12,6 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import Popover from '@material-ui/core/Popover';
 import Footer from './../../component/Footer/Footer'
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 import {Alert} from '@material-ui/lab'
 import { connect } from 'react-redux'
 import {searchStoreBooks} from "./../../redux/actions/StoreActions.js"
@@ -114,6 +113,7 @@ class AdminDashboard extends Component {
                 hedderDataVisable: !(this.state.hedderDataVisable)})
         }
     }
+    // snack bar handler
     SnackbarClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -205,7 +205,6 @@ class AdminDashboard extends Component {
                 <Container className="BooksDisplayContainerAdmin">                    
                     <BookDetailsTable   showBook={this.OpenBookDialogBoxWithData}
                                         searchWord={this.state.searchWord}
-                                        //dataUpdated = {this.state.dataUpdated}
                     />  
                     {/* <Footer/> */}
                     <div>
@@ -232,6 +231,7 @@ class AdminDashboard extends Component {
     }
 }
 
+// redux dispatch method
 const mapDispatchToProps = dispatch =>{
     return {
       GetSearchBooks: (searchWord) => dispatch(searchStoreBooks(searchWord)),

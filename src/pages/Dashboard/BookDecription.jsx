@@ -6,9 +6,6 @@ import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
 import {AddBook,UpdateBook,ImageBook} from './../../service/AdminServices'
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import {Alert} from '@material-ui/core'
 import {getStoreBooks} from "./../../redux/actions/StoreActions.js"
 import { connect } from 'react-redux'
 
@@ -38,6 +35,7 @@ class BookDecription extends Component {
             error_message : "field required"
         }
     }
+
   // // on change of any field
   // onChange = (eve) => {
   //   this.setState({
@@ -75,7 +73,7 @@ class BookDecription extends Component {
     }
   }
 
-    
+
     // on change of any field
     onChange = eve =>{
         this.setState({             
@@ -105,6 +103,7 @@ class BookDecription extends Component {
             })
         }         
     }
+    // validation function 
     validate = ()=>{
         let valid = true;
         if(this.state.title.trim().length < 3){
@@ -144,56 +143,29 @@ class BookDecription extends Component {
                 if(this.state.image !== null && this.state.image !== undefined){
                     formData.append('BookImage',this.state.image)
                     await ImageBook(this.state.bookId,formData)
-                    .then(responce=>{
-                        console.log("image",this.state.image)
-                    })
-                    .catch(error=>{
-
-                    })
+                    .then(responce=>{  })
+                    .catch(error=>{ })
                 }
+                // update book api call
                 await UpdateBook(Book,this.state.bookId) 
-                .then(responce=>{                
-                    console.log("book updated sucessfully", responce)
-                    if(responce.sucess === true){
-                        this.setState({
-                            snackbarOpen : true,
-                            snackBarMessage : 'Book Sucessfully updated',
-                            snackbarSeverity : 'success'
-                        })
-                    }
-                })
-                .catch(error=>{
-                    console.log(error)
-                    this.setState({
-                        snackbarOpen : true,
-                        snackBarMessage : error.message,
-                        snackbarSeverity : 'error'
-                    })
-                })
+                .then(responce=>{    })
+                .catch(error=>{   })
             }
             else{       // else call add book api
                 let bookStatus;
-                console.log("add book",Book)
                 await AddBook(Book)        
                 .then(responce=>{               
                     if(this.state.image !== null && this.state.image !== undefined){
                         formData.append('BookImage',this.state.image)
                         ImageBook(responce.data.data.bookId,formData)
                         .then(responce=>{                          
-                        this.props.updateBooks();                                      
+                            this.props.updateBooks();                                      
                         })
-                        .catch(error=>{
-
-                        }) 
+                        .catch(error=>{  }) 
                     }
 
                 })
-                .catch(error=>{
-                    this.setState({
-                        snackbarOpen : true,
-                        snackBarMessage : error.message,
-                        snackbarSeverity : 'error'
-                    })
+                .catch(error=>{                   
                 })
             }
             // callback function to close dialog box       
@@ -205,23 +177,13 @@ class BookDecription extends Component {
     SnackbarClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
-        }    
-        this.setState({
-            snackbarOpen : false,
-            snackBarMessage : '',
-            snackbarSeverity : 'success',
-        })
+        } 
       };
 
     render() {
         return (
            
             <div className='BookDetailsAdmin' >    
-                {/* <Snackbar open={this.state.snackbarOpen} autoHideDuration={6000} onClose={this.SnackbarClose}>
-                    <Alert onClose={this.SnackbarClose} severity={this.state.snackbarSeverity}>
-                        {this.state.snackBarMessage}
-                    </Alert>
-                </Snackbar>             */}
                 <div className='imageContainerAdmin'>
                     {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
                         <img src={this.state.imageUrl}  
@@ -339,6 +301,7 @@ class BookDecription extends Component {
         );
     }
 }
+// redux dispatch util method
 const mapDispatchToProps = dispatch =>{
   return {
     updateBooks: () => dispatch(getStoreBooks()),
