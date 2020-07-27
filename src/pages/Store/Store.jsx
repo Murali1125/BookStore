@@ -35,7 +35,6 @@ class Store extends Component {
     this.setState({ page: value });
   };
 
- 
   // Add book to cart
   addToCart = (bookId) => {
     console.log("Add to cart called", bookId);

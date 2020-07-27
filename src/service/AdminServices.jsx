@@ -8,13 +8,6 @@ const header = { headers:{
                             "Authorization" : `Bearer ${Token}`}}
 console.log("token",header);
 
-const Header ={
-    headers:{
-                "Authorization" : `Bearer ${Token}`,
-                'Content-Type': 'multipart/form-data'
-            }
-}
-console.log("Header",Header);
 // CURD operational Functions for admin                            
 export function AddBook(data){
     return axiosService.Post(url+"Book",data,true,header);

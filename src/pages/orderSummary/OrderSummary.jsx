@@ -11,6 +11,9 @@ export default function OrderSummary(props) {
 const goToStore = () => {
   props.history.push("/");
 };
+const summaryDetails=props.match.params.Summary;
+console.log("Summary Details",summaryDetails);
+
     return (
       <div className="orderPage">
        <Header variant="normal" goToStore={()=>goToStore()}></Header>
@@ -25,7 +28,7 @@ const goToStore = () => {
           <br />
           <div className="paymentComfirm">
             Hurray!!!your order is confirmed 
-             the order id is #123456 save order id for 
+             the order id is #{summaryDetails} save order id for 
              further communication.. 
           </div>
           <br />

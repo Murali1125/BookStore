@@ -58,7 +58,7 @@
   align-items: center;
   justify-content: space-around;
   color: $color-white;
-  padding: 10px 10px;
+  padding: 10px 10px 10px 10px;
 }
 
 .popupDeclaration {
@@ -135,7 +135,7 @@
 
   & .dropdown {
     border: 2px solid #e2e2e2;
-    width: 170px;
+    width: 175px;
     padding: 2px 5px;
     font-size: 14px;
   }
