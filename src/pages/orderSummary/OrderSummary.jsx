@@ -12,10 +12,10 @@ const goToStore = () => {
   props.history.push("/");
 };
 const summaryDetails=props.match.params.Summary;
-console.log("Summary Details",summaryDetails);
+
 
     return (
-      <div className="orderPage">
+      summaryDetails !== null ? (<div className="orderPage">
        <Header variant="normal" goToStore={()=>goToStore()}></Header>
         <div className="order">
           <div className="orderimage">
@@ -87,6 +87,6 @@ console.log("Summary Details",summaryDetails);
         <div>
           <Footer />
         </div>
-      </div>
+      </div>) : this.props.history.push("/")
     );
 }
