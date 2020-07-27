@@ -164,11 +164,7 @@ export class Checkout extends Component {
           .then((json) => {
             console.log("order details",json);
             this.getCart();
-          //   this.props.history.push({
-          //  pathname: '/orderSummary'
-          //  state: {
-          //   }
-          //   })
+            this.props.history.push(`/orderSummary${json.data.data.orderId}`)
           });
       });
       

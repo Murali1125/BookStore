@@ -10,7 +10,7 @@ class Service {
     return axiosService.Post(`${apiUrl}User/Registration`, data,false);
   }
   Login(data) {
-    return axiosService.Post( apiUrl+"User/Login", data,false);
+    return axiosService.Post(`${apiUrl}User/Login`, data,false);
   }
 }
 export default Service;

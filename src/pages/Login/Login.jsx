@@ -11,6 +11,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import auth from "./../../service/auth";
+import RegEx from "./../../service/regrex";
 import userServices from "./../../service/userServices";
 let service = new userServices();
 
@@ -48,10 +49,7 @@ export class Login extends React.Component {
     =======================================*/
          //Regular Expression Validation for Email
          validateEmail = (input) => {
-           const regexEmail = new RegExp(
-             /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
-           );
-           let error = regexEmail.test(String(input)) ? "" : "Email is Invalid";
+           let error = RegEx.regexEmail.test(String(input)) ? "" : "Email is Invalid";
            if (error === "") {
              this.setState({ emailErrorStatus: false });
              this.setState({ emailErrorMessage: error });
@@ -64,10 +62,7 @@ export class Login extends React.Component {
          };
          //Regular Expression Validation for Password
          validatePassword = (input) => {
-           const regexPassword = new RegExp(
-             /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
-           );
-           let error = regexPassword.test(String(input))
+           let error = RegEx.regexPassword.test(String(input))
              ? ""
              : "Password is Invalid";
            if (error === "") {

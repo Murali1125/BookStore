@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import RegEx from "./../../service/regrex";
 import userServices from "./../../service/userServices";
 import Header from "../../component/header/Header";
 let service = new userServices();
@@ -72,11 +73,8 @@ export class Register extends React.Component {
     VALIDATIONS
     =======================================*/
          //Regular expression Validation for First Name
-         validateFirstname = (input) => {
-           const regexName = new RegExp(
-             /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
-           );
-           let error = regexName.test(String(input))
+         validateFirstname = (input) => 
+           let error = RegEx.regexName.test(String(input))
              ? ""
              : "Invalid First Name";
            if (error === "") {
@@ -91,10 +89,7 @@ export class Register extends React.Component {
          };
          //Regular expression Validation for Last Name
          validateLastname = (input) => {
-           const regexName = new RegExp(
-             /^(?!.*\.\.)(?!.*\s\s)(?!.*,,)[A-Z][a-zA-Z.,]{2,30}$/
-           );
-           let error = regexName.test(String(input)) ? "" : "Invalid Last Name";
+           let error = RegEx.regexName.test(String(input)) ? "" : "Invalid Last Name";
            if (error === "") {
              this.setState({ lastNameErrorStatus: false });
              this.setState({ lastNameErrorMessage: error });
@@ -107,10 +102,7 @@ export class Register extends React.Component {
          };
          //Regular expression Validation for Email
          validateEmail = (input) => {
-           const regexEmail = new RegExp(
-             /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
-           );
-           let error = regexEmail.test(String(input))
+           let error = RegEx.regexEmail.test(String(input))
              ? ""
              : "Not a valid email";
            if (error === "") {
@@ -125,10 +117,7 @@ export class Register extends React.Component {
          };
          //Regular expression Validation for Password
          validatePassword = (input) => {
-           const regexPassword = new RegExp(
-             /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
-           );
-           let error = regexPassword.test(String(input))
+           let error = RegEx.regexPassword.test(String(input))
              ? ""
              : "Invalid Password";
            if (error === "") {
