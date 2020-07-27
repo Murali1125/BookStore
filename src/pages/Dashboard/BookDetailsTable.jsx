@@ -180,7 +180,6 @@ export function BookDetailsTable(props) {
       setmessage(error.message)
       setServicity('error')
     })
-    
   }
   // snackbar close
   const handleClose =()=>{

@@ -9,6 +9,8 @@ import Book from "../../component/Book/Book";
 import Pagination from "@material-ui/lab/Pagination";
 import WishlistService from "./../../service/wishlistService";
 import CartService from "./../../service/cartService";
+import {connect} from "react-redux"
+import {getWishlistBooks} from "./../../redux/actions/WishlistActions.js"
 
 const wishlistService = new WishlistService();
 const cartService = new CartService();
@@ -18,7 +20,6 @@ export class Profile extends React.Component {
     super(props);
 
     this.state = {
-      wishlist: [],
       page: 1,
       itemsPerPage: 12,
     };
@@ -26,17 +27,6 @@ export class Profile extends React.Component {
 
   changePage = (event, value) => {
     this.setState({ page: value });
-  };
-  // Get all books api call
-  getAllWishlist = () => {
-    wishlistService.GetWishlist(localStorage.getItem("Token")).then((json) => {
-      if (json.status === 200) {
-        this.setState({
-          wishlist: json.data.data,
-        });
-      }
-      console.log("All books", json);
-    });
   };
 
   addToCart = (wishlistId) => {
@@ -65,7 +55,7 @@ export class Profile extends React.Component {
     wishlistService
       .RemoveFromWishlist(wishlistId, localStorage.getItem("Token"))
       .then((json) => {
-        this.getAllWishlist();
+        this.props.BooksWishlist();
       });
   };
   onProfileClick = () => {
@@ -82,7 +72,7 @@ export class Profile extends React.Component {
     this.props.history.push("/checkout");
   };
   componentDidMount() {
-    this.getAllWishlist();
+    this.props.BooksWishlist();
   }
 
   render() {
@@ -171,7 +161,7 @@ export class Profile extends React.Component {
               <span className="bookCount">
                 &nbsp;(
                 {
-                  this.state.wishlist.filter(
+                 this.props.wishlist.filter(
                     (book) => book.isDeleted === false && book.isMoved === false
                   ).length
                 }{" "}
@@ -187,7 +177,7 @@ export class Profile extends React.Component {
             justify="flex-start"
             className="booksContainer"
           >
-            {this.state.wishlist.filter(
+            {this.props.wishlist.filter(
               (book) => book.isDeleted === false && book.isMoved === false
             ).length === 0 ? (
               <Grid
@@ -204,7 +194,7 @@ export class Profile extends React.Component {
                 Wishlist empty
               </Grid>
             ) : (
-              this.state.wishlist
+              this.props.wishlist
                 .filter(
                   (book) => book.isDeleted === false && book.isMoved === false
                 )
@@ -250,7 +240,7 @@ export class Profile extends React.Component {
           >
             <Pagination
               count={Math.ceil(
-                this.state.wishlist.filter(
+                this.props.wishlist.filter(
                   (book) => book.isDeleted === false && book.isMoved === false
                 ).length / this.state.itemsPerPage
               )}
@@ -268,4 +258,17 @@ export class Profile extends React.Component {
     );
   }
 }
-export default Profile;
+
+const mapStateToProps = (state) =>{
+  console.log("Mapt state wishlist",state);
+  return {
+    wishlist : state.wishlist.wishlist
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    BooksWishlist: () => dispatch(getWishlistBooks())
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Profile);

@@ -1,4 +1,4 @@
-// Actions file for  Admin DashBoards
+// Actions file for Book Store
 import BookStoreService from "../../service/bookStoreService";
 const bookStoreService = new BookStoreService();
 

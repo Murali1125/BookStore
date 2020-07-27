@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
+import { withRouter } from "react-router-dom";
 import { Grid, Container, TextField } from "@material-ui/core";
 import Footer from "../../component/Footer/Footer";
 import bookCover from "./../../assets/bookCover.jpg";
@@ -10,7 +11,7 @@ import OrderService from "./../../service/orderService";
 
 const cartService = new CartService();
 const orderService = new OrderService();
-export default class Checkout extends Component {
+export class Checkout extends Component {
   constructor(props) {
     super(props);
 
@@ -161,7 +162,13 @@ export default class Checkout extends Component {
             localStorage.getItem("Token")
           )
           .then((json) => {
+            console.log("order details",json);
             this.getCart();
+          //   this.props.history.push({
+          //  pathname: '/orderSummary'
+          //  state: {
+          //   }
+          //   })
           });
       });
       
@@ -562,3 +569,5 @@ export default class Checkout extends Component {
     );
   }
 }
+
+export default  withRouter(Checkout);
