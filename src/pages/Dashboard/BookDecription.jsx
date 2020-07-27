@@ -44,7 +44,9 @@ class BookDecription extends Component {
       bookImage: URL.createObjectURL(event.target.files[0]),
     });
     console.log("imageUrl", this.state.bookImage);
-    ImageBook(this.state.bookId, event.target.files[0]).then((json) => {
+     let apiInputData = new FormData();
+     apiInputData.append(this.state.bookImage);
+    ImageBook(this.props.bookData.bookId, apiInputData).then((json) => {
       console.log("response data", json);
     });
   };

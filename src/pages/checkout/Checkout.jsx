@@ -7,10 +7,12 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import "./Checkout.scss";
 import CartService from "./../../service/cartService";
 import OrderService from "./../../service/orderService";
+import {connect} from "react-redux"
+import {getCheckout} from "./../../redux/actions/CheckoutActions.js"
 
 const cartService = new CartService();
 const orderService = new OrderService();
-export default class Checkout extends Component {
+export class Checkout extends Component {
   constructor(props) {
     super(props);
 
@@ -169,6 +171,7 @@ export default class Checkout extends Component {
 
   componentDidMount() {
     this.getCart();
+    //this.props.BooksCheckout();
   }
 
   render() {
@@ -562,3 +565,16 @@ export default class Checkout extends Component {
     );
   }
 }
+const mapStateToProps = (state) =>{
+  console.log("Mapt state checkout",state);
+  return {
+   checkout : state.checkout.checkout
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    BooksCheckout: () => dispatch(getCheckout())
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

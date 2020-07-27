@@ -38,31 +38,31 @@ class Store extends Component {
 
 
 
-  // Sort books PRICE Low to High
-  sortPriceLowToHigh = () => {
-    bookStoreService
-      .SortBooks("price", "ascending")
-      .then((json) => {
-        console.log("sorted", json);
-        if (json.data.success === true) {
-          console.log(json.data.data);
-          this.setState({ books: json.data.data });
-        }
-      })
-      .catch((err) => {
-        console.log("Server Error.");
-      });
-  };
+  // // Sort books PRICE Low to High
+  // sortPriceLowToHigh = () => {
+  //   bookStoreService
+  //     .SortBooks("price", "ascending")
+  //     .then((json) => {
+  //       console.log("sorted", json);
+  //       if (json.data.success === true) {
+  //         console.log(json.data.data);
+  //         this.setState({ books: json.data.data });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log("Server Error.");
+  //     });
+  // };
 
-  // Sort books PRICE High to Low
-  sortPriceHighToLow = () => {
-    bookStoreService.SortBooks("price", "descending").then((json) => {
-      console.log(json);
-      if (json.data.success === true) {
-        this.setState({ books: json.data.data });
-      }
-    });
-  };
+  // // Sort books PRICE High to Low
+  // sortPriceHighToLow = () => {
+  //   bookStoreService.SortBooks("price", "descending").then((json) => {
+  //     console.log(json);
+  //     if (json.data.success === true) {
+  //       this.setState({ books: json.data.data });
+  //     }
+  //   });
+  // };
 
   // Add book to cart
   addToCart = (bookId) => {
