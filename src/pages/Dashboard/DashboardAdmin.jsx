@@ -14,6 +14,8 @@ import Footer from './../../component/Footer/Footer'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {Alert} from '@material-ui/lab'
+import { connect } from 'react-redux'
+import {searchStoreBooks} from "./../../redux/actions/StoreActions.js"
 
 class AdminDashboard extends Component {
     constructor(props){
@@ -60,6 +62,7 @@ class AdminDashboard extends Component {
         this.setState({
             searchWord :  eve.target.value,
         })
+        this.props.GetSearchBooks(eve.target.value)
     }
     // hanler method for open book description dialog box for add book
     OpenAddBookDialogBox = () =>{
@@ -224,10 +227,15 @@ class AdminDashboard extends Component {
                     </Dialog>
                     </div>                  
                 </Container>
-                
             </div>
         );
     }
 }
 
-export default AdminDashboard;
+const mapDispatchToProps = dispatch =>{
+    return {
+      GetSearchBooks: (searchWord) => dispatch(searchStoreBooks(searchWord)),
+    }
+}
+  
+export default connect(null,mapDispatchToProps) ( AdminDashboard);

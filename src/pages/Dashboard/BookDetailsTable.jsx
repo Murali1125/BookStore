@@ -147,18 +147,18 @@ export function BookDetailsTable(props) {
   console.log("search word props ", props.searchWord);
 
   // function for get all data from backend
-  const LoadData = () => {
-    GetAllBooks()
-    .then(responce=>{
-        if(responce.status === 200 ){
-            console.log(responce)
-            setData(responce.data.data.reverse());
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const LoadData = () => {
+  //   GetAllBooks()
+  //   .then(responce=>{
+  //       if(responce.status === 200 ){
+  //           console.log(responce)
+  //           setData(responce.data.data.reverse());
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
   // ComponentDidMount
   useEffect(() => {
     // LoadData();
@@ -166,26 +166,24 @@ export function BookDetailsTable(props) {
   }, []);
 
   // update data when props updated
-  // useEffect(() => {
-  //   console.log("updatedata", props.dataUpdated);
-  //   LoadData();
-  //   console.log(props.dataUpdated);
-  // }, [props.dataUpdated]);
-  // get searched result data and store into data variable
   useEffect(() => {
-    if (Boolean(props.searchWord)) {
-      SearchList(props.searchWord)
-        .then((responce) => {
-          console.log("search list", responce);
-          let temp = [...responce.data.data];
-          console.log("temp ", temp);
-          setData(temp);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [props.searchWord]);
+    setData(props.BooksData)
+  }, [props.BooksData]);
+  // get searched result data and store into data variable
+  // useEffect(() => {
+  //   if (Boolean(props.searchWord)) {
+  //     SearchList(props.searchWord)
+  //       .then((responce) => {
+  //         console.log("search list", responce);
+  //         let temp = [...responce.data.data];
+  //         console.log("temp ", temp);
+  //         setData(temp);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // }, [props.searchWord]);
 
   // change page handlers
   const handleChangePage = (event, newPage) => {
@@ -247,8 +245,8 @@ export function BookDetailsTable(props) {
             </TableHead>
             <TableBody>
               { (rowsPerPage > 0 
-                ? props.BooksData.reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : props.BooksData.reverse()
+                ? data.reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : data.reverse()
               ).map((book,index) => (                                  
                 <StyledTableRow key={index }>
                     <StyledTableCell  align="center">
@@ -302,10 +300,7 @@ export function BookDetailsTable(props) {
               </TableRow>
             </TableFooter>
           </Table>
-        </TableContainer>     
-        <div>
-            <Button onClick={()=>props.reduxgetData()}>sangeetha</Button>
-        </div>
+        </TableContainer>  
   </div>
   );
 }

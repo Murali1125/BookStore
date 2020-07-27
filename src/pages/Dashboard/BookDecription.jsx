@@ -5,14 +5,14 @@ import  './DashboardAdmin.scss'
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import ImageIcon from '@material-ui/icons/Image';
-import {AddBook,UpdateBook} from './../../service/AdminServices'
+import {AddBook,UpdateBook,ImageBook} from './../../service/AdminServices'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {Alert} from '@material-ui/core'
-
-import { getBooks } from './../../redux/actions/DashBoardActions'
+import {getStoreBooks} from "./../../redux/actions/StoreActions.js"
 import { connect } from 'react-redux'
 
+let formData = new FormData()
 class BookDecription extends Component {
     constructor(props){
         super(props);
@@ -24,13 +24,18 @@ class BookDecription extends Component {
             author : '',
             image:null,
             imageUrl :null,
-            price : '',
-            quantity :'',    
+            price : 0,
+            quantity :0,    
             bookId: null,
             status : 'addBook',
             snackbarOpen : false,
             snackBarMessage : '',
             snackbarSeverity : 'success',
+            // validation variables
+            v_title: true,
+            v_author : true,
+            v_decription : true,
+            error_message : "field required"
         }
     }
 
@@ -38,8 +43,10 @@ class BookDecription extends Component {
     // on change of any field
     onChange = eve =>{
         this.setState({             
-            [eve.target.name] : eve.target.value
+            [eve.target.name] : eve.target.value,
+            ["v_"+eve.target.name] : true
         })
+        
     }
     //on change of image file
     fileChangedHandler = (event) => {
@@ -54,7 +61,7 @@ class BookDecription extends Component {
             this.setState({ title : this.props.bookData.title ,     
                             decription : this.props.bookData.description,
                             author : this.props.bookData.author,
-                            imageUrl : this.props.bookData.imageUrl,
+                            imageUrl : this.props.bookData.bookImage,
                             price : this.props.bookData.price,
                             quantity :this.props.bookData.booksAvailable,
                             bookId : this.props.bookData.bookId,
@@ -62,60 +69,101 @@ class BookDecription extends Component {
             })
         }         
     }
+    validate = ()=>{
+        let valid = true;
+        if(this.state.title.trim().length < 3){
+            valid = false;
+            this.setState({
+                v_title : false
+            })            
+        }
+        if(this.state.decription.trim().length <3 ){
+            valid = false;
+            this.setState({
+                v_decription : false
+            })            
+        }
+        if(this.state.author.trim() < 2 ) {
+            valid = false;
+            this.setState ({
+                v_author : false
+            })            
+        }
+        return valid
+    }
     // when Click save validate it is update or new add book
     // call reltive api   
     onSave = async ()=>{
-        // make book object with book details
-        let Book = {
-            "Title": this.state.title,
-            "Description": this.state.decription,
-            "Author": this.state.author,
-            "BooksAvailable": this.state.quantity,
-            "Price": this.state.price,            
-        }
-        // if it is update book call update api
-        if(this.state.status === "updateBook") {            
-            await UpdateBook(Book,this.state.bookId) 
-            .then(responce=>{                
-                console.log("book updated sucessfully", responce)
-                if(responce.sucess === true){
-                    this.setState({
-                        snackbarOpen : true,
-                        snackBarMessage : 'Book Sucessfully updated',
-                        snackbarSeverity : 'success'
+        if(this.validate()){
+            // make book object with book details
+            let Book = {
+                "Title": this.state.title,
+                "Description": this.state.decription,
+                "Author": this.state.author,
+                "BooksAvailable": this.state.quantity,
+                "Price": this.state.price,            
+            }
+            // if it is update book call update api
+            if(this.state.status === "updateBook") {     
+                if(this.state.image !== null && this.state.image !== undefined){
+                    formData.append('BookImage',this.state.image)
+                    await ImageBook(this.state.bookId,formData)
+                    .then(responce=>{
+                        console.log("image",this.state.image)
+                    })
+                    .catch(error=>{
+
                     })
                 }
-            })
-            .catch(error=>{
-                console.log(error)
-                this.setState({
-                    snackbarOpen : true,
-                    snackBarMessage : error.message,
-                    snackbarSeverity : 'error'
+                await UpdateBook(Book,this.state.bookId) 
+                .then(responce=>{                
+                    console.log("book updated sucessfully", responce)
+                    if(responce.sucess === true){
+                        this.setState({
+                            snackbarOpen : true,
+                            snackBarMessage : 'Book Sucessfully updated',
+                            snackbarSeverity : 'success'
+                        })
+                    }
                 })
-            })
+                .catch(error=>{
+                    console.log(error)
+                    this.setState({
+                        snackbarOpen : true,
+                        snackBarMessage : error.message,
+                        snackbarSeverity : 'error'
+                    })
+                })
+            }
+            else{       // else call add book api
+                let bookStatus;
+                console.log("add book",Book)
+                await AddBook(Book)        
+                .then(responce=>{               
+                    if(this.state.image !== null && this.state.image !== undefined){
+                        formData.append('BookImage',this.state.image)
+                        ImageBook(responce.data.data.bookId,formData)
+                        .then(responce=>{                          
+                        this.props.updateBooks();                                      
+                        })
+                        .catch(error=>{
+
+                        }) 
+                    }
+
+                })
+                .catch(error=>{
+                    this.setState({
+                        snackbarOpen : true,
+                        snackBarMessage : error.message,
+                        snackbarSeverity : 'error'
+                    })
+                })
+            }
+            // callback function to close dialog box       
+            this.props.updateBooks();
+            this.props.closeDialog('');
         }
-        else{       // else call add book api
-            await AddBook(Book)        
-            .then(responce=>{
-                console.log("book added sucessfully", responce)
-                this.setState({
-                    snackbarOpen : true,
-                    snackBarMessage : 'Book Sucessfully Added',
-                    snackbarSeverity : 'success'
-                })
-            })
-            .catch(error=>{
-                this.setState({
-                    snackbarOpen : true,
-                    snackBarMessage : error.message,
-                    snackbarSeverity : 'error'
-                })
-            })
-        }
-        // callback function to close dialog box       
-        this.props.reduxgetData();
-        this.props.closeDialog('');
     }
     // snackbar method
     SnackbarClose = (event, reason) => {
@@ -171,6 +219,8 @@ class BookDecription extends Component {
                         label = 'Title'
                         name='title'
                         size='small'
+                        error={!this.state.v_title}
+                        helperText={this.state.v_title ? '' : this.state.error_message}
                         fullWidth
                         inputProps={{style: { fontSize:'14px'}}}
                         onChange={this.onChange}   
@@ -185,6 +235,8 @@ class BookDecription extends Component {
                         label = 'Author'
                         name='author'
                         size='small'
+                        error={!this.state.v_author}
+                        helperText={this.state.v_author ? '' : this.state.error_message}
                         inputProps={{style: {  fontSize:'14px'}}}
                         onChange={this.onChange}   
                     />
@@ -199,6 +251,8 @@ class BookDecription extends Component {
                         variant='outlined'
                         label = 'Decription'
                         name='decription'
+                        error={!this.state.v_decription}
+                        helperText={this.state.v_decription? '' : this.state.error_message}
                         size='small'
                         inputProps={{style: { fontSize:'14px'}}}
                         onChange={this.onChange}   
@@ -250,8 +304,8 @@ class BookDecription extends Component {
     }
 }
 const mapDispatchToProps = dispatch =>{
-    return {
-      reduxgetData : ()=> dispatch(getBooks())
-    }
+  return {
+    updateBooks: () => dispatch(getStoreBooks()),
   }
+}
 export default connect(null,mapDispatchToProps) (BookDecription);
