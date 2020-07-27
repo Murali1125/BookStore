@@ -163,6 +163,7 @@ export class Checkout extends Component {
             localStorage.getItem("Token")
           )
           .then((json) => {
+            console.log("order details",json);
             this.getCart();
           });
       });

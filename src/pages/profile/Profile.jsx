@@ -55,7 +55,7 @@ export class Profile extends React.Component {
     wishlistService
       .RemoveFromWishlist(wishlistId, localStorage.getItem("Token"))
       .then((json) => {
-        this.getAllWishlist();
+        this.props.BooksWishlist();
       });
   };
   onProfileClick = () => {
