@@ -19,6 +19,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import bookstoreLogo from "./../../assets/logo.svg";
 import "./Header.scss";
 import CartService from "./../../service/cartService";
+import { connect } from "react-redux";
 
 const cartService = new CartService();
 
@@ -148,7 +149,7 @@ class Header extends Component {
                             color="inherit"
                             onClick={()=>this.props.goToCart()}
                           >
-                            <Badge badgeContent={this.state.cartItemsNo} color="secondary">
+                            <Badge badgeContent={this.props.cartLength} color="secondary">
                               <ShoppingCartOutlinedIcon />
                             </Badge>
                           </IconButton>
@@ -336,4 +337,10 @@ const useStyles = (theme) => ({
   },
 });
 
-export default withStyles(useStyles)(Header);
+const mapStateToProps = (state) => {
+  return {
+    cartLength: state.store.cartItems,
+  };
+};
+
+export default withStyles(useStyles)(connect(mapStateToProps)(Header));
