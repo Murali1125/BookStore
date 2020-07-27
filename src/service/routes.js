@@ -13,7 +13,7 @@ function Routes() {
   return (
     <Switch>
       <PublicRoute path="/register" component={Register} />
-      <PublicRoute  path="/login" component={Login} />
+      <PublicRoute path="/login" component={Login} />
       <CustomerRoute path="/profile" component={Profile} />
       <AdminRoute path="/dashboard" component={Dashboard} />
       <CustomerRoute path="/orderSummary" component={OrderSummary} />
