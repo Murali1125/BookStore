@@ -8,6 +8,8 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import "./Checkout.scss";
 import CartService from "./../../service/cartService";
 import OrderService from "./../../service/orderService";
+import { connect } from "react-redux";
+import { getCart } from "../../redux/actions/StoreActions";
 
 const cartService = new CartService();
 const orderService = new OrderService();
@@ -68,6 +70,7 @@ export class Checkout extends Component {
       .then((json) => {
         console.log(json);
         this.getCart();
+        this.props.getCartLength()
       });
   };
   placeOrder = () => {
@@ -164,6 +167,7 @@ export class Checkout extends Component {
           .then((json) => {
             console.log("order details",json);
             this.getCart();
+            this.props.getCartLength()
           //   this.props.history.push({
           //  pathname: '/orderSummary'
           //  state: {
@@ -176,6 +180,7 @@ export class Checkout extends Component {
 
   componentDidMount() {
     this.getCart();
+    this.props.getCartLength()
   }
 
   render() {
@@ -569,5 +574,9 @@ export class Checkout extends Component {
     );
   }
 }
-
-export default  withRouter(Checkout);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCartLength: () => dispatch(getCart()),
+  };
+};
+export default  withRouter(connect(null,mapDispatchToProps)(Checkout));

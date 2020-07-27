@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Truncate from "react-truncate";
 import Tooltip from "react-tooltip-lite";
 import "./Book.scss";
@@ -201,6 +201,10 @@ export default class Book extends Component {
               : this.props.children.booksAvailable === 0
               ? this.outOfStockButtons(this.props.children.bookId)
               : this.normalButtons(this.props.children.bookId)}
+            {console.log(
+              "statusXXXXXXXXXXXXXXXXXx",
+              this.props.children.bookId
+            )}
           </Grid>
         </div>
         {this.popup}

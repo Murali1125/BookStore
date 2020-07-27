@@ -11,6 +11,7 @@ import WishlistService from "./../../service/wishlistService";
 import CartService from "./../../service/cartService";
 import {connect} from "react-redux"
 import {getWishlistBooks} from "./../../redux/actions/WishlistActions.js"
+import { getCart } from "../../redux/actions/StoreActions";
 
 const wishlistService = new WishlistService();
 const cartService = new CartService();
@@ -34,6 +35,7 @@ export class Profile extends React.Component {
       .AddToCartFromWishlist(wishlistId, localStorage.getItem("Token"))
       .then((json) => {
         console.log("Added to cart", json);
+        this.props.getCartLength()
       });
   };
   onLogoutClick = () => {
@@ -73,6 +75,7 @@ export class Profile extends React.Component {
   };
   componentDidMount() {
     this.props.BooksWishlist();
+    this.props.getCartLength()
   }
 
   render() {
@@ -268,7 +271,8 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToProps = (dispatch)=>{
   return {
-    BooksWishlist: () => dispatch(getWishlistBooks())
-  }
+    BooksWishlist: () => dispatch(getWishlistBooks()),
+    getCartLength: () => dispatch(getCart()),
+  };
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Profile);

@@ -1,11 +1,16 @@
 // Actions file for Book Store
+
 import BookStoreService from "../../service/bookStoreService";
+import CartService from "../../service/cartService";
+
 const bookStoreService = new BookStoreService();
+const cartService = new CartService();
 
 export const GetAllBooks = "GET_ALL_BOOKS";
 export const SearchBooks = "SEARCH_BOOKS";
 export const LowToHigh = "LOW_TO_HIGH";
 export const HighToLow = "HIGH_TO_LOW";
+export const GetCartLength = "GET_CART_LENGTH";
 
 export const getStoreBooks = () => {
   return (dispatch) => {
@@ -72,5 +77,22 @@ export const sortPriceHighToLow = () => {
         });
       }
     });
+  };
+};
+
+export const getCart = (bookId) => {
+  return (dispatch) => {
+  
+      cartService.GetCart(localStorage.getItem("Token")).then((json) => {
+        dispatch({
+          type: GetCartLength,
+          payload: {
+            cartItems: json.data.data
+              .filter((item) => item.isUsed === false)
+              .filter((item) => item.isDeleted === false).length,
+          },
+        });
+       
+      });
   };
 };
