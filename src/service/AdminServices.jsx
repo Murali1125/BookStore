@@ -12,22 +12,21 @@ export function AddBook(data){
     return axiosService.Post(url+"Book",data,true,header);
 }
 export function GetAllBooks(){
-    return axiosService.Get(url+"Book",null,header);
+    return axiosService.Get(url+"Book",null,true,header);
 }
 export  function UpdateBook(data,id){
-    return   axiosService.Put(url+"Book/"+id,data, true,header);
+    return   axiosService.Put(url+"Book/"+id,data,true,header);
 };
 export function DeleteBook(bookId){
     return axiosService.Delete(url+"Book/"+bookId,true,header);
 }
 export function SearchList(searchWord){
     console.log("search word in adminservice", searchWord)
-    return axiosService.Get(url+"Book/"+searchWord,null,header);
+    return axiosService.Get(url+"Book/"+searchWord,null,true,header);
 }
 export function ImageBook(bookId, data) {
-  console.log("Image API", bookId, data);
   return axiosService.Put(
-    url + "Book/ImageInsert?BookId=" + bookId,
+    url + "Book/InsertImage/" + bookId,
     data,
     true,
     header
