@@ -73,7 +73,7 @@ export class Register extends React.Component {
     VALIDATIONS
     =======================================*/
          //Regular expression Validation for First Name
-         validateFirstname = (input) => 
+         validateFirstname = (input) => {
            let error = RegEx.regexName.test(String(input))
              ? ""
              : "Invalid First Name";

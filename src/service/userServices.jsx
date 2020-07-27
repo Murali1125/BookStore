@@ -5,7 +5,6 @@ const axiosService = new AxiosService();
 const apiUrl = Configuration.url;
 
 class Service {
-  
   Registration(data) {
     return axiosService.Post(`${apiUrl}User/Registration`, data,false);
   }

@@ -37,7 +37,6 @@ class Store extends Component {
 
 
 
-
   // // Sort books PRICE Low to High
   // sortPriceLowToHigh = () => {
   //   bookStoreService
@@ -63,6 +62,7 @@ class Store extends Component {
   //     }
   //   });
   // };
+
 
   // Add book to cart
   addToCart = (bookId) => {
