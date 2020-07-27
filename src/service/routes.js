@@ -13,12 +13,12 @@ function Routes() {
   return (
     <Switch>
       <PublicRoute path="/register" component={Register} />
-      <PublicRoute exact path="/login" component={Login} />
+      <PublicRoute  path="/login" component={Login} />
       <CustomerRoute path="/profile" component={Profile} />
       <AdminRoute path="/dashboard" component={Dashboard} />
       <CustomerRoute path="/orderSummary" component={OrderSummary} />
       <CustomerRoute path="/checkout" component={Checkout} />
-      <PublicRoute exact path="/" component={Store} />
+      <PublicRoute path="/" component={Store} />
     </Switch>
   );
 }
