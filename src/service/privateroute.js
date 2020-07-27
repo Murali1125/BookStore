@@ -51,8 +51,7 @@ export const PublicRoute = ({ component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        return !localStorage.getItem("User Role") ||
-          localStorage.getItem("User Role")=== "Customer" ? (
+        return ( localStorage.getItem("User Role")=== "Customer" )? (
           renderMergedProps(component, props, rest)
         ) : (
           <Redirect

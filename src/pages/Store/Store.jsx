@@ -35,9 +35,6 @@ class Store extends Component {
     this.setState({ page: value });
   };
 
-
-
-
   // Sort books PRICE Low to High
   sortPriceLowToHigh = () => {
     bookStoreService
