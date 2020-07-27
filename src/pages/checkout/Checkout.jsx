@@ -189,389 +189,399 @@ export class Checkout extends Component {
             onLogout={() => this.onLogoutClick()}
             goToCart={() => this.goToCart()}
           ></Header>
-          <Container maxWidth="lg" className="checkoutContainer">
-            {/*  my cart ***************************************************************************** */}
-            <Grid container direction="column" className="myCart">
-              <Grid container item className="myCart-header">
-                My cart (
-                {
-                  this.state.cartItems
-                    .filter((item) => item.isUsed === false)
-                    .filter((item) => item.isDeleted === false).length
-                }
-                )
-              </Grid>
-              {this.state.cartItems
-                .filter((item) => item.isUsed === false)
-                .filter((item) => item.isDeleted === false)
-                .map((item, index) => {
-                  console.log("ITem", item);
-                  return (
-                    <Grid
-                      container
-                      direction="row"
-                      xs={12}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                      className="myCart-itemDescription"
-                    >
+          {this.props.cartLength === null || this.props.cartLength === 0 ? (
+            <Container maxWidth="lg" className="checkoutContainer">
+              <Grid style={{textAlign:"center", fontSize: 20}}>Your cart is empty</Grid>
+            </Container>
+          ) : (
+            <Container maxWidth="lg" className="checkoutContainer">
+              <Grid container direction="column" className="myCart">
+                <Grid container item className="myCart-header">
+                  My cart (
+                  {
+                    this.state.cartItems
+                      .filter((item) => item.isUsed === false)
+                      .filter((item) => item.isDeleted === false).length
+                  }
+                  )
+                </Grid>
+                {this.state.cartItems
+                  .filter((item) => item.isUsed === false)
+                  .filter((item) => item.isDeleted === false)
+                  .map((item, index) => {
+                    console.log("ITem", item);
+                    return (
                       <Grid
-                        direction="column"
-                        className="myCart-itemDescription--image"
-                        alignItems="center"
-                        justify="center"
+                        container
+                        direction="row"
                         xs={12}
-                        sm={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                        className="myCart-itemDescription"
                       >
-                        <img
-                          src={`${item.bookImage}`}
-                          height="100px"
-                          width="70px"
-                          alt="bookCover"
-                        />
-                      </Grid>
-                      <Grid item direction="column">
-                        <Grid className="myCart-itemDescription--title">
-                          {item.title}
-                        </Grid>
                         <Grid
-                          container
-                          className="myCart-itemDescription--author"
+                          direction="column"
+                          className="myCart-itemDescription--image"
+                          alignItems="center"
+                          justify="center"
+                          xs={12}
+                          sm={1}
                         >
-                          by {item.author}
+                          <img
+                            src={`${item.bookImage}`}
+                            height="100px"
+                            width="70px"
+                            alt="bookCover"
+                          />
                         </Grid>
-                        <Grid className="myCart-itemDescription--price">
-                          Rs. {item.price}
-                        </Grid>
-                        <Grid
-                          container
-                          direction="row"
-                          className="myCart-itemDescription--count"
-                        >
-                          <div
-                            className="myCart-itemDescription--count-minus"
-                            onClick={() => this.decrement(index)}
-                          >
-                            &mdash;
-                          </div>
-                          <input
-                            type="number"
-                            defaultValue={item.count}
-                            max={1000}
-                            min={1}
-                            className="myCart-itemDescription--count-value"
-                          ></input>
-                          <div
-                            className="myCart-itemDescription--count-plus"
-                            onClick={() => this.increment(index)}
-                          >
-                            &#43;
-                          </div>
+                        <Grid item direction="column">
+                          <Grid className="myCart-itemDescription--title">
+                            {item.title}
+                          </Grid>
                           <Grid
-                            onClick={() => this.removeFromCart(item.cartId)}
+                            container
+                            className="myCart-itemDescription--author"
                           >
-                            Remove
+                            by {item.author}
+                          </Grid>
+                          <Grid className="myCart-itemDescription--price">
+                            Rs. {item.price}
+                          </Grid>
+                          <Grid
+                            container
+                            direction="row"
+                            className="myCart-itemDescription--count"
+                          >
+                            <div
+                              className="myCart-itemDescription--count-minus"
+                              onClick={() => this.decrement(index)}
+                            >
+                              &mdash;
+                            </div>
+                            <input
+                              type="number"
+                              defaultValue={item.count}
+                              max={1000}
+                              min={1}
+                              className="myCart-itemDescription--count-value"
+                            ></input>
+                            <div
+                              className="myCart-itemDescription--count-plus"
+                              onClick={() => this.increment(index)}
+                            >
+                              &#43;
+                            </div>
+                            <Grid
+                              onClick={() => this.removeFromCart(item.cartId)}
+                            >
+                              Remove
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
-                  );
-                })}
-              <Grid
-                container
-                item
-                direction="row"
-                alignItems="center"
-                justify="flex-end"
-                className="myCart-submit"
-              >
-                <button
-                  className={this.state.placeOrderButton}
-                  onClick={this.placeOrder}
+                    );
+                  })}
+                <Grid
+                  container
+                  item
+                  direction="row"
+                  alignItems="center"
+                  justify="flex-end"
+                  className="myCart-submit"
                 >
-                  PLACE ORDER
-                </button>
+                  <button
+                    className={this.state.placeOrderButton}
+                    onClick={this.placeOrder}
+                  >
+                    PLACE ORDER
+                  </button>
+                </Grid>
               </Grid>
-            </Grid>
 
-            {/* details ****************************************************************** */}
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              className={this.state.descriptionClass}
-            >
-              <Grid container item className="customerDetails-header" xs={11}>
-                Customer Details
-              </Grid>
+              {/* details ****************************************************************** */}
               <Grid
                 container
-                item
-                xs={1}
-                className={this.state.editDescription}
-                onClick={this.editDescription}
+                direction="row"
+                justify="space-between"
+                className={this.state.descriptionClass}
               >
-                <EditOutlinedIcon />
-              </Grid>
-              <Grid
-                container
-                item
-                className="customerDetails-detailForm"
-                md={10}
-                xs={12}
-                spacing={2}
-              >
-                <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item md={5} xs={12}>
-                    <TextField
-                      id="name"
-                      size="small"
-                      className="pt-small"
-                      label="Name"
-                      defaultValue={this.state.name}
-                      disabled={this.state.disable}
-                      onChange={(event) =>
-                        this.setState({
-                          name: event.target.value,
-                        })
-                      }
-                      variant="outlined"
-                      fullWidth
-                      required
-                    ></TextField>
-                  </Grid>
-                  <Grid item md={5} xs={12}>
-                    <TextField
-                      id="phone"
-                      size="small"
-                      className="pt-small"
-                      label="Phone number"
-                      defaultValue={this.state.phone}
-                      disabled={this.state.disable}
-                      onChange={(event) =>
-                        this.setState({
-                          phone: event.target.value,
-                        })
-                      }
-                      variant="outlined"
-                      fullWidth
-                      required
-                    ></TextField>
-                  </Grid>
+                <Grid container item className="customerDetails-header" xs={11}>
+                  Customer Details
                 </Grid>
-                <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item md={5} xs={12}>
-                    <TextField
-                      id="pincode"
-                      type="number"
-                      size="small"
-                      className="pt-small"
-                      label="Pincode"
-                      defaultValue={this.state.pincode}
-                      disabled={this.state.disable}
-                      onChange={(event) =>
-                        this.setState({
-                          pincode: event.target.value,
-                        })
-                      }
-                      variant="outlined"
-                      fullWidth
-                      required
-                    ></TextField>
-                  </Grid>
-                  <Grid item md={5} xs={12}>
-                    <TextField
-                      id="locality"
-                      size="small"
-                      className="pt-small"
-                      label="Locality"
-                      defaultValue={this.state.locality}
-                      disabled={this.state.disable}
-                      onChange={(event) =>
-                        this.setState({
-                          locality: event.target.value,
-                        })
-                      }
-                      variant="outlined"
-                      fullWidth
-                      required
-                    ></TextField>
-                  </Grid>
+                <Grid
+                  container
+                  item
+                  xs={1}
+                  className={this.state.editDescription}
+                  onClick={this.editDescription}
+                >
+                  <EditOutlinedIcon />
                 </Grid>
-                <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item md={10} xs={12}>
-                    <TextField
-                      id="address"
-                      size="small"
-                      className="pt-small"
-                      label="Address"
-                      defaultValue={this.state.address}
-                      disabled={this.state.disable}
-                      onChange={(event) =>
-                        this.setState({
-                          address: event.target.value,
-                        })
-                      }
-                      variant="outlined"
-                      multiline
-                      fullWidth
-                      required
-                    ></TextField>
+                <Grid
+                  container
+                  item
+                  className="customerDetails-detailForm"
+                  md={10}
+                  xs={12}
+                  spacing={2}
+                >
+                  <Grid container item direction="row" xs={12} spacing={2}>
+                    <Grid item md={5} xs={12}>
+                      <TextField
+                        id="name"
+                        size="small"
+                        className="pt-small"
+                        label="Name"
+                        defaultValue={this.state.name}
+                        disabled={this.state.disable}
+                        onChange={(event) =>
+                          this.setState({
+                            name: event.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        fullWidth
+                        required
+                      ></TextField>
+                    </Grid>
+                    <Grid item md={5} xs={12}>
+                      <TextField
+                        id="phone"
+                        size="small"
+                        className="pt-small"
+                        label="Phone number"
+                        defaultValue={this.state.phone}
+                        disabled={this.state.disable}
+                        onChange={(event) =>
+                          this.setState({
+                            phone: event.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        fullWidth
+                        required
+                      ></TextField>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container item direction="row" xs={12} spacing={2}>
-                  <Grid item md={5} xs={12}>
-                    <TextField
-                      id="city"
-                      size="small"
-                      className="pt-small"
-                      label="City/town"
-                      defaultValue={this.state.city}
-                      disabled={this.state.disable}
-                      onChange={(event) =>
-                        this.setState({
-                          city: event.target.value,
-                        })
-                      }
-                      variant="outlined"
-                      fullWidth
-                      required
-                    ></TextField>
+                  <Grid container item direction="row" xs={12} spacing={2}>
+                    <Grid item md={5} xs={12}>
+                      <TextField
+                        id="pincode"
+                        type="number"
+                        size="small"
+                        className="pt-small"
+                        label="Pincode"
+                        defaultValue={this.state.pincode}
+                        disabled={this.state.disable}
+                        onChange={(event) =>
+                          this.setState({
+                            pincode: event.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        fullWidth
+                        required
+                      ></TextField>
+                    </Grid>
+                    <Grid item md={5} xs={12}>
+                      <TextField
+                        id="locality"
+                        size="small"
+                        className="pt-small"
+                        label="Locality"
+                        defaultValue={this.state.locality}
+                        disabled={this.state.disable}
+                        onChange={(event) =>
+                          this.setState({
+                            locality: event.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        fullWidth
+                        required
+                      ></TextField>
+                    </Grid>
                   </Grid>
-                  <Grid item md={5} xs={12}>
-                    <TextField
-                      id="landmark"
-                      size="small"
-                      className="pt-small"
-                      label="Landmark"
-                      defaultValue={this.state.landmark}
-                      disabled={this.state.disable}
-                      onChange={(event) =>
-                        this.setState({
-                          landmark: event.target.value,
-                        })
-                      }
-                      variant="outlined"
-                      fullWidth
-                      required
-                    ></TextField>
+                  <Grid container item direction="row" xs={12} spacing={2}>
+                    <Grid item md={10} xs={12}>
+                      <TextField
+                        id="address"
+                        size="small"
+                        className="pt-small"
+                        label="Address"
+                        defaultValue={this.state.address}
+                        disabled={this.state.disable}
+                        onChange={(event) =>
+                          this.setState({
+                            address: event.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        multiline
+                        fullWidth
+                        required
+                      ></TextField>
+                    </Grid>
+                  </Grid>
+                  <Grid container item direction="row" xs={12} spacing={2}>
+                    <Grid item md={5} xs={12}>
+                      <TextField
+                        id="city"
+                        size="small"
+                        className="pt-small"
+                        label="City/town"
+                        defaultValue={this.state.city}
+                        disabled={this.state.disable}
+                        onChange={(event) =>
+                          this.setState({
+                            city: event.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        fullWidth
+                        required
+                      ></TextField>
+                    </Grid>
+                    <Grid item md={5} xs={12}>
+                      <TextField
+                        id="landmark"
+                        size="small"
+                        className="pt-small"
+                        label="Landmark"
+                        defaultValue={this.state.landmark}
+                        disabled={this.state.disable}
+                        onChange={(event) =>
+                          this.setState({
+                            landmark: event.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        fullWidth
+                        required
+                      ></TextField>
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    direction="row"
+                    xs={12}
+                    spacing={0}
+                    className="customerDetails-validation"
+                  >
+                    {this.state.validationMessage}
                   </Grid>
                 </Grid>
                 <Grid
                   container
                   item
                   direction="row"
-                  xs={12}
-                  spacing={0}
-                  className="customerDetails-validation"
+                  alignItems="center"
+                  justify="flex-end"
+                  className="customerDetails-continue"
                 >
-                  {this.state.validationMessage}
+                  <button
+                    id="continue"
+                    className={this.state.continueButton}
+                    onClick={this.continue}
+                  >
+                    CONTINUE
+                  </button>
                 </Grid>
               </Grid>
-              <Grid
-                container
-                item
-                direction="row"
-                alignItems="center"
-                justify="flex-end"
-                className="customerDetails-continue"
-              >
-                <button
-                  id="continue"
-                  className={this.state.continueButton}
-                  onClick={this.continue}
-                >
-                  CONTINUE
-                </button>
-              </Grid>
-            </Grid>
 
-            {/* checkout ************************************************************** */}
-            <Grid
-              container
-              direction="column"
-              className={this.state.checkoutClass}
-            >
-              <Grid container item className="checkout-header">
-                Order Summary (
-                {
-                  this.state.cartItems
-                    .filter((item) => item.isUsed === false)
-                    .filter((item) => item.isDeleted === false).length
-                }
-                )
-              </Grid>
-              {this.state.cartItems
-                .filter((item) => item.isUsed === false)
-                .filter((item) => item.isDeleted === false)
-                .map((item, index) => {
-                  return (
-                    <Grid
-                      container
-                      direction="row"
-                      xs={12}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                      className="checkout-itemDescription"
-                    >
-                      <Grid
-                        direction="column"
-                        className="myCart-itemDescription--image"
-                        alignItems="center"
-                        justify="center"
-                        xs={12}
-                        sm={1}
-                      >
-                        <img
-                          src={`${item.bookImage}`}
-                          height="100px"
-                          width="70px"
-                          alt="bookCover"
-                        />
-                      </Grid>
-                      <Grid item direction="column">
-                        <Grid className="checkout-itemDescription--title">
-                          {item.title}
-                        </Grid>
-                        <Grid
-                          container
-                          className="checkout-itemDescription--author"
-                        >
-                          by {item.author}
-                        </Grid>
-                        <Grid className="checkout-itemDescription--price">
-                          Rs. {item.price}
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  );
-                })}
+              {/* checkout ************************************************************** */}
               <Grid
                 container
-                item
-                direction="row"
-                alignItems="center"
-                justify="flex-end"
-                className="checkout-submit"
+                direction="column"
+                className={this.state.checkoutClass}
               >
-                <button
-                  className="checkout-submit--button"
-                  onClick={()=>this.purchaseOrder()}
+                <Grid container item className="checkout-header">
+                  Order Summary (
+                  {
+                    this.state.cartItems
+                      .filter((item) => item.isUsed === false)
+                      .filter((item) => item.isDeleted === false).length
+                  }
+                  )
+                </Grid>
+                {this.state.cartItems
+                  .filter((item) => item.isUsed === false)
+                  .filter((item) => item.isDeleted === false)
+                  .map((item, index) => {
+                    return (
+                      <Grid
+                        container
+                        direction="row"
+                        xs={12}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                        className="checkout-itemDescription"
+                      >
+                        <Grid
+                          direction="column"
+                          className="myCart-itemDescription--image"
+                          alignItems="center"
+                          justify="center"
+                          xs={12}
+                          sm={1}
+                        >
+                          <img
+                            src={`${item.bookImage}`}
+                            height="100px"
+                            width="70px"
+                            alt="bookCover"
+                          />
+                        </Grid>
+                        <Grid item direction="column">
+                          <Grid className="checkout-itemDescription--title">
+                            {item.title}
+                          </Grid>
+                          <Grid
+                            container
+                            className="checkout-itemDescription--author"
+                          >
+                            by {item.author}
+                          </Grid>
+                          <Grid className="checkout-itemDescription--price">
+                            Rs. {item.price}
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    );
+                  })}
+                <Grid
+                  container
+                  item
+                  direction="row"
+                  alignItems="center"
+                  justify="flex-end"
+                  className="checkout-submit"
                 >
-                  CHECKOUT
-                </button>
+                  <button
+                    className="checkout-submit--button"
+                    onClick={() => this.purchaseOrder()}
+                  >
+                    CHECKOUT
+                  </button>
+                </Grid>
               </Grid>
-            </Grid>
-          </Container>
+            </Container>
+          )}
           <Footer></Footer>
         </Grid>
       </React.Fragment>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    cartLength: state.store.cartItems,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     getCartLength: () => dispatch(getCart()),
   };
 };
-export default  withRouter(connect(null,mapDispatchToProps)(Checkout));
+export default  withRouter(connect(mapStateToProps,mapDispatchToProps)(Checkout));
