@@ -138,7 +138,7 @@ export class Login extends React.Component {
                    auth.login();
                    if (auth.isAuthenticated) {
                      setTimeout(() => {
-                       this.props.history.push("/");
+                       this.props.history.push("/store");
                      }, 2000);
                    }
                  }

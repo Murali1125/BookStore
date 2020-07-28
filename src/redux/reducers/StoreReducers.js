@@ -6,9 +6,7 @@ const initialState = {
 }
 
 let responseData = [];
-export const storeReducer = (state = initialState, action) => {
-  console.log("actions in reducer", action);
-  console.log("state in reducer", state);
+export const storeReducer = (state = initialState, action) => {  
   switch (action.type) {
     case GetAllBooks:
       return action.payload;

@@ -14,7 +14,7 @@ export const getStoreBooks = () => {
       .then((response) => {
         dispatch({
           type: GetAllBooks,
-          payload: { books: response.data.data },
+          payload: { books: response.data.data.filter( data => data.isDeleted === false) },
         });
       })
       .catch((error) => {

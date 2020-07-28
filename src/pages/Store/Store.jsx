@@ -9,6 +9,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import BookStoreService from "./../../service/bookStoreService";
 import CartService from "./../../service/cartService";
 import WishlistService from "./../../service/wishlistService";
+import { withRouter } from 'react-router-dom'
 import {connect} from "react-redux"
 import {getStoreBooks, searchStoreBooks, sortPriceLowToHigh, sortPriceHighToLow} from "./../../redux/actions/StoreActions.js"
 import "./Store.scss";
@@ -70,6 +71,7 @@ class Store extends Component {
     localStorage.removeItem("City");
     localStorage.removeItem("Phone Number");
     this.props.history.push("/login");
+
   };
 
   getNoOfItemsInCart = (value) => {
@@ -236,7 +238,7 @@ class Store extends Component {
                   No books Found
                 </Grid>
               ) : (
-                this.props.books
+                this.props.books                  
                   .slice(
                     (this.state.page - 1) * this.state.itemsPerPage,
                     this.state.page * this.state.itemsPerPage
@@ -307,4 +309,4 @@ const mapDispatchToProps = (dispatch)=>{
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Store);
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Store));
