@@ -9,6 +9,7 @@ const header = {
     Authorization: `Bearer ${Token}`,
   },
 };
+console.log("token", header);
 // CURD operational Functions for admin
 export function AddBook(data) {
   return axiosService.Post(url + "Book", data, true, header);
