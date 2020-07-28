@@ -8,7 +8,6 @@ import {
   Typography,
   Menu,
   MenuItem,
-  Button,
   Tooltip,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -18,9 +17,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import bookstoreLogo from "./../../assets/logo.svg";
 import "./Header.scss";
-import CartService from "./../../service/cartService";
-
-const cartService = new CartService();
+import { connect } from "react-redux";
 
 /*
   Two variants - simple & rich
@@ -68,7 +65,6 @@ class Header extends Component {
   };
 
   logout = () => {
-    console.log(this.props);
     this.props.onLogout();
   };
 
@@ -76,11 +72,11 @@ class Header extends Component {
     this.props.onCartClick();
   };
 
-  updateOnChange=()=>{
+  updateOnChange = () => {
     this.setState({ cartItemsNo: this.props.cartItemsNo });
-  }
- 
-  componentDidMount(){
+  };
+
+  componentDidMount() {
     this.updateOnChange();
   }
 
@@ -146,9 +142,12 @@ class Header extends Component {
                           <IconButton
                             aria-label="show 17 new notifications"
                             color="inherit"
-                            onClick={()=>this.props.goToCart()}
+                            onClick={() => this.props.goToCart()}
                           >
-                            <Badge badgeContent={this.state.cartItemsNo} color="secondary">
+                            <Badge
+                              badgeContent={this.props.cartLength}
+                              color="secondary"
+                            >
                               <ShoppingCartOutlinedIcon />
                             </Badge>
                           </IconButton>
@@ -336,4 +335,10 @@ const useStyles = (theme) => ({
   },
 });
 
-export default withStyles(useStyles)(Header);
+const mapStateToProps = (state) => {
+  return {
+    cartLength: state.store.cartItems,
+  };
+};
+
+export default withStyles(useStyles)(connect(mapStateToProps)(Header));

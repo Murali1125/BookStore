@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
 import Footer from "../../component/Footer/Footer";
+import Logo from "./../../component/logo/Logo";
 import { Grid, Container } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import BookStoreService from "./../../service/bookStoreService";
 import CartService from "./../../service/cartService";
 import WishlistService from "./../../service/wishlistService";
 import { withRouter } from 'react-router-dom'
@@ -14,7 +14,6 @@ import {connect} from "react-redux"
 import {getStoreBooks, searchStoreBooks, sortPriceLowToHigh, sortPriceHighToLow} from "./../../redux/actions/StoreActions.js"
 import "./Store.scss";
 
-const bookStoreService = new BookStoreService();
 const cartService = new CartService();
 const wishlistService = new WishlistService();
 
@@ -38,19 +37,17 @@ class Store extends Component {
 
   // Add book to cart
   addToCart = (bookId) => {
-    console.log("Add to cart called", bookId);
     cartService
-      .AddToCart(bookId, localStorage.getItem("Token"))
-      .then((json) => {});
+      .AddToCart(bookId, 1, localStorage.getItem("Token"))
+      .then((json) => {
+        this.props.getCartLength();
+      });
   };
 
   // Add book to wishlist
   addTowishlist = (bookId) => {
     const token = localStorage.getItem("Token");
-    console.log(token);
-    wishlistService.AddToWishlist(bookId, token).then((json) => {
-      console.log("Added to wishlist", json);
-    });
+    wishlistService.AddToWishlist(bookId, token).then((json) => {});
   };
 
   onProfileClick = () => {
@@ -80,13 +77,11 @@ class Store extends Component {
 
   openPopup = () => {
     if (!localStorage.getItem("Token")) {
-      console.log("opened popup");
       this.setState({ popupStatus: "popup-show" });
     }
   };
 
   closePopup = () => {
-    console.log("closed popup");
     if (this.state.popupStatus === "popup-show") {
       this.setState({ popupStatus: "popup-hidden" });
     }
@@ -112,14 +107,13 @@ class Store extends Component {
       });
     });
   };
-  
+
   componentDidMount() {
-     this.props.showBooks();
+    this.props.showBooks();
+    this.props.getCartLength();
   }
 
- 
   render() {
-    
     return (
       <React.Fragment>
         <div
@@ -127,23 +121,31 @@ class Store extends Component {
           onClick={(event) => this.closePopup(event)}
         >
           <div className="popupDialog">
-            <div className="popupHeader">
-              <div>You are not logged in.</div>{" "}
+            <div className="popupHeaderLogo">
+              <Logo></Logo>
             </div>
+            <div className="popupHeader">You are not logged in !!!</div>
             <div className="popupDeclaration">
               If you are returning Customer
             </div>
+
             <div className="popupInfo">
               <div className="popupKey">
                 <div>Please</div>
-                <div>else</div>
               </div>
               <div className="popupButtons">
                 <div className="button" onClick={() => this.goToLogin()}>
                   Login
                 </div>
+              </div>
+            </div>
 
-                <div></div>
+            <div className="popupDeclaration">If you are new to our store</div>
+            <div className="popupInfo">
+              <div className="popupKey">
+                <div>Please</div>
+              </div>
+              <div className="popupButtons">
                 <div className="button" onClick={() => this.goToRegister()}>
                   Register
                 </div>
@@ -238,7 +240,8 @@ class Store extends Component {
                   No books Found
                 </Grid>
               ) : (
-                this.props.books                  
+                this.props.books
+                  .filter((book) => book.isDeleted === false)
                   .slice(
                     (this.state.page - 1) * this.state.itemsPerPage,
                     this.state.page * this.state.itemsPerPage
@@ -294,19 +297,20 @@ class Store extends Component {
   }
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
   return {
-    books : state.store.books
-  }
-}
+    books: state.store.books,
+  };
+};
 
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
     showBooks: () => dispatch(getStoreBooks()),
     onSearch: (value) => dispatch(searchStoreBooks(value)),
     sortPriceLowToHigh: () => dispatch(sortPriceLowToHigh()),
-    sortPriceHighToLow: () => dispatch(sortPriceHighToLow())
-  }
-}
+    sortPriceHighToLow: () => dispatch(sortPriceHighToLow()),
+    getCartLength: () => dispatch(getCart()),
+  };
+};
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Store));

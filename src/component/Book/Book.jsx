@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Truncate from "react-truncate";
 import Tooltip from "react-tooltip-lite";
 import "./Book.scss";
@@ -54,6 +54,7 @@ export default class Book extends Component {
     }
   };
 
+  // button variant for store books
   normalButtons = (bookId) => (
     <div className="bookButtons">
       <div className="addToBag" onClick={() => this.AddToBagHandler(bookId)}>
@@ -65,6 +66,7 @@ export default class Book extends Component {
     </div>
   );
 
+  // button variant for whislisted books
   wishlistButtons = (bookId) => (
     <div className="bookButtons">
       <div className="addToBag" onClick={() => this.AddToBagHandler(bookId)}>
@@ -76,6 +78,7 @@ export default class Book extends Component {
     </div>
   );
 
+  // button variant for out fo stock books
   outOfStockButtons = (bookId) => (
     <div className="bookButtons">
       <div></div>

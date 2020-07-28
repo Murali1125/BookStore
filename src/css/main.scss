@@ -5,13 +5,12 @@ html {
 /*Normalize html and body elements,this style is just good to have*/
 html,
 body {
-    
     margin: 0;
     padding: 0;
 }
 
 body:before {
-    content: ' ';
+    content: " ";
     display: block;
     position: absolute;
     left: 0;
@@ -20,7 +19,7 @@ body:before {
     height: 100%;
     z-index: -2;
     opacity: 0.2;
-    background-image: url('./../assets/sharon-mccutcheon-eMP4sYPJ9x0-unsplash.jpg');
+    background-image: url("./../assets/sharon-mccutcheon-eMP4sYPJ9x0-unsplash.jpg");
     background-repeat: no-repeat;
     background-position: 50% 0;
     -ms-background-size: cover;

@@ -1,9 +1,15 @@
-import { getStoreBooks, GetAllBooks,SearchBooks,LowToHigh,HighToLow } from "../actions/StoreActions";
+import {
+  GetAllBooks,
+  SearchBooks,
+  LowToHigh,
+  HighToLow,
+  GetCartLength,
+} from "../actions/StoreActions";
 // Reducers file of Admin  Dashbord
 
 const initialState = {
-    books : []
-}
+  books: [],
+};
 
 let responseData = [];
 export const storeReducer = (state = initialState, action) => {  
@@ -12,7 +18,6 @@ export const storeReducer = (state = initialState, action) => {
       return action.payload;
 
     case SearchBooks:
-
       return action.payload;
 
     case LowToHigh:
@@ -21,6 +26,11 @@ export const storeReducer = (state = initialState, action) => {
     case HighToLow:
       return action.payload;
 
+    case GetCartLength:
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return state;
   }

@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export default class AxiosService {  
-  Post(url, data,isheadderRequired=false,  header) {
-    return axios.post(url, data,  isheadderRequired && header);
+
+  Post(url, data, isHeaderRequired, header) {
+    return axios.post(url, data, isHeaderRequired && header);
   }
   Get(url, data, isHeaderRequired, header) {
     return axios.get(url, data, isHeaderRequired && header);

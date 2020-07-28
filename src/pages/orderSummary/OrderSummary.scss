@@ -15,12 +15,12 @@
   display: flex;
   justify-content: center;
 }
-.image{
-  width:350px;
+.image {
+  width: 350px;
 }
 .paymentComfirm {
-  max-width:300px;
-  text-align:center;
+  max-width: 300px;
+  text-align: center;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -28,90 +28,84 @@
   font-size: 18px;
 }
 .table {
-  max-width:700px;
+  max-width: 700px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
 .aboutus {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
 }
-.email{
-  width:30%;
+.email {
+  width: 30%;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 }
-.header{
-  padding-top:10px;
-  padding-bottom:10px;
-  padding-left:10px;
-  padding-right:10px;
+.header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   word-wrap: break-word !important;
 }
 
 @media only screen and (max-width: 1024px) {
-  .orderimage {
-    
+  .orderPage {
+    padding-bottom: 150px;
   }
-  .orderPage{
-    padding-bottom:150px;
-  }
-  .order{
-    padding-bottom:330px;
+  .order {
+    margin-top: 350px;
+    padding-bottom: 0px;
   }
 }
 @media only screen and (max-width: 768px) {
-  .orderimage {
-  
-    margin-bottom:0px;
-  }
-  .order{
-    padding-bottom:0px;
+  .order {
+    margin-top: 130px;
   }
 }
 @media only screen and (max-width: 450px) {
   .orderimage {
-    margin-top:30px;
+    margin-top: 30px;
   }
-  .orderPage{
-    padding-bottom:0px;
+  .orderPage {
+    padding-bottom: 0px;
   }
   .table {
-     width:400px;
+    width: 400px;
   }
   .aboutus {
-    flex-direction:column;
+    flex-direction: column;
   }
-  .email{
-    width:100%;
-    flex-direction:row;
+  .email {
+    width: 100%;
+    flex-direction: row;
   }
-  .header{
-     padding:15px 15px 15px 15px;
+  .header {
+    padding: 15px 15px 15px 15px;
   }
-  .button-Login{
-    margin-bottom:30px !important;
+  .button-Login {
+    margin-bottom: 30px !important;
   }
 }
 @media only screen and (max-width: 414px) {
   .table {
-     width:350px;
+    width: 350px;
   }
 }
 @media only screen and (max-width: 320px) {
   .table {
-     width:300px;
+    width: 300px;
   }
-  .image{
-    width:300px;
+  .image {
+    width: 300px;
   }
 }
 @media only screen and (max-width: 280px) {
   .table {
-     width:260px;
+    width: 260px;
   }
-  .image{
-    width:260px;
+  .image {
+    width: 260px;
   }
 }

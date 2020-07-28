@@ -1,10 +1,10 @@
-import {getBooks,Getdata} from "./../actions/DashBoardActions"
-import {GetAllBooks} from './../../service/AdminServices'
-// Reducers file of Admin  Dashbord 
+import { Getdata } from "./../actions/DashBoardActions";
+import { GetAllBooks } from "./../../service/AdminServices";
+// Reducers file of Admin  Dashbord
 
 const initialState = {
-    bookData :[],
-}
+  bookData: [],
+};
 
  export const BookdataReducer =  (state=initialState,action)=>{
      return state

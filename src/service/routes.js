@@ -16,7 +16,7 @@ function Routes() {
       <PublicRoute path="/login" component={Login} />
       <CustomerRoute path="/profile" component={Profile} />
       <AdminRoute path="/dashboard" component={Dashboard} />
-      <CustomerRoute path="/orderSummary" component={OrderSummary} />
+      <CustomerRoute path="/orderSummary:Summary" component={OrderSummary} />
       <CustomerRoute path="/checkout" component={Checkout} />
       <Route path='/'> <Store></Store> </Route>
       {/* <PublicRoute  path="/" component={Store} /> */}

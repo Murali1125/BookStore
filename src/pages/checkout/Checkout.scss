@@ -45,6 +45,7 @@
     }
 
     &--count {
+      
       &-minus {
         border: 1px solid $color-border;
         background-color: $color-white;
@@ -155,7 +156,7 @@
 
 .checkout {
   @include panel();
-  
+
   &-header {
     font-size: 20px;
     font-weight: 500;

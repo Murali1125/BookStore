@@ -35,11 +35,6 @@
 }
 
 .popupDialog {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   position: fixed;
   top: 50vh;
   left: 50vw;
@@ -47,46 +42,67 @@
   z-index: 10;
   box-shadow: $shadow;
   background-color: $color-white;
-  max-width: 500px;
+  width: 300px;
+  height: 400px;
+  font-family: $font;
   // display: none;
 }
 
 .popupHeader {
+  margin: 10px;
+  text-align: center;
+  font-size: 16px;
+  color: $color-error;
+}
+
+.popupHeaderLogo {
   display: flex;
+  flex-direction: column;
   background-color: $color-primary;
   align-self: stretch;
   align-items: center;
   justify-content: space-around;
   color: $color-white;
+  height: 80px;
   padding: 10px 10px;
+  font-size: 20px;
 }
 
 .popupDeclaration {
-  display: flex;
-  align-self: stretch;
-  padding: 10px 10px;
+  margin: auto;
+
+  align-self: center;
+  justify-self: center;
+  padding: 20px 10px;
+  font-size: 18px;
+  text-align: center;
+
+  font-weight: 600;
 }
 
 .popupInfo {
   display: flex;
   flex-direction: row;
-  align-self: stretch;
+  align-self: center;
+  justify-self: center;
   justify-content: space-evenly;
   padding: 10px 0;
   background-color: $color-white;
+  font-size: 18px;
 }
 
 .popupKey {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-evenly;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: flex-end;
+  // justify-content: space-evenly;
+  // margin: 20px;
 }
 .popupButtons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: space-evenly;
 }
 .popupButtons .button {
   padding: 3px 10px;
@@ -135,7 +151,7 @@
 
   & .dropdown {
     border: 2px solid #e2e2e2;
-    width: 170px;
+    width: 175px;
     padding: 2px 5px;
     font-size: 14px;
   }
