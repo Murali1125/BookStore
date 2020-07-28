@@ -23,7 +23,6 @@ export function DeleteBook(bookId) {
   return axiosService.Delete(url + "Book/" + bookId, true, header);
 }
 export function SearchList(searchWord) {
-  console.log("search word in adminservice", searchWord);
   return axiosService.Get(url + "Book/" + searchWord, null, true, header);
 }
 export function ImageBook(bookId, data) {
