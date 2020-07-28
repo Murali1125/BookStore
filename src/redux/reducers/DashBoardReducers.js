@@ -6,20 +6,7 @@ const initialState = {
   bookData: [],
 };
 
-let tempData;
-export const BookdataReducer = async (state = initialState, action) => {
-  switch (action.type) {
-    case Getdata:
-      await GetAllBooks()
-        .then((responce) => {
-          tempData = responce.data.data;
-        })
-        .catch((error) => {});
-      return {
-        ...state,
-        bookData: tempData,
-      };
-    default:
-      return state;
-  }
-};
+ export const BookdataReducer =  (state=initialState,action)=>{
+     return state
+    
+}

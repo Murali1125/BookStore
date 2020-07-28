@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch ,Route } from "react-router-dom";
 import Register from "./../pages/Register/Register";
 import Login from "./../pages/Login/Login";
 import Dashboard from "./../pages/Dashboard/DashboardAdmin";
@@ -18,7 +18,8 @@ function Routes() {
       <AdminRoute path="/dashboard" component={Dashboard} />
       <CustomerRoute path="/orderSummary:Summary" component={OrderSummary} />
       <CustomerRoute path="/checkout" component={Checkout} />
-      <PublicRoute path="/" component={Store} />
+      <Route path='/'> <Store></Store> </Route>
+      {/* <PublicRoute  path="/" component={Store} /> */}
     </Switch>
   );
 }
