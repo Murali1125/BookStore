@@ -110,7 +110,9 @@ class Store extends Component {
 
   componentDidMount() {
     this.props.showBooks();
-    this.props.getCartLength();
+    if (localStorage.getItem("Token")) {
+      this.props.getCartLength();
+    }
   }
 
   render() {
