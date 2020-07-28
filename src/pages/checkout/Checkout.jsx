@@ -62,6 +62,15 @@ export class Checkout extends Component {
     });
   };
 
+  // Add book to cart
+  addToCart = (bookId, quantity) => {
+    cartService
+      .AddToCart(bookId, quantity, localStorage.getItem("Token"))
+      .then((json) => {
+        this.props.getCartLength();
+      });
+  };
+
   removeFromCart = (cartId) => {
     cartService
       .RemoveFromCart(cartId, localStorage.getItem("Token"))
@@ -71,6 +80,12 @@ export class Checkout extends Component {
       });
   };
   placeOrder = () => {
+    this.state.cartItems
+      .filter((item) => item.isUsed === false)
+      .filter((item) => item.isDeleted === false)
+      .forEach((item) => {
+        this.addToCart(item.bookId, item.count);
+      });
     this.setState({
       descriptionClass: "customerDetails",
       placeOrderButton: "myCart-submit--button-hidden",
@@ -163,7 +178,7 @@ export class Checkout extends Component {
             this.getCart();
             this.props.history.push(`/orderSummary${json.data.data.orderId}`);
           });
-          return null;
+        return null;
       });
   };
 
@@ -239,26 +254,30 @@ export class Checkout extends Component {
                             direction="row"
                             className="myCart-itemDescription--count"
                           >
-                            <div
-                              className="myCart-itemDescription--count-minus"
-                              onClick={() => this.decrement(index)}
-                            >
-                              &mdash;
-                            </div>
                             <input
                               type="number"
                               defaultValue={item.count}
                               max={1000}
                               min={1}
                               className="myCart-itemDescription--count-value"
+                              onChange={(event) =>
+                                this.setState({
+                                  cartItems: [...this.state.cartItems]
+                                    .filter((item) => item.isUsed === false)
+                                    .filter((item) => item.isDeleted === false)
+                                    .map((item, itemIndex) => ({
+                                      ...item,
+                                      count:
+                                        item === itemIndex
+                                          ? event.target.value
+                                          : item.count,
+                                    })),
+                                })
+                              }
                             ></input>
-                            <div
-                              className="myCart-itemDescription--count-plus"
-                              onClick={() => this.increment(index)}
-                            >
-                              &#43;
-                            </div>
+
                             <Grid
+                              style={{ marginLeft: 20 }}
                               onClick={() => this.removeFromCart(item.cartId)}
                             >
                               Remove

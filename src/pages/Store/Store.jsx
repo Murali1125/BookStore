@@ -41,9 +41,9 @@ class Store extends Component {
   };
 
   // Add book to cart
-  addToCart = (bookId, index) => {
+  addToCart = (bookId) => {
     cartService
-      .AddToCart(bookId, localStorage.getItem("Token"))
+      .AddToCart(bookId, 1, localStorage.getItem("Token"))
       .then((json) => {
         this.props.getCartLength();
       });

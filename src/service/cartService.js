@@ -5,11 +5,11 @@ const axiosService = new AxiosService();
 const apiUrl = Configuration.url;
 
 class CartService {
-  AddToCart(bookId, token) {
+  AddToCart(bookId, quantity,token) {
     return axiosService.Post(`${apiUrl}Cart`, {}, true, {
       params: {
         BookId: bookId,
-        Quantity: 1,
+        Quantity: quantity,
       },
       headers: {
         Authorization: `Bearer ${token}`,
