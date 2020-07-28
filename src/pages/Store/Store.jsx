@@ -11,7 +11,7 @@ import CartService from "./../../service/cartService";
 import WishlistService from "./../../service/wishlistService";
 import { withRouter } from 'react-router-dom'
 import {connect} from "react-redux"
-import {getStoreBooks, searchStoreBooks, sortPriceLowToHigh, sortPriceHighToLow} from "./../../redux/actions/StoreActions.js"
+import {getStoreBooks, searchStoreBooks, sortPriceLowToHigh, sortPriceHighToLow,getCart} from "./../../redux/actions/StoreActions.js"
 import "./Store.scss";
 
 const cartService = new CartService();
