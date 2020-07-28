@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import Header from "./../../component/header/Header";
 import Footer from "../../component/Footer/Footer";
-import Logo from "./../../component/logo/Logo"
+import Logo from "./../../component/logo/Logo";
 import { Grid, Container } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import Book from "../../component/Book/Book";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import BookStoreService from "./../../service/bookStoreService";
 import CartService from "./../../service/cartService";
 import WishlistService from "./../../service/wishlistService";
 import { connect } from "react-redux";
@@ -19,9 +18,7 @@ import {
   getCart,
 } from "./../../redux/actions/StoreActions.js";
 import "./Store.scss";
-import store from "../../redux/store/Store";
 
-const bookStoreService = new BookStoreService();
 const cartService = new CartService();
 const wishlistService = new WishlistService();
 
@@ -45,7 +42,6 @@ class Store extends Component {
 
   // Add book to cart
   addToCart = (bookId, index) => {
-    console.log("Add to cart called", bookId);
     cartService
       .AddToCart(bookId, localStorage.getItem("Token"))
       .then((json) => {
@@ -56,10 +52,7 @@ class Store extends Component {
   // Add book to wishlist
   addTowishlist = (bookId) => {
     const token = localStorage.getItem("Token");
-    console.log(token);
-    wishlistService.AddToWishlist(bookId, token).then((json) => {
-      console.log("Added to wishlist", json);
-    });
+    wishlistService.AddToWishlist(bookId, token).then((json) => {});
   };
 
   onProfileClick = () => {
@@ -88,13 +81,11 @@ class Store extends Component {
 
   openPopup = () => {
     if (!localStorage.getItem("Token")) {
-      console.log("opened popup");
       this.setState({ popupStatus: "popup-show" });
     }
   };
 
   closePopup = () => {
-    console.log("closed popup");
     if (this.state.popupStatus === "popup-show") {
       this.setState({ popupStatus: "popup-hidden" });
     }
@@ -152,7 +143,7 @@ class Store extends Component {
                 </div>
               </div>
             </div>
-            
+
             <div className="popupDeclaration">If you are new to our store</div>
             <div className="popupInfo">
               <div className="popupKey">
@@ -253,7 +244,8 @@ class Store extends Component {
                   No books Found
                 </Grid>
               ) : (
-                this.props.books.filter(book => book.isDeleted === false)
+                this.props.books
+                  .filter((book) => book.isDeleted === false)
                   .slice(
                     (this.state.page - 1) * this.state.itemsPerPage,
                     this.state.page * this.state.itemsPerPage

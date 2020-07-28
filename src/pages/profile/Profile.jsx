@@ -9,8 +9,8 @@ import Book from "../../component/Book/Book";
 import Pagination from "@material-ui/lab/Pagination";
 import WishlistService from "./../../service/wishlistService";
 import CartService from "./../../service/cartService";
-import {connect} from "react-redux"
-import {getWishlistBooks} from "./../../redux/actions/WishlistActions.js"
+import { connect } from "react-redux";
+import { getWishlistBooks } from "./../../redux/actions/WishlistActions.js";
 import { getCart } from "../../redux/actions/StoreActions";
 
 const wishlistService = new WishlistService();
@@ -34,8 +34,7 @@ export class Profile extends React.Component {
     cartService
       .AddToCartFromWishlist(wishlistId, localStorage.getItem("Token"))
       .then((json) => {
-        console.log("Added to cart", json);
-        this.props.getCartLength()
+        this.props.getCartLength();
       });
   };
   onLogoutClick = () => {
@@ -49,9 +48,7 @@ export class Profile extends React.Component {
     localStorage.removeItem("Phone Number");
     this.props.history.push("/login");
   };
-  onSearch = (value) => {
-    
-  };
+  onSearch = (value) => {};
 
   removeFromwishlist = (wishlistId) => {
     wishlistService
@@ -75,7 +72,7 @@ export class Profile extends React.Component {
   };
   componentDidMount() {
     this.props.BooksWishlist();
-    this.props.getCartLength()
+    this.props.getCartLength();
   }
 
   render() {
@@ -164,7 +161,7 @@ export class Profile extends React.Component {
               <span className="bookCount">
                 &nbsp;(
                 {
-                 this.props.wishlist.filter(
+                  this.props.wishlist.filter(
                     (book) => book.isDeleted === false && book.isMoved === false
                   ).length
                 }{" "}
@@ -206,7 +203,6 @@ export class Profile extends React.Component {
                   this.state.page * this.state.itemsPerPage
                 )
                 .map((book, index) => {
-                  console.log(book);
                   return (
                     <Grid
                       container
@@ -262,17 +258,16 @@ export class Profile extends React.Component {
   }
 }
 
-const mapStateToProps = (state) =>{
-  console.log("Mapt state wishlist",state);
+const mapStateToProps = (state) => {
   return {
-    wishlist : state.wishlist.wishlist
-  }
-}
+    wishlist: state.wishlist.wishlist,
+  };
+};
 
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
     BooksWishlist: () => dispatch(getWishlistBooks()),
     getCartLength: () => dispatch(getCart()),
   };
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Profile);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -82,17 +82,15 @@ export const sortPriceHighToLow = () => {
 
 export const getCart = (bookId) => {
   return (dispatch) => {
-  
-      cartService.GetCart(localStorage.getItem("Token")).then((json) => {
-        dispatch({
-          type: GetCartLength,
-          payload: {
-            cartItems: json.data.data
-              .filter((item) => item.isUsed === false)
-              .filter((item) => item.isDeleted === false).length,
-          },
-        });
-       
+    cartService.GetCart(localStorage.getItem("Token")).then((json) => {
+      dispatch({
+        type: GetCartLength,
+        payload: {
+          cartItems: json.data.data
+            .filter((item) => item.isUsed === false)
+            .filter((item) => item.isDeleted === false).length,
+        },
       });
+    });
   };
 };

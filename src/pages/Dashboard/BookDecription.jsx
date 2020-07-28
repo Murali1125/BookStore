@@ -89,20 +89,7 @@ class BookDecription extends Component {
                         imageUrl : URL.createObjectURL(event.target.files[0]) });
         
     }
-    // if the book data is present show the book data
-    componentDidMount(){
-        if(Boolean (this.props.bookData) ){
-            this.setState({ title : this.props.bookData.title ,     
-                            decription : this.props.bookData.description,
-                            author : this.props.bookData.author,
-                            imageUrl : this.props.bookData.bookImage,
-                            price : this.props.bookData.price,
-                            quantity :this.props.bookData.booksAvailable,
-                            bookId : this.props.bookData.bookId,
-                            status : "updateBook",
-            })
-        }         
-    }
+   
     // validation function 
     validate = ()=>{
         let valid = true;
@@ -152,7 +139,6 @@ class BookDecription extends Component {
                 .catch(error=>{   })
             }
             else{       // else call add book api
-                let bookStatus;
                 await AddBook(Book)        
                 .then(responce=>{               
                     if(this.state.image !== null && this.state.image !== undefined){

@@ -54,6 +54,7 @@ export default class Book extends Component {
     }
   };
 
+  // button variant for store books
   normalButtons = (bookId) => (
     <div className="bookButtons">
       <div className="addToBag" onClick={() => this.AddToBagHandler(bookId)}>
@@ -65,6 +66,7 @@ export default class Book extends Component {
     </div>
   );
 
+  // button variant for whislisted books
   wishlistButtons = (bookId) => (
     <div className="bookButtons">
       <div className="addToBag" onClick={() => this.AddToBagHandler(bookId)}>
@@ -76,6 +78,7 @@ export default class Book extends Component {
     </div>
   );
 
+  // button variant for out fo stock books
   outOfStockButtons = (bookId) => (
     <div className="bookButtons">
       <div></div>
@@ -201,10 +204,6 @@ export default class Book extends Component {
               : this.props.children.booksAvailable === 0
               ? this.outOfStockButtons(this.props.children.bookId)
               : this.normalButtons(this.props.children.bookId)}
-            {console.log(
-              "statusXXXXXXXXXXXXXXXXXx",
-              this.props.children.bookId
-            )}
           </Grid>
         </div>
         {this.popup}

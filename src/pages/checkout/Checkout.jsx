@@ -3,7 +3,6 @@ import Header from "./../../component/header/Header";
 import { withRouter } from "react-router-dom";
 import { Grid, Container, TextField } from "@material-ui/core";
 import Footer from "../../component/Footer/Footer";
-import bookCover from "./../../assets/bookCover.jpg";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import "./Checkout.scss";
 import CartService from "./../../service/cartService";
@@ -54,7 +53,6 @@ export class Checkout extends Component {
 
   getCart = () => {
     cartService.GetCart(localStorage.getItem("Token")).then((json) => {
-      console.log(json);
       this.setState({
         cartItems: [...json.data.data].map((item) => ({
           ...item,
@@ -68,9 +66,8 @@ export class Checkout extends Component {
     cartService
       .RemoveFromCart(cartId, localStorage.getItem("Token"))
       .then((json) => {
-        console.log(json);
         this.getCart();
-        this.props.getCartLength()
+        this.props.getCartLength();
       });
   };
   placeOrder = () => {
@@ -95,7 +92,7 @@ export class Checkout extends Component {
       this.state.landmark === "" ||
       this.state.locality === "" ||
       this.state.phone === "" ||
-      this.state.pincode === "" 
+      this.state.pincode === ""
     ) {
       this.setState({
         validationMessage: "Please fill all the details*",
@@ -109,8 +106,6 @@ export class Checkout extends Component {
         validationMessage: "",
       });
     }
-
-    console.log(this.state.name);
   };
   onLogoutClick = () => {
     localStorage.removeItem("Token");
@@ -150,7 +145,7 @@ export class Checkout extends Component {
     this.state.cartItems
       .filter((item) => item.isUsed === false)
       .filter((item) => item.isDeleted === false)
-      .map((item, index) => {
+      .map((item) => {
         const cartId = item.cartId;
         const address = `${this.state.name} ${this.state.address} ${this.state.locality} ${this.state.landmark} ${this.state.phone}`;
         const city = this.state.city;
@@ -165,17 +160,16 @@ export class Checkout extends Component {
             localStorage.getItem("Token")
           )
           .then((json) => {
-            console.log("order details",json);
             this.getCart();
-            this.props.history.push(`/orderSummary${json.data.data.orderId}`)
+            this.props.history.push(`/orderSummary${json.data.data.orderId}`);
           });
+          return null;
       });
-      
   };
 
   componentDidMount() {
     this.getCart();
-    this.props.getCartLength()
+    this.props.getCartLength();
   }
 
   render() {
@@ -191,7 +185,9 @@ export class Checkout extends Component {
           ></Header>
           {this.props.cartLength === null || this.props.cartLength === 0 ? (
             <Container maxWidth="lg" className="checkoutContainer">
-              <Grid style={{textAlign:"center", fontSize: 20}}>Your cart is empty</Grid>
+              <Grid style={{ textAlign: "center", fontSize: 20 }}>
+                Your cart is empty
+              </Grid>
             </Container>
           ) : (
             <Container maxWidth="lg" className="checkoutContainer">
@@ -209,24 +205,15 @@ export class Checkout extends Component {
                   .filter((item) => item.isUsed === false)
                   .filter((item) => item.isDeleted === false)
                   .map((item, index) => {
-                    console.log("ITem", item);
                     return (
                       <Grid
                         container
-                        direction="row"
-                        xs={12}
+                        key={index}
                         alignItems="flex-start"
                         justify="flex-start"
                         className="myCart-itemDescription"
                       >
-                        <Grid
-                          direction="column"
-                          className="myCart-itemDescription--image"
-                          alignItems="center"
-                          justify="center"
-                          xs={12}
-                          sm={1}
-                        >
+                        <Grid className="myCart-itemDescription--image">
                           <img
                             src={`${item.bookImage}`}
                             height="100px"
@@ -234,7 +221,7 @@ export class Checkout extends Component {
                             alt="bookCover"
                           />
                         </Grid>
-                        <Grid item direction="column">
+                        <Grid item>
                           <Grid className="myCart-itemDescription--title">
                             {item.title}
                           </Grid>
@@ -513,19 +500,12 @@ export class Checkout extends Component {
                       <Grid
                         container
                         direction="row"
-                        xs={12}
+                        key={index}
                         alignItems="flex-start"
                         justify="flex-start"
                         className="checkout-itemDescription"
                       >
-                        <Grid
-                          direction="column"
-                          className="myCart-itemDescription--image"
-                          alignItems="center"
-                          justify="center"
-                          xs={12}
-                          sm={1}
-                        >
+                        <Grid className="myCart-itemDescription--image">
                           <img
                             src={`${item.bookImage}`}
                             height="100px"
@@ -533,7 +513,7 @@ export class Checkout extends Component {
                             alt="bookCover"
                           />
                         </Grid>
-                        <Grid item direction="column">
+                        <Grid item>
                           <Grid className="checkout-itemDescription--title">
                             {item.title}
                           </Grid>
@@ -584,4 +564,6 @@ const mapDispatchToProps = (dispatch) => {
     getCartLength: () => dispatch(getCart()),
   };
 };
-export default  withRouter(connect(mapStateToProps,mapDispatchToProps)(Checkout));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Checkout)
+);
