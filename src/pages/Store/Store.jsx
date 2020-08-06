@@ -9,14 +9,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import CartService from "./../../service/cartService";
 import WishlistService from "./../../service/wishlistService";
-import { connect } from "react-redux";
-import {
-  getStoreBooks,
-  searchStoreBooks,
-  sortPriceLowToHigh,
-  sortPriceHighToLow,
-  getCart,
-} from "./../../redux/actions/StoreActions.js";
+import { withRouter } from 'react-router-dom'
+import {connect} from "react-redux"
+import {getStoreBooks, searchStoreBooks, sortPriceLowToHigh, sortPriceHighToLow,getCart} from "./../../redux/actions/StoreActions.js"
 import "./Store.scss";
 
 const cartService = new CartService();
@@ -73,6 +68,7 @@ class Store extends Component {
     localStorage.removeItem("City");
     localStorage.removeItem("Phone Number");
     this.props.history.push("/login");
+
   };
 
   getNoOfItemsInCart = (value) => {
@@ -114,7 +110,9 @@ class Store extends Component {
 
   componentDidMount() {
     this.props.showBooks();
-    this.props.getCartLength();
+    if (localStorage.getItem("Token")) {
+      this.props.getCartLength();
+    }
   }
 
   render() {
@@ -317,4 +315,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Store);
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Store));

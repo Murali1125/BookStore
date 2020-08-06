@@ -148,7 +148,6 @@ class BookDecription extends Component {
 
     render() {
         return (
-           
             <div className='BookDetailsAdmin' >    
                 <div className='imageContainerAdmin'>
                     {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
@@ -250,7 +249,6 @@ class BookDecription extends Component {
                         onChange={this.onChange}   
                     />
                 </div>           
-
                 <div className='ButtonsBookDetailsAdmin'>
                     <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}
                             onClick={this.onSave}
@@ -261,8 +259,7 @@ class BookDecription extends Component {
                     >
                         <ClearOutlinedIcon/> Cancel
                     </Button>
-                </div>    
-            
+                </div>   
             </div>
         );
     }

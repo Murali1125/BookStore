@@ -19,7 +19,7 @@ export const getStoreBooks = () => {
       .then((response) => {
         dispatch({
           type: GetAllBooks,
-          payload: { books: response.data.data },
+          payload: { books: response.data.data.filter( data => data.isDeleted === false) },
         });
       })
       .catch((error) => {
@@ -75,7 +75,7 @@ export const sortPriceHighToLow = () => {
           type: HighToLow,
           payload: { books: json.data.data },
         });
-      }
+      } 
     });
   };
 };
