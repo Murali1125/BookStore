@@ -22,7 +22,7 @@ export function UpdateBook(data, id) {
 export function DeleteBook(bookId) {
   return axiosService.Delete(url + "Book/" + bookId, header);
 }
-export function SearchList(searchWord) {
+export  function SearchList(searchWord) {
   return axiosService.Get(url + "Book/" + searchWord, null,header);
 }
 export function ImageBook(bookId, data) {
