@@ -10,10 +10,9 @@ import Pagination from "@material-ui/lab/Pagination";
 import WishlistService from "./../../service/wishlistService";
 import CartService from "./../../service/cartService";
 import { connect } from "react-redux";
-import { getWishlistBooks } from "./../../redux/actions/WishlistActions.js";
+import { getWishlistBooks,removeWishlistBooks } from "./../../redux/actions/WishlistActions.js";
 import { getCart } from "../../redux/actions/StoreActions";
 
-const wishlistService = new WishlistService();
 const cartService = new CartService();
 
 export class Profile extends React.Component {
@@ -50,13 +49,6 @@ export class Profile extends React.Component {
   };
   onSearch = (value) => {};
 
-  removeFromwishlist = (wishlistId) => {
-    wishlistService
-      .RemoveFromWishlist(wishlistId, localStorage.getItem("Token"))
-      .then((json) => {
-        this.props.BooksWishlist();
-      });
-  };
   onProfileClick = () => {
     if (localStorage.getItem("Token")) {
       this.props.history.push("/profile");
@@ -219,7 +211,7 @@ export class Profile extends React.Component {
                         key={index}
                         addToCart={() => this.addToCart(book.wishListId)}
                         removeFromWishlist={() =>
-                          this.removeFromwishlist(book.wishListId)
+                          this.props.removeWishList(book.wishListId)
                         }
                         variant="wishlist"
                       >
@@ -268,6 +260,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     BooksWishlist: () => dispatch(getWishlistBooks()),
     getCartLength: () => dispatch(getCart()),
+    removeWishList:(wishlistId)=>dispatch(removeWishlistBooks(wishlistId)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
