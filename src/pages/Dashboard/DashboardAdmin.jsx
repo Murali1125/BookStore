@@ -22,6 +22,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { Alert } from "@material-ui/lab";
 import { connect } from "react-redux";
 import { searchStoreBooks } from "./../../redux/actions/StoreActions.js";
+import  {Searchbook} from "./../../redux/Observables/searchObservable"
+import {SearchList} from "./../../service/AdminServices"
 
 class AdminDashboard extends Component {
   constructor(props) {
@@ -63,11 +65,15 @@ class AdminDashboard extends Component {
     this.props.history.push("/login");
   };
   // onChange hadler for search field
-  onSearchWordChange = (eve) => {
+  onSearchWordChange = async (eve) => {
     this.setState({
       searchWord: eve.target.value,
     });
-    this.props.GetSearchBooks(eve.target.value);
+    // this.props.GetSearchBooks(eve.target.value);
+    // SearchSubscriber.next( 
+    //   await SearchList(eve.target.value)
+    // )    
+    await Searchbook(eve.target.value);
   };
   // hanler method for open book description dialog box for add book
   OpenAddBookDialogBox = () => {

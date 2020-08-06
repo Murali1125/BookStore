@@ -75,7 +75,7 @@ export const sortPriceHighToLow = () => {
           type: HighToLow,
           payload: { books: json.data.data },
         });
-      }
+      } 
     });
   };
 };

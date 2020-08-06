@@ -24,6 +24,7 @@ import {Snackbar} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
 import { connect } from 'react-redux'
 import {getStoreBooks} from "./../../redux/actions/StoreActions.js"
+import {SearchSubscriber} from "./../../redux/Observables/searchObservable"
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -135,6 +136,8 @@ export function BookDetailsTable(props) {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data,setData] = useState([]);
 
+  const [tempObserbleData, settempObs] = useState(null);
+
   const [snackbarOpen,setSnackbarOpen] = useState(false);
   const [snackbarMessage,setmessage] = useState('');
   const [snackbarSeverity,setServicity] = useState('success')
@@ -148,8 +151,6 @@ export function BookDetailsTable(props) {
   useEffect(() => {
     setData(props.BooksData.filter( data => data.isDeleted === false).reverse())
   }, [props.BooksData]);
- 
-
   // change page handlers
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -185,6 +186,29 @@ export function BookDetailsTable(props) {
   const handleClose =()=>{
     setSnackbarOpen(false)
   }
+  // book observer object
+  let bookObserver = {
+    next : function(value){
+      if(value !== 0 && tempObserbleData !== value.data.data){
+        settempObs(value.data.data)
+      }
+    },
+    error : function(error){
+      console.log(" error @ observaer error",error)
+    },
+    complete : function(){
+      console.log(" complete onsever")
+    }
+  }
+  // subscriber for search books observerable
+  SearchSubscriber.subscribe(bookObserver)
+  // method to render when receive new searched books
+  useEffect(()=>{
+     if( tempObserbleData !==  null){
+       setData(tempObserbleData.filter( data => data.isDeleted === false) )
+     }
+  },[tempObserbleData])
+
 
   let booksdata;
   return (
