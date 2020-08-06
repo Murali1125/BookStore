@@ -1,27 +1,27 @@
 @import "./../../css/utility.scss";
 
-@mixin felx() {
+@mixin flex() {
 	display: flex;
 	justify-content: center;
 }
 .Login {
 	margin-top: 180px;
 	margin-bottom: 50px;
-	@include felx();
+	@include flex();
 }
 
 .logo {
 	margin-top: 20px;
 }
 .loginImage {
-	@include felx();
+	@include flex();
 	padding-top: 30px;
 }
 .Bookstore {
 	margin-top: 20px;
 	font-weight: bold;
 	padding-left: 0% !important;
-	@include felx();
+	@include flex();
 }
 .LoginCard {
 	max-width: 550px;
