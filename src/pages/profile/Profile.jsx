@@ -35,6 +35,7 @@ export class Profile extends React.Component {
       .AddToCartFromWishlist(wishlistId, localStorage.getItem("Token"))
       .then((json) => {
         this.props.getCartLength();
+        this.props.BooksWishlist();
       });
   };
   onLogoutClick = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Switch } from "react-router-dom";
 import Register from "./../pages/Register/Register";
 import Login from "./../pages/Login/Login";
@@ -8,6 +8,14 @@ import Store from "../pages/Store/Store";
 import OrderSummary from "../pages/orderSummary/OrderSummary";
 import Profile from "./../pages/profile/Profile";
 import { CustomerRoute, AdminRoute, PublicRoute } from "./privateroute";
+import { LinearProgress } from "@material-ui/core";
+
+const LazyStore = React.lazy(() => {
+  return Promise.all([
+    import("../pages/Store/Store"),
+    new Promise((resolve) => setTimeout(resolve, 1000)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 function Routes() {
   return (
@@ -18,7 +26,29 @@ function Routes() {
       <AdminRoute path="/dashboard" component={Dashboard} />
       <CustomerRoute path="/orderSummary:Summary" component={OrderSummary} />
       <CustomerRoute path="/checkout" component={Checkout} />
-      <PublicRoute path="/" component={Store} />
+      <Suspense
+        fallback={
+          <div
+            style={{
+              
+             position:"fixed",
+             top: "50vh",
+             left:"50vw",
+             transform: "translate(-50%,-50%)",
+            width: 200,
+              textAlign:"center",
+              fontSize: 30
+             
+            }}
+          >
+            <div>Opening store</div>
+            <LinearProgress color="secondary" />
+          </div>
+        }
+      >
+        <PublicRoute path="/*" component={LazyStore} />
+      </Suspense>
+      <PublicRoute path="/*" component={Store} />
     </Switch>
   );
 }
