@@ -16,6 +16,7 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import bookstoreLogo from "./../../assets/logo.svg";
+import SearchBooks from "./../../redux/Observables/searchObservable"
 import "./Header.scss";
 import { connect } from "react-redux";
 
@@ -42,6 +43,7 @@ class Header extends Component {
 
   search = (event) => {
     this.props.onSearch(event.target.value);
+    
   };
 
   handleProfileMenuOpen = (event) => {

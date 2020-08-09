@@ -221,22 +221,4 @@ class BookContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    books: state.store.books,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    showBooks: () => dispatch(getStoreBooks()),
-    onSearch: (value) => dispatch(searchStoreBooks(value)),
-    sortPriceLowToHigh: () => dispatch(sortPriceLowToHigh()),
-    sortPriceHighToLow: () => dispatch(sortPriceHighToLow()),
-    getCartLength: () => dispatch(getCart()),
-  };
-};
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(BookContainer)
-);
+export default withRouter(BookContainer);
