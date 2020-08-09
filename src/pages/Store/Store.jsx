@@ -20,10 +20,13 @@ import {
 } from "./../../redux/actions/StoreActions.js";
 import "./Store.scss";
 import { Skeleton } from "@material-ui/lab";
+import { Observable } from "rxjs";
+import BookStoreService from "../../service/bookStoreService";
 
 const cartService = new CartService();
+const bookStoreService = new BookStoreService();
 const wishlistService = new WishlistService();
-    let BookContainer = React.lazy(() => import("./BookContainer"));
+let BookContainer = React.lazy(() => import("./BookContainer"));
 
 // let BookContainer = "";
 
@@ -40,10 +43,6 @@ class Store extends Component {
       cartItemsNo: 0,
     };
   }
-
-  
-
-  
 
   onProfileClick = () => {
     if (localStorage.getItem("Token")) {
@@ -69,7 +68,12 @@ class Store extends Component {
     this.setState({ itemsInCart: value });
   };
 
-
+  showBooks =
+    new Observable((subscriber) => {
+      console.log("shwoing..");
+      console.log(this.props.books);
+      subscriber.next(this.props.books);
+    });
 
   goToStore = () => {
     this.props.history.push("/");
@@ -100,7 +104,7 @@ class Store extends Component {
     }
   }
 
-  fallback = () =>(
+  fallback = () => (
     <Container maxWidth="lg" className="storeContainer">
       <Grid
         container
@@ -160,27 +164,26 @@ class Store extends Component {
         justify="flex-start"
         className="booksContainer"
       >
-        {this.state.books
-          .map((book, index) => {
-            return (
-              <Grid
-                container
-                item
-                key={index}
-                md={3}
-                sm={6}
-                xs={12}
-                className="singleBookContainer"
-                alignItems="center"
-                justify="center"
-              >
-                <Skeleton variant="rect" height={340} width={220}>
-                  <Skeleton variant="rect" height={170} width={220}></Skeleton>
-                  <Skeleton variant="rect" height={170} width={220}></Skeleton>
-                </Skeleton>
-              </Grid>
-            );
-          })}
+        {this.state.books.map((book, index) => {
+          return (
+            <Grid
+              container
+              item
+              key={index}
+              md={3}
+              sm={6}
+              xs={12}
+              className="singleBookContainer"
+              alignItems="center"
+              justify="center"
+            >
+              <Skeleton variant="rect" height={340} width={220}>
+                <Skeleton variant="rect" height={170} width={220}></Skeleton>
+                <Skeleton variant="rect" height={170} width={220}></Skeleton>
+              </Skeleton>
+            </Grid>
+          );
+        })}
       </Grid>
       <Grid
         container
@@ -203,12 +206,11 @@ class Store extends Component {
   render() {
     return (
       <React.Fragment>
-        
-
         <Grid container direction="column">
           <Header
             variant="rich"
             onSearch={(value) => this.props.onSearch(value)}
+            // onSearch={(value) => this.searchBook(value).subscribe()}
             onProfileClick={this.onProfileClick}
             onLogout={this.onLogoutClick}
             goToStore={this.goToStore}
@@ -218,7 +220,7 @@ class Store extends Component {
             cartItemsNo={this.state.cartItemsNo}
           ></Header>
           <Suspense fallback={this.fallback()}>
-            <BookContainer></BookContainer>
+            <BookContainer books={()=>this.showBooks} {...this.props}></BookContainer>
           </Suspense>
         </Grid>
         <Footer />

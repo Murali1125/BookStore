@@ -11,7 +11,8 @@ const initialState = {
   books: [],
 };
 
-export const storeReducer = (state = initialState, action) => {
+let responseData = [];
+export const storeReducer = (state = initialState, action) => {  
   switch (action.type) {
     case GetAllBooks:
       return action.payload;

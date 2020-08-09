@@ -36,26 +36,6 @@ class BookDecription extends Component {
         }
     }
 
-  // // on change of any field
-  // onChange = (eve) => {
-  //   this.setState({
-  //     [eve.target.name]: eve.target.value,
-  //   });
-  // };
-  //on change of image file
-  // fileChangedHandler = (event) => {
-  //   event.preventDefault();
-  //   this.setState({
-  //     image: event.target.files[0],
-  //     bookImage: URL.createObjectURL(event.target.files[0]),
-  //   });
-  //   console.log("imageUrl", this.state.bookImage);
-  //    let apiInputData = new FormData();
-  //    apiInputData.append(this.state.bookImage);
-  //   ImageBook(this.props.bookData.bookId, apiInputData).then((json) => {
-  //     console.log("response data", json);
-  //   });
-  // };
 
   // if the book data is present show the book data
   componentDidMount() {
@@ -168,7 +148,6 @@ class BookDecription extends Component {
 
     render() {
         return (
-           
             <div className='BookDetailsAdmin' >    
                 <div className='imageContainerAdmin'>
                     {(this.state.imageUrl !== null && this.state.imageUrl !== undefined ) ?
@@ -270,7 +249,6 @@ class BookDecription extends Component {
                         onChange={this.onChange}   
                     />
                 </div>           
-
                 <div className='ButtonsBookDetailsAdmin'>
                     <Button style={{color:'white', backgroundColor : '#4285F4' , textTransform: 'none'}}
                             onClick={this.onSave}
@@ -281,8 +259,7 @@ class BookDecription extends Component {
                     >
                         <ClearOutlinedIcon/> Cancel
                     </Button>
-                </div>    
-            
+                </div>   
             </div>
         );
     }

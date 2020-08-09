@@ -9,25 +9,51 @@ const header = {
     Authorization: `Bearer ${Token}`,
   },
 };
+console.log("token", header);
 // CURD operational Functions for admin
 export function AddBook(data) {
-  return axiosService.Post(url + "Book", data, true, header);
+  return axiosService.Post(
+    process.env.REACT_APP_GET_ALL_BOOKS,
+    data,
+    true,
+    header
+  );
 }
 export function GetAllBooks() {
-  return axiosService.Get(url + "Book", null, true, header);
+  return axiosService.Get(
+    process.env.REACT_APP_GET_ALL_BOOKS,
+    null,
+    true,
+    header
+  );
 }
 export function UpdateBook(data, id) {
-  return axiosService.Put(url + "Book/" + id, data, true, header);
+  return axiosService.Put(
+    `${process.env.REACT_APP_GET_ALL_BOOKS}${id}`,
+    data,
+    true,
+    header
+  );
 }
 export function DeleteBook(bookId) {
-  return axiosService.Delete(url + "Book/" + bookId, true, header);
+  return axiosService.Delete(
+    `${process.env.REACT_APP_GET_ALL_BOOKS}${bookId}`,
+    true,
+    header
+  );
 }
 export function SearchList(searchWord) {
-  return axiosService.Get(url + "Book/" + searchWord, null, true, header);
+  console.log("search word in adminservice", searchWord);
+  return axiosService.Get(
+    `${process.env.REACT_APP_GET_ALL_BOOKS}${searchWord}`,
+    null,
+    true,
+    header
+  );
 }
 export function ImageBook(bookId, data) {
   return axiosService.Put(
-    url + "Book/InsertImage/" + bookId,
+    `${process.env.REACT_APP_ADD_IMAGE_TO_BOOK}${bookId}`,
     data,
     true,
     header
