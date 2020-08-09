@@ -5,8 +5,8 @@ const axiosService = new AxiosService();
 const apiUrl = Configuration.url;
 
 class CartService {
-  AddToCart(bookId, quantity,token) {
-    return axiosService.Post(`${apiUrl}Cart`, {}, true, {
+  AddToCart(bookId, quantity, token) {
+    return axiosService.Post(process.env.REACT_APP_BOOKSTORE_CART, {}, true, {
       params: {
         BookId: bookId,
         Quantity: quantity,
@@ -19,7 +19,7 @@ class CartService {
 
   AddToCartFromWishlist(wishlistId, token) {
     return axiosService.Post(
-      `${apiUrl}Cart/WishListToCart/${wishlistId}`,
+      `${process.env.REACT_APP_ADD_TO_CART_FROM_WISHLIST}${wishlistId}`,
       {},
       true,
       {
@@ -31,7 +31,7 @@ class CartService {
   }
 
   GetCart(token) {
-    return axiosService.Get(`${apiUrl}Cart`, {
+    return axiosService.Get(process.env.REACT_APP_BOOKSTORE_CART, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -39,11 +39,15 @@ class CartService {
   }
 
   RemoveFromCart(cartId, token) {
-    return axiosService.Delete(`${apiUrl}Cart/${cartId}`,true, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return axiosService.Delete(
+      `${process.env.REACT_APP_BOOKSTORE_CART}${cartId}`,
+      true,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 }
 export default CartService;

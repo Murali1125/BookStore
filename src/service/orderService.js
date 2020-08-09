@@ -6,12 +6,12 @@ const apiUrl = Configuration.url;
 
 class OrderService {
   PlaceOrder(cartId, address, city, pincode, token) {
-    return axiosService.Post(`${apiUrl}Order/OrderPlace`,{}, true, {
+    return axiosService.Post(process.env.REACT_APP_PLACE_ORDER, {}, true, {
       params: {
         CartId: cartId,
         Address: `${address}`,
         City: `${city}`,
-        PinCode: pincode
+        PinCode: pincode,
       },
       headers: {
         Authorization: `Bearer ${token}`,

@@ -6,23 +6,19 @@ const apiUrl = Configuration.url;
 
 class WishlistService {
   AddToWishlist(bookId, token) {
-    return axiosService.Post(
-      `${apiUrl}WishList`,
-      {},true,
-      {
-        params: {
-          'BookId': `${bookId}`,
-          'Quantity': 1,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    return axiosService.Post(process.env.REACT_APP_WISHLIST, {}, true, {
+      params: {
+        BookId: `${bookId}`,
+        Quantity: 1,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   GetWishlist(token) {
-    return axiosService.Get(`${apiUrl}WishList`, {
+    return axiosService.Get(process.env.REACT_APP_WISHLIST, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -30,11 +26,15 @@ class WishlistService {
   }
 
   RemoveFromWishlist(wishlistId, token) {
-    return axiosService.Delete(`${apiUrl}WishList/${wishlistId}`,true, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return axiosService.Delete(
+      `${process.env.REACT_APP_WISHLIST}${wishlistId}`,
+      true,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 }
 export default WishlistService;

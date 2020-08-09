@@ -6,10 +6,20 @@ const apiUrl = Configuration.url;
 
 class Service {
   Registration(data) {
-    return axiosService.Post(`${apiUrl}User/Registration`, data,false,false);
+    return axiosService.Post(
+      process.env.REACT_APP_USER_REGISTRATION,
+      data,
+      false,
+      false
+    );
   }
   Login(data) {
-    return axiosService.Post(`${apiUrl}User/Login`, data,false,false);
+    return axiosService.Post(
+      process.env.REACT_APP_USER_LOGIN,
+      data,
+      false,
+      false
+    );
   }
 }
 export default Service;
