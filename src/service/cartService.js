@@ -6,7 +6,7 @@ const apiUrl = Configuration.url;
 
 class CartService {
   AddToCart(bookId, quantity, token) {
-    return axiosService.Post(process.env.REACT_APP_BOOKSTORE_CART, {}, true, {
+    return axiosService.Post(process.env.REACT_APP_CART, {}, true, {
       params: {
         BookId: bookId,
         Quantity: quantity,
@@ -31,7 +31,7 @@ class CartService {
   }
 
   GetCart(token) {
-    return axiosService.Get(process.env.REACT_APP_BOOKSTORE_CART, {
+    return axiosService.Get(process.env.REACT_APP_CART, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -40,7 +40,7 @@ class CartService {
 
   RemoveFromCart(cartId, token) {
     return axiosService.Delete(
-      `${process.env.REACT_APP_BOOKSTORE_CART}${cartId}`,
+      `${process.env.REACT_APP_CART}${cartId}`,
       true,
       {
         headers: {
